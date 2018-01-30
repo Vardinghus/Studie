@@ -1,0 +1,316 @@
+\chapter{Billedkomprimering med Principal Component Analysis}
+Følgende afsnit vil undersøge den statistiske metode \emph{Principal Component Analysis} (PCA), der bruger elementer fra lineær algebra. Den statistiske baggrund såvel som baggrunden i lineær algebra vil blive klarlagt og brugt til udviklingen af et Pythonprogram, der kan komprimere et billede.
+
+For at give et indblik i PCA og brugen af denne, tages først udgangspunkt i et eksempel, som senere generaliseres til brug af PCA på et vilkårligt datasæt. Eksemplet til brug i de følgende undersøgelser, er at en given forsker forsøger at forstå et fænomen ved at undersøge forskellige variable i et stort datasæt; datasættets variable er målinger fra et eksperiment, men der fremstår ikke nogen tydelige sammenhænge i dataene. Dette er enten fordi at dataene indeholder støj, eller fordi at dimensionen af datamængden er så stor, at det er uoverskueligt at se sammenhængene. \\
+Tag et legetøjseksperiment som eksempel: en bold hænger i en fjeder fra loftet og hopper op og ned. Dette forsøg måles vha. tre kameraer placeret omkring bolden og fjederen, som tilsammen kan måle boldens position i et tredimensionelt rum, hvor hvert kamera måler to dimensioner. Uvidende om at bolden hopper lodret op og ned, måles alle tre dimensioner alligevel, men kameraerne er ikke nøvendigvis placeret i 90° i forhold til hinanden, hvorved det ikke er et standardkoordinatsystemet, der måles efter. Boldens position burde kunne repræsenteres vha. én variabel, men grundet det sløsede eksperimentsetup bliver boldens position repræsenteret ved mange variable frem for den enkelte variabel $z$. Spørgsmålet er altså; hvordan ændres et rodet datasæt (her menes: for mange variable og støjfyldt datasæt) til en simpel repræsentation vha. en variabel $z$ [\citet{PCA_slens}, s. 1-2]?\fxnote{Generel fixme: "vha." eller "via" og "fx" eller "f.eks." og "blandt andet" eller "bl.a." gennem rapporten?}
+
+Formålet med PCA er at finde den "bedste" \ repræsentation\footnote{Begrebet den bedste repræsentation vil blive uddybet i sektion \ref{sec:statistiske tools}} af et datasæt med støj og unødvendige dimensioner, såvel som at afklare sammenhænge, der for det blotte øje ikke er tydelige. Fordelene ved dette er at datasættet kan forsimples til de data, der reelt har betydning for forsøget, så f.eks. to forskellige variable reduceres til en variabel i stedet.
+
+Datasættet kan repræsenteres ved en $m \times n$ matrix, $X$, bestående af $n$ prøver (her: tidspunkterne kameraerne tager et billede) med $m$ målinger (her: $x(t), y(t)$ koordinaterne for de enkelte kameraer). Dermed kan \emph{søjlerne} i $X$ betegnes som vektorer, $$ \vec{z_t}=\begin{bmatrix} x_{A} & y_{A} & x_{B} & y_{B} & x_{C} & y_{C} \end{bmatrix}^T $$ hvor $t$ er tidspunktet og indgangene er koordinaterne målt af hhv. kamera A, B og C.
+
+\subsection*{Skift af basis}
+Lad $V$ være et underrum af $\mathbb{R}^n$, så er en basis til $V$ en lineært uafhængigt udspændende mængde bestående af vektorer i $V$, hvorved alle vektorer i $V$ kan repræsenteres unikt som en lineær kombination af vektorerne i basen. \\
+Standardbasen består af standardvektorerne, og det er denne basis der normalt bruges til repræsentation af data. Der findes mange forskellige baser til et underrum, men det kan være fordelagtigt at ændre basen for et datasæt, så datasættets egenskaber fremstår tydeligere eller simplere [\citet{linalg}, s. 241-242].
+
+Det ønskes at finde en anden basis, som er en lineær kombination af den oprindelige basis, der udtrykker data på "bedste mulige måde". Det ønskes altså at lave en lineær transformation på $m \times n$ matricen $X$ til $m \times n$ matricen $Y$ for en $m \times m$ matrix $P$, hvor $Y$ er en repræsentationen af $X$ i den nye basis $P$. Dette udtrykkes som
+\begin{equation}
+Y=PX
+\label{eq:linear transformation}
+\end{equation}
+Undersøges dimensionerne af ligning \vref{eq:linear transformation} fremkommer det at
+\begin{align}
+(m \times n) = (m \times m)(m \times n)
+\end{align}
+Det gælder ydermere at ${\vec{p_{i}}}^T$ er \emph{søjlerne} i $P$, $\vec{x_{j}}$ er \emph{søjlerne} i $X$ og $\vec{y_{j}}$ er \emph{søjlerne} i $Y$. Ligning \ref{eq:linear transformation} er et skift af basis og det gælder at $P$ er en matrix, der lineært transformerer $X$ til $Y$. Det gælder ydermere at \emph{rækkerne} i $P = \begin{bmatrix} \vec{p_{1}} & \vec{p_{2}} & \hdots & \vec{p_{m}} \end{bmatrix}^T$ er basisvektorerne i den nye basis, der udtrykker \emph{søjlerne} i $X$.
+%\emph{Søjle}vektorerne i $P$ er egenvektorerne til $Y$, og dermed
+\emph{Søjlerne} $\vec{y_{j}}$ kan opskrives som
+$$ Y = \begin{bmatrix}
+\vec{p_1} \cdot \vec{x_1}	& \cdots		&	\vec{p_1} \cdot \vec{x_n}	\\ 
+\vdots			& \ddots		&	\vdots			\\ 
+\vec{p_m} \cdot \vec{x_1}	& \cdots		&	\vec{p_m} \cdot \vec{x_n}
+\end{bmatrix} , \phantom{mmmm} \vec{y_{j}}=\begin{bmatrix} \vec{p_1} \cdot \vec{x_j} \\ \vdots \\ \vec{p_m} \cdot \vec{x_j} \end{bmatrix}$$
+
+Endvidere er her tale om en ortogonal projektion af $X$ over i $P$. 
+Ved projekteringen udvælges en delmængde af $P$ som nye basis vektorer som repræsenterer søjlerne af $X$ [\citet{PCA_people}, s. 6]. Den j'te koefficient af $\vec{y_j}$ er en projektion på den j'te række af $P$. Projektionen definerer reelt set et nyt ortogonalt koordinatsystem som beskriver variansen, i dette tilfælde, et billede optimalt [\citet{PCA_slens}, s. 3].
+
+
+\section{Statistiske værktøjer} \label{sec:statistiske tools}
+\emph{Søjle}vektorerne ${\vec{p_{1}}}^{T},{\vec{p_{2}}}^{T},\ldots,{\vec{p_{m}}}^{T}$ er principale komponenter til matricen $X$, hvorved de er ortogonalt lineært uafhængige. Principale komponenter er akser, hvorved det oprindelige datasæt har nye koordinater, der sikrer at enkelte akser har stor variation [\citet{principal_component}, s. 5]. Som tidligere nævnt ønskes det at finde at den "bedste" \ repræsentation af $X$ såvel som at vælge et passende $P$. Svarene på disse kommer af at bestemme hvilke egenskaber $Y$ skal have. Når egenskaberne til $Y$ afklaret så kan det afgøres, hvilke egenskaber $P$ skal have for at danne den ønskede $Y$. Dette ligges dog lidt til side for nu og der ses først på de overflødige data, der kan være i datasættet $X$ (dette kan være hhv. støj og redundans) og efterfølgende hvordan det ønskes at repræsentere datasættet.
+
+\subsection{Støj} \label{sec:stoj}
+Støj i et datasæt kan fremkomme af mange forskellige årsager, men vigtigst er betydningen af støjen, uanset art. Et datasæt med støj, vil efter bearbejdning give fejlbehæftede resultater, da der vil være fejlagtige målinger, der påvirker udkommet. Det ønskes altså at minimere eller helt fjerne støjen i datasættet. En udbredt metode til at udregne støjen i et datasæt er SNR (signal-to-noise-ratio), som er et forhold mellem varianserne for hhv. signalet og støjen\footnote{Varians introduceres i afsnit \ref{sec:varians}, men kan her anses som spredningen i dataene.}. SNR er defineret som værende $SNR = \frac{\sigma^2_{\text{signal}}}{\sigma^{2}_{\text{støj}}}$. Er SNR høj er det et udtryk for meget \emph{lidt} støj i datasættet, men er SNR derimod lav er det et udtryk for meget støj i datasættet. I datasættet $X$ kan stor støj fremkomme, hvis fx vind påvirker bolden, hvorved den ikke hopper lodret op og ned, men derimod svinger lidt fra side til side en gang i mellem. Dette ville betyde at den grafiske repræsentation, der burde være en lige linje nærmere ikke længere vil være så ensformig. Støjen vil her være den vandrette varians [\citet{PCA_slens}, s. 3-4].
+
+\subsection{Redundans} \label{sec:redundans}
+Redundans er et udtryk for at det samme element er beskrevet ved flere forskellige variable, der egentlig siger det samme. Redundans kan i bold-forsøget fremkomme ved at to kameraer sidder tæt ved siden af hinanden, hvorved de begge to vil have variable, men variablene giver næsten de præcis samme målinger. Dette kan repræsenteres ved et plot af $(x_{A},\ x_{B})$, som er hhv. x-koordinaten målt i kamera A og kamera B, og hvor kamera A og B er meget tæt placeret. Dette plot ville være tæt på en ret linje med forskrift $x=y$. Der er her en stor kovarians \footnote{Begrebet kovarians præsenteres i afsnit \vref{sec:kovarians}}, hvilket vil sige at de er lineært afhængige, og det er dermed spild af ressourcer at lave denne måling. Det giver også unødvendige data i datasættet, da der ikke udtrykkes andet eller mere præcis data ved den ekstra variabel. Redundans ønskes minimeret, da det er overflødig data og dermed blot fremstår som fyld i datasættet [\citet{PCA_slens}, s. 4]. 
+
+\section{Kovariansmatrix}\label{sec:kovarians}
+I sektion \vref{sec:stoj} blev SNR introduceret som værende et udtryk mængden af støj i et datasæt, mens redundans i sektion \vref{sec:redundans} blev introduceret som værende kovariansen mellem to variable, altså relationen mellem de to variable. Disse vil blive uddybet i dette afsnit, men først vil ligningen for gennemsnittet blive introduceret.
+
+\subsection{Gennemsnit}
+Lad $\vec{x_i}$ være en \emph{række}vektor bestående af alle målinger, $x_1,\ldots,x_n$, i variablen. Gennemsnittet af målingerne betegnes ved $\mu_{x}$ og kan findes som værende\\
+\begin{align}
+\mu_{x} = \frac{1}{n}(x_1+ ... + x_n)
+\label{eq:average}
+\end{align}
+Vektoren centreres omkring nul fremfor gennemsnittet, $\mu$, ved at subtrahere gennemsnittet $\mu_{x}$ fra vektoren $\vec{x_i}$. Denne vektor angives som $\tilde{\vec{x_i}}$ og har gennemsnittet nul.
+\begin{equation}
+\tilde{\vec{x_i}} = \begin{bmatrix}
+(x_1 - \mu_{x}) & \hdots & (x_n - \mu_{x})
+\end{bmatrix}
+\end{equation}
+
+\subsection{Varians og kovarians}\label{sec:varians}
+Varians er et udtryk for spredningen af data i en variabel. Spredningen og dermed variansen i $\tilde{\vec{x_i}}$ kan findes som følgende prikprodukt
+\begin{equation}
+\sigma^2_{\tilde{\vec{x_i}}}= \frac{1}{n - 1}\tilde{\vec{x_i}} \cdot \tilde{\vec{x_i}}
+\label{eq:varians}
+\end{equation}
+En høj varians er udtryk for stor spredning af dataene i $\tilde{\vec{x_i}}$, mens en lille varians er et udtryk for en lille spredning i dataene og dermed meget ensformig data i denne vektor, og dermed i den række data vektoren repræsenterer.
+Det er ydermere interessant at se på, hvordan to rækkevektorer relaterer til hinanden, hvilket gøres ved beregning af kovariansen mellem de to vektorer. Kovariansen mellem vektorerne $\tilde{\vec{x_a}}$ og $\tilde{\vec{x_b}}$ kan beregnes som \begin{equation}
+\sigma^2_{(\tilde{\vec{x_a}},\tilde{\vec{x_b}})} = \frac{1}{n - 1} \tilde{\vec{x_a}} \cdot {\tilde{\vec{x_b}}}^T
+\label{eq:covarians}
+\end{equation}
+hvor $(\tilde{\vec{x_a}}) \cdot (\tilde{\vec{x_b}})^T$ er prikproduktet mellem de to vektorer. Kovariansen mellem de to vektorer udtrykker den lineære relation mellem de to vektorer. En høj kovarians er udtryk for at dataene relaterer meget til hinanden, mens en lille kovarians er udtryk for at dataene er lidt relaterede. Er kovariansen $\sigma^2_{(\tilde{\vec{x_a}},\tilde{\vec{x_b}})} = 0$ er vektorerne fuldstændigt lineært urelaterede til hinanden. Det gælder at $\sigma^2_{(\tilde{\vec{x_a}},\tilde{\vec{x_b}})}=\sigma^2_{(\tilde{\vec{x_a}})}$, hvis $A=B$ [\citet{PCA_slens}, s. 5].
+
+Arbejdes der med mange variable, som i eksperimentet med bolden, vil der være flere variable end blot to, og det kan være interessant at se på variansen for alle variable, såvel som kovariansen mellem alle variable. Dette er dog en uoverskuelig process, hvis det skal gøres ved ovenstående metode for alle variable, specielt hvis datasættet består af mange variable. Der kan derfor med fordel arbejdes med matrixproduktet
+\begin{equation}
+C_{\tilde{X}}= \frac{1}{n-1} \tilde{X}\tilde{X}^T, \phantom{mmmm} \text{hvor } \tilde{X}= \begin{bmatrix} \tilde{\vec{x_1}}  & \tilde{\vec{x_2}} & \hdots	 & \tilde{\vec{x_m}} \end{bmatrix}^T
+\label{eq:matrix covarians}
+\end{equation}
+$\tilde{X}$ består af rækkevektorerne $\tilde{\vec{x_i}}=\begin{bmatrix} \tilde{x_1} & \tilde{x_2} & \hdots & \tilde{x_n} \end{bmatrix}$.
+Det smarte ved $C_X$ er at der ved hjælp af denne både beregnes variansen for alle vektorer, såvel som kovariansen mellem alle vektorer. Dette ses tydeligt i den eksplicitte form af matrixproduktet
+\begin{equation}
+C_{\tilde{X}}=\frac{1}{n-1} \tilde{X}\tilde{X}^T = \frac{1}{n-1} 
+\begin{bmatrix}
+\tilde{\vec{x_1}} \cdot {\tilde{\vec{x_1}}}^T		& \tilde{\vec{x_1}} \cdot {\tilde{\vec{x_2}}}^T	&	\cdots	&	\tilde{\vec{x_1}} \cdot {\tilde{\vec{x_m}}}^T		\\
+\tilde{\vec{x_2}} \cdot {\tilde{\vec{x_1}}}^T		& \tilde{\vec{x_2}} \cdot {\tilde{\vec{x_2}}}^T	&	\cdots	&	\tilde{\vec{x_2}} \cdot {\tilde{\vec{x_m}}}^T		\\
+\vdots											& \vdots											&	\ddots	&			\vdots											\\
+\tilde{\vec{x_m}} \cdot {\tilde{\vec{x_1}}}^T		& \tilde{\vec{x_m}} \cdot {\tilde{\vec{x_2}}}^T	&	\cdots	&	\tilde{\vec{x_m}} \cdot {\tilde{\vec{x_m}}}^T
+\end{bmatrix}
+\end{equation}
+Det gælder her at variansen for de respektive vektorer er at finde i diagonalen, mens kovariansen mellem de enkelte variable kan findes udenfor diagonalen. Der er altså ved en enkelt beregning udregnet alle varianser og kovarianser for datasættet. Bemærk ydermere at matricen $C_{\tilde{X}}$ er en $m \times m$ symmetrisk matrix navngivet kovariansmatricen. $C_{\tilde{X}}$ er meget brugbar til hurtigt og nemt at se relationer i datasættet $\tilde{X}$, men det kan gøres endnu nemmere. Det ønskes at finde $C_Y$ som er en manipuleret kovariansmatrix, men før denne findes skal egenskaberne af den defineres.
+
+\subsection{Diagonalisering af kovariansmatricen}
+Det er jævnfør afsnit \vref{sec:redundans} ønskværdigt at nedbringe redundans mest muligt, og da redundans er et udtryk for kovariansen mellem to vektorer, må det gælde at kovariansen skal nedbringes til nul, hvorved dataene ikke relaterer til hinanden længere. Det gælder altså at alle indgange i $C_Y$, der ikke er i diagonalen skal være nul, hvorved $C_Y$ er en diagonalmatrix.
+
+\subsubsection{Diagonalisering} \label{sec:diagonalisering}
+En diagonaliserbar matrix, er defineret ved følgende sætning:\\
+En $n \times n$ matrix $A$ er diagonaliserbar, hvis og kun hvis, $A$ har $n$ lineært uafhængige egenvektorer. I så fald gælder det at:
+\begin{align}
+A = PDP^{-1}
+\label{eq:diagonalisering}
+\end{align}
+hvor $P$ er en matrix med $A$'s egenvektorer som søjler og $D$ er en diagonalmatrix med $A$'s egenværdier som indgange.
+Ovenstående sætning bevises [\citet{linalg}, s. 315-316]. Lad:
+\begin{align*} P = \begin{bmatrix} \vec{v_1} & \vec{v_2} & \hdots & \vec{v_n} \end{bmatrix} \end{align*}
+\begin{align*} D = diag(\lambda_1, \lambda_2, …, \lambda_3) \end{align*}
+Det gælder dermed at:
+\begin{align*} AP = A\begin{bmatrix} \vec{v_1} & \vec{v_2} & \hdots & \vec{v_n} \end{bmatrix} = \begin{bmatrix} A\vec{v_1} & A\vec{v_2} & \hdots & A\vec{v_n} \end{bmatrix} \end{align*}
+\begin{align*} PD = P\begin{bmatrix}
+\lambda_1			\\
+&	\lambda_2		\\
+&&	\ddots			\\
+&&&	\lambda_n
+\end{bmatrix} = \begin{bmatrix} \lambda_1\vec{v_1} & \lambda_2\vec{v_2} & \hdots & \lambda_n\vec{v_n} \end{bmatrix} \end{align*}
+Det antages at A er diagonaliserbar med ligning \ref{eq:diagonalisering}, der omskrives til:
+\begin{align*} AP = PD \end{align*}
+\begin{align*} A\vec{v_1} = \lambda_1\vec{v_1},\ A\vec{v_2} = \lambda_2\vec{v_2},\ …,\ A\vec{v_n} = \lambda_n\vec{v_n} \end{align*}
+$P$ er invertibel, har lineært uafhængige søjler og gælder at $ \vec{v_1} \neq 0,\ …\ ,\ \vec{v_n} \neq 0 $. Dette betyder at søjlerne i $P$ består af de lineært uafhængige egenvektorer til $A$ med dertilhørende egenværdier $\lambda_1,\ \lambda_2,\ …,\ \lambda_n$. Dette kan yderligere bevises ved at tage beviset fra den anden vej:\\
+Givet er $n$ lineært uafhængige egenvektorer $\vec{v_1}, \vec{v_2}, \hdots, \vec{v_n}$ med tilhørende egenværdier $\lambda_1, \lambda_2, …, \lambda_3$. Definerer $P$ og $D$ som ovenfor og det følger dermed igen at $AP = PD$, da det gælder at:
+\begin{align*} A\vec{v_1} = \lambda_1\vec{v_1},\ A\vec{v_2} = \lambda_2\vec{v_2},\ …,\ A\vec{v_n} = \lambda_n\vec{v_n} \end{align*}
+Da $P$'s søjler er lineært uafhængige er $P$ inverterbar og det gælder derfor at
+\begin{align*} A = PDP^{-1} \phantom{mmm} \blacksquare \end{align*}
+Da det ønskes at diagonalisere $C_Y$ er det er altså vigtigt i ligning \vref{eq:linear transformation} at vælge en $P$ således at $C_Y$ er en diagonalmatrix.
+
+%En diagonaliserbar matrix, er defineret som følgende: En $n \times n$ matrix $A$ er kun diagonaliserbar hvis der findes en base for $\mathbb{R}^n$, som består af egenvektorerne for $A$ [\citet{linalg}, s. 315].
+%Derfor gælder det at $A = PDP^{-1}$ hvor $D$ er en diagonal matrix og $P$ er en invertibel matrix, hvis og kun hvis $P$ er en base for $\mathcal{R}^n$ bestående af egenvektorerne til A.\citep{linalg}
+%
+
+\section{Udregn PCA} \label{sec:UdregnPCA}
+I de foregående afsnit er baggrunden for PCA blevet undersøgt og begrundet. PCA vil i dette afsnit blive fundet algebraisk for en $m\times n$ matrix $X$, der som i eksemplet med bolden har $m$ variable og $n$ målinger. Lad $P$ være den ortonormale $m \times m$ matrix $P$, hvor $Y=PX$ således at $C_Y=\frac{1}{n-1}YY^T$ er diagonaliseret, og \emph{rækkerne} i $P$ er principale komponenter til $X$. \\
+Først omskrives kovariansmatricen til $Y$, $C_Y$, til at være et udtryk af $P$ frem for $Y$. Dette gøres med henblik på at diagonalisere $C_Y$.
+\begin{align}
+C_Y 	& = \frac{1}{n-1} YY^T						\\
+	& = \frac{1}{n-1} (PX)(PX)^T		\nonumber	\\
+	& = \frac{1}{n-1} PXX^TP^T		\nonumber	\\
+	& = \frac{1}{n-1} P(XX^T)P^T		\nonumber	\\
+	& = \frac{1}{n-1} PSP^T \label{eq:CY omskrivning} \phantom{mm} \text{hvor}\phantom{mm} S = C_X = XX^T
+\end{align}
+Det gælder her at $S$ er en symmetrisk $m \times m$ matrix, hvilket kan ses ved $(XX^T)^T = (X^T)^TX^T = XX^T$. Ifølge [\citet{PCA_people}, s. 8] og afsnit \ref{sec:diagonalisering} er enhver symmetrisk matrix orthogonal diagonaliserbar, og dermed også ortonormal diagonaliserbar (ortogonale med længden $1$). Dermed kan $S$ udtrykkes ved 
+\begin{align*}
+S=EDE^{-1}
+\end{align*}
+hvor $D$ er diagonalmatricen, hvor indgangene i diagonalen er egenværdierne til $S$ ordnet efter $\lambda_1 \geq \lambda_2 \geq \ldots \geq \lambda_m \geq 0$ \footnote{Se bevis for at egenværdierne er positive i appendiks \ref{app:eigenvalues}}. $E$ er en $m \times m$ ortonormal matrix, hvis \emph{søjler} er normaliserede egenvektorer tilhørende egenværdierne og følger samme ordning som egenværdierne, hvorved egenvektoren til den største egenværdi står som første søjle i $E$. 
+Da $E$ er ortonormal gælder det at $E^{-1}=E^T$ [\cite{linalg}, s. 413] og \ref{eq:SEDET} kan udtrykkes som
+\begin{align}
+S=EDE^T
+\label{eq:SEDET}
+\end{align}
+
+%\textbf{Eksempel}\\
+%En tilfældig symmetrisk matrix, $S$, er lavet. 
+%\begin{align}
+%S=\begin{bmatrix}
+%3	&	2	&	4\\
+%2	&	0	&	2\\
+%4	&	2	&	3
+%\end{bmatrix}
+%\end{align}
+%Dens egenvektorer og -værdier beregnes og matricerne $E$ og $D$ kan laves ud fra disse.
+%\begin{align}
+%E=\begin{bmatrix}
+%1			&	-1	&	-\frac{1}{2}\\
+%\frac{1}{2}	&	0	&	1			\\
+%1			&	1	&	0
+%\end{bmatrix}
+%D=\begin{bmatrix}
+%8	&	0	&	0	\\
+%0	&	-1	&	0	\\
+%0	&	0	&	-1
+%\end{bmatrix}
+%\end{align}
+%Altså kan $S$ diagonaliseres således
+%\begin{align}
+%\begin{bmatrix}
+%3	&	2	&	4\\
+%2	&	0	&	2\\
+%4	&	2	&	3
+%\end{bmatrix}
+%=
+%\begin{bmatrix}
+%1			&	-1	&	-\frac{1}{2}\\
+%\frac{1}{2}	&	0	&	1			\\
+%1			&	1	&	0
+%\end{bmatrix}
+%\cdot
+%\begin{bmatrix}
+%8	&	0	&	0	\\
+%0	&	-1	&	0	\\
+%0	&	0	&	-1
+%\end{bmatrix}
+%\cdot
+%\begin{bmatrix}
+%1				&	\frac{1}{2}	&	1			\\
+%-1				&	0			&	1			\\
+%-\frac{1}{2}	&	1			&	0
+%\end{bmatrix}
+%\end{align}
+%Derved er matricen $S$ orthogonalt diagonaliseret.
+
+Egenvektorer og egenværdier er defineret som følgende: Lad $T$ være en lineær transformation hvor domænet og kodomænet er lig $\mathbb{R}^n$, hvilket er en lineær operator på $\mathbb{R}^n$. En vektor $\vec{v}$ forskellig fra nul i $\mathbb{R}^n$ benævnes som en egenvektor af $T$ hvis $T(\vec{v})$ er et produkt af $\vec{v}$; dvs.
+\begin{align}
+T(\vec{v})=\lambda\vec{v}
+\end{align}
+for skalarerne $\lambda$. Skalarerne $\lambda$ benævnes som egenværdier af $T$ som tilhører $\vec{v}$. [\cite{linalg}, s. 294]
+
+Egenværdierne $\lambda_1,\ldots, \lambda_m$ findes generelt ved at løse
+\begin{align*}
+\det(A - I_m \cdot \lambda ) = 0
+\end{align*}
+i forhold til $\lambda$ og herefter indsættes disse i diagonalen i $D$. Determinanten, som fremgår i førnævnte udtryk, har nyttige egenskaber i lineær algebra, som f.eks. af finde egenværdier. Ved matricer hvor $n \geq 3$, hvilket gør sig gældende ved de billeder der arbejdes med i projektet, er determinanten defineret ved en $n \times n$ matrix $A$ ved første række som
+\begin{align*}
+\textrm{det}A=a_{11}\cdot \textrm{det}A_{11} - a_{12} \cdot \textrm{det}A_{12}+\cdots +(-1)^{1+n}a_{1n}\cdot \textrm{det}A_{1n}
+\end{align*}
+Ved at lade $c_{ij} = (-1)^{i+j}\cdot\textrm{det}A_{ij}$ kan definitionen af determinanten af $A$ skrives som
+\begin{align*}
+\textrm{det}A=a_{11}c_{11}+a_{12}c_{12}+\cdots+a_{1n}c_{1n}
+\end{align*}
+Dette udtryk er kofaktor ekspansionen af $A$ hen ad første række.
+Et generelt eksempel på at finde egenværdier følger; Lad $S$ være en kendt matrix i $\mathbb{R}^3$. Det ønskes at finde løsningen til den ubekendte $\lambda$. Udtrykket $\textrm{det}(A - I_m \cdot \lambda )$ opstilles.
+\begin{align*}
+\textrm{det}(A - I_m \cdot \lambda) = \text{det}\begin{bmatrix}
+a_{11} - \lambda & a_{12} & a_{13}\\
+a_{21} & a_{22} - \lambda & a_{23}\\
+a_{31} & a_{32} & a_{33} - \lambda\\
+\end{bmatrix}
+\end{align*}
+Ved at benytte kofaktor ekspansion hen ad første række fås et ligningssystem som ved de mulige løsninger udtrykker egenværdierne. 
+De tilhørende egenvektorer findes som løsninger til
+\begin{align*}
+(A - I_m \cdot \lambda) \cdot \vec{v} = 0
+\end{align*} for de respektive $\lambda$-værdier og indsættes som søjlevektorer i $E$. I praksis vil det sige at løse ligningssystemet til
+\begin{align*}
+\begin{bmatrix}
+a_{11} - \lambda & a_{12} & a_{13}\\
+a_{21} & a_{22} - \lambda & a_{23}\\
+a_{31} & a_{32} & a_{33} - \lambda\\
+\end{bmatrix}
+\begin{bmatrix}
+v_{1} \\
+v_{2} \\
+v_{3} \\
+\end{bmatrix}=
+\begin{bmatrix}
+0\\0\\0\\
+\end{bmatrix}
+\end{align*}
+hvilket blot gøres ved at gå til reduceret trappeform med $A$ og opstille ligningsystemet på parametriseret vektorform. Vektorerne danner en basis med de tilhørende egenvektorer for egenrummet af $A$. Dette er dog beregningsmæssigt så tungt (specielt med matricer større end $3 \times 3$ at det i praksis kun vil blive gjort via et digitalt beregningsværktøj. De egenvektorer, der fremkommer af ovenstående beregninger, er dog kun ortogonale og ikke ortonormale, som det ønskes i $E$. For at lave dem ortonormale normaliseres de til længden én ved den indgangsvise division med længden af sig selv:
+\begin{align}
+\hat{\vec{v_i}} = \frac{v_i}{\Vert\vec{v_i}\Vert}
+\label{eq:ortonormal}
+\end{align}
+
+Pr. definition er $E$'s søjler lineært uafhængige, ortogonale (nu ortonormale) og af dimension $m$ [\citet{linalg}, s. 315,426], da dette er egenskaberne for egenvektorer.
+
+Transformationsmatricen $P$ defineres, og det ses, at det er praktisk at sætte $P = E^T$ og dermed $P^T = E$. Dette betyder, at \emph{rækkerne} i $P$ er søjlevektorerne i $E$, og disse er netop blevet defineret som værende egenvektorerne til $S$. $E$ er orthonormal, og det gælder derfor at $E^TE = I_m$, hvor $I_m$ er $m \times m$ identitetsmatricen. Ligning \ref{eq:CY omskrivning} kan vha. ligning \ref{eq:SEDET} omskrives til
+\begin{align}
+C_Y 	& = \frac{1}{n-1} PSP^T \		\nonumber	\\
+	& = \frac{1}{n-1} P(EDE^T)P^T	\nonumber	\\
+	& = \frac{1}{n-1} E^TEDE^TE		\nonumber	\\
+	& = \frac{1}{n-1} D
+\label{eq:CY}
+\end{align}
+Det ses her, at $C_Y$ er blevet diagonaliseret, når $P=E^T$, hvilket var målet med PCA. I de foregående afsnit er det fremkommet at principal komponenterne til $X$ er \emph{rækkerne} i $P$. Det ses i ligning \ref{eq:CY}, at den $i$'te diagonalindgang er variansen af $X$ i den nye basis $P$, hvilket imidlertid betyder, at egenværdierne i $D$ udtrykker variansen af de forskellige principal komponenter og dermed deres indflydelse på datasættet [\citet{PCA_people}, s. 8].
+
+
+
+
+%\section{Baggrund i statistik}
+%En stor del af PCA er også en statistisk del, der har til formål at skelne de vigtigste elementer fra de mindre vigtige elementer. I forhold til statistik i PCA ønskes der at fokuseres på tre forskellige parametre; gennemsnittet, varians og kovarians, der alle giver et indblik i dataenes relationer.
+%
+%I de følgende sektioner vil der blive arbejdet med en $m \times n$ matrix $X$, hvor $n$ angiver mængden af individer eller prøver og $m$ angiver antal variable, der er testet. Det ønskes at lave en lineær transformation på $m \times n$ matricen $X$ til $m \times n$ matricen $Y$ for en $n \times m$ matrix $P$. Dette udtrykkes som
+%\begin{equation}
+%Y=PX
+%\end{equation}
+%Der sker en ændring i basen for matricen $X$ og rækkerne i $P$ kan angives som rækkevektorerne $p_1,p_2,…p_m$, og søjlerne i $X$ kan udtrykkes som søjlevektorerne $x_1,x_2,…,x_n$. Rækkerne i $P$ er en ny basis for rækkerne i $X$, og vil i løbet af de følgende afsnit blive til retningerne på principal components \fixme{dansk navn}. \fixme{Ovenstående er noget rod}
+%
+%PCA er en metode til at finde relationen mellem vektorerne i den oprindelige basis?
+%
+%\subsection{Gennemsnit} \label{sec:gennemsnit}
+%Lad $x_1,…,x_n$ være en rækkevektor betående af alle svar på et spørgsmål $m$. Gennemsnittet af svarene kan dermed findes som værende
+%\begin{align}
+%\mu_X = \frac{1}{n}(x_1+ ... + x_n)
+%\label{eq:average}
+%\end{align}\fixme{mean vs sample average?}
+%Ligning \ref{eq:average} giver et udtryk for hvor svarene/dataene er centreret, men det kan have stor interessse også at se på, hvor spredte disse svar er. Dette findes som værende variansen i dataene og præsenteres i næste afsnit.
+%
+%\subsection{Varians}
+%Varians er et udtryk for forskelligheden i et datasæt, og vil i eksemplet fra sektion \vref{sec:gennemsnit} være variansen i de svar, de adspurgte personer har givet. Variansen kan findes på baggrund af datasættet ved formlen
+%\begin{align}
+%Var(A)= \frac{1}{n - 1}((a_1 - \mu_A)^2 + ... + (a_n - \mu_A)^2)
+%\label{eq:varians}
+%\end{align}\fixme{kilde? - n-1 eller n afhænger om sample eller population}
+%Denne giver et udtryk for hvor stor spredning, der er i datasættet. En høj varians er en stor spredning og en lille varians giver udtryk for at dataene ligger tæt samlet. Variansen kan findes i alle variable som måles i et datasæt.
+%
+%\subsection{Kovarians}
+%Variansen giver et udtryk for hvor spredt et datasæt ligger, mens kovariansen udtrykker relationen mellem to datasæt. Måles to parametre $A$ og $B$ i et datasæt, kan relationen mellem disse to parametre findes ved kovariansen. Er kovariansen negativ betyder det at hvis $A$ bliver større, så bliver $B$ mindre. Kovariansen findes ved formlen
+%\begin{align}
+%Cov(A,B) = \frac{1}{n - 1}((a_1 - \mu_A)(b_1 - \mu_B) + ... + (a_n - \mu_A)(b_1 - \mu_B))
+%\label{eq:covarians}
+%\end{align}\fixme{kilde}
+%Bemærk her at $Cov(A,B)=Cov(B,A)$ og at kovariansen kan findes mellem to variable, blandt alle målte, såfremt flere måles. \fixme{Kovariansen har betydning for PCA, da det er interessant at finde de variable med størst kovarians, da disse bedst kan beskrive den store mængde af data.}\fixme{betydning for PCA}
+
+%1.
+%$(A-\lambda I_n )  x=0   ,x /=0
+%I ovenstående tilfælde gælder det at løsningssættet er eigenrummet til A i forhold til eigenværdien \lambda. Dette er blot nulrummet til A-\lambda I_n.$
+%2. 
+%$Eigenværdierne til en kvadratisk matrix A er værdierne t, der løser:
+%det(A-tI_n )=0
+%Ovenstående ligning er kaldet ”the characteristic equation” til A. Og det(A-tI_n )   er kaldet ”the characteristic polynomial” til A.$
+%3.
+%$To similære matricer A og B har samme karakteristiske polynomium da
+%det(B-\lambda I_n )=detP  det(B-\lambda I_n )*detP^(-1) 
+%det(B-\lambda I_n )=det(P(B-\lambda I_n ) P^(-1) )=det(A-\lambda I_n )$
+%4.
+%$Hvad har det af betydning for PCA?$
+-----------

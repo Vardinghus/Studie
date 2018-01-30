@@ -1,0 +1,45 @@
+\documentclass[12pt,a4paper,draft]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent\textbf{Opgave 76}\\
+Consider the variance formula Var$[Y]=\text{Var}[E[Y|X]]+E[$Var$[Y|X]]$. \textbf{(a)} Show that Var$[E[Y|X]]=0$ if $X$ and $Y$ are independent. \textbf{(b)} Show that $E[$Var$[Y|X]]=0$ if $X$ and $Y$ are totally dependent in the sense that $Y=g(X)$ for some function $g$ (recall Corollary 3.6).\\\\
+\textbf{(a)} Brug proposition 2.16, som siger, at
+\begin{equation}
+\text{Var}[X]=0\text{ hvis og kun hvis } X=E[X]
+\end{equation}
+Da $X$ og $Y$ er uafhængige
+\begin{equation}
+\text{Var}[E[Y|X]]=\text{Var}[E[Y]]=0
+\end{equation}
+\textbf{(b)} Brug korollar 3.6, som siger
+\begin{equation}
+E[g(X)|X]=g(X)
+\end{equation}
+og omskriv
+\begin{align*}
+\text{Var}[g(X)]&=E[\text{Var}[Y|X]]+\text{Var}[E[g(X)|X]]\\
+\text{Var}[g(X)]&=E[\text{Var}[Y|X]]+\text{Var}[g(x)]\\
+\Downarrow\\
+E[\text{Var}[Y|X]]&=0
+\end{align*}
+\textbf{Opgave 85}\\
+Let $U$ and $V$ be independent and unif$[0,1]$ and let $X=\mathrm{min}(U,V)$ and $Y=\mathrm{max}(U,V)$. Find Cov$[X,Y]$ and comment on its sign.\\\\
+
+
+\\\\
+\textbf{Opgave 88}\\
+In Definition 3.17, it is necessary that Var$[X
+]>0$ and Var$[Y]>0$. If this is not the case, what value is reasonable to assign to the correlation?
+
+
+
+
+
+
+
+
+\end{document}

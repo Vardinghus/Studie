@@ -1,0 +1,490 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1343\cocoasubrtf160
+{\fonttbl\f0\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;\red77\green77\blue77;\red0\green0\blue0;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww17760\viewh13280\viewkind0
+\deftab720
+\pard\pardeftab720
+
+\f0\fs24 \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\begin\{itemize\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\item Vurd\'c3\'a9r aritmetisk kodning i forhold til Huffman, samt de to kombineret.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\item Kig p\'c3\'a5 betydningnen af DCT-Q kvalitet\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\item Thomas' fejlbilleder (forskellen mellem det oprindelige og det nye)\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\item Betydningen af zero-padding (svingninger giver problemer ved brat kontrast)\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\item Betydningen af billedet, der komprimeres (kontrast giver problemer for cosinussvingninger)\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\end\{itemize\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %I dette projekt er der blevet udarbejdet to billedkomprimeringsalgoritmer\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\begin\{itemize\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %	\\item\{\'c3\'89n tagende udgangspunkt i en diskret cosinustransformation og kraftigt inspireret af JPEG-standarden.\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %	\\item\{\'c3\'89n tagende udgangspunkt i principal conponent analysis.\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\end\{itemize\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %De to komprimeringsmetoder for\'c3\'a5rsager begge tab af data i komprimeringsprocessen og forringer dermed billedkvaliteten. De to metoder er dog vidt forskellige og benytter forskellige matematiske v\'c3\'a6rkt\'c3\'b8jer. For at sammenligne de to har vi opstillet parametre, som vi mener er vigtige at se p\'c3\'a5 for at vurdere metoderne.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\begin\{itemize\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %	\\item\{Komprimeringsgrad\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %	\\item\{Hastighed\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %	\\item\{Kvalitet\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\end\{itemize\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\subsubsection\{Komprimeringsgrad\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %Da hele id\'c3\'a9en med denne opgave er at komprimere billeder, er det essentielt at unders\'c3\'b8ge hvilken af de to teknikker, som komprimerer et billede mest. Dette parameter m\'c3\'a5 n\'c3\'b8dvendigvis ses i relation til kvaliteten af det komprimerede billede, da komprimering ved diskret cosinustransformation kan justeres efter \'c3\'b8nsket kvalitet og da man er interesseret i at et komprimeret billede ligner originalen s\'c3\'a5 meget som muligt.\\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %Komprimeringsgraden beregnes let ved forholdet mellem st\'c3\'b8rrelsen af det originale billed og det komprimerede billede.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\subsubsection\{Hastighed\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %Med hastighed menes der hvor hurtigt den skrevne kode kan komprimere et billede og gemme det som fil. Her er det n\'c3\'b8dvendigt at tage komprimeringsgraden i betragtning, for at kunne sammenligne to foskellige algortimer. Fejlkilder ved dette parameter er den h\'c3\'b8jst sandsynligt ikke optimale programmering - de to programmer kan dermed ikke sammenlignes i effektivitet.\\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %Det er dog v\'c3\'a6rd at bem\'c3\'a6rke at DCT har en hurtigt algoritme, som er den samme lige meget hvilket signal behandles, mens PCA skal tilpasses signalet. DCT er derfor i sagens natur hurtigere at arbejde med end PCA.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %- Man kunne her lave en kompleksitetsanalyse, men...\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\subsubsection\{Kvalitet\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %For at kunne vurdere kvaliteten skal det f\'c3\'b8rst defineres hvad kvalitet er. N\'c3\'a5r der arbejdes med komprimering med tab vil kvalitet v\'c3\'a6re i hvor stor grad det komprimerede billede ligner det originale. Dette kan vurderes subjektivt og objektivt.\\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %Subjektiv kvalitet ville v\'c3\'a6re menneskers oplevede forskel p\'c3\'a5 de to billeder. Dette vil enten v\'c3\'a6re om der overhovedet kan ses en forskel eller hvor meget anderledes billedet ser ud. Det komprimerede billede vil formentlig se mindre skarpt ud end det originale.\\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %Objektiv kvalitet kan eksempelvis m\'c3\'a5les ved beregning af forskellighed mellem samme pixels i det originale og det komprimerede billede. Pixels i et billede af lav kvalitet vil i stor grad v\'c3\'a6re anderledes fra pixels i samme billede i h\'c3\'b8jere kvalitet. \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\subsubsection\{Entropikodning\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %Til begge komprimeringsteknikker benyttes en entropikodning kaldet Huffmankodning. Huffmankodning komprimerer data uden tab, som alle entropikodningsteknikker. Kodningen er en afart af aritmetisk kodning, som ofte komprimerer bedre end Huffman. \\fixme\{Dette skal unders\'c3\'b8ges\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\
+\
+\
+\
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\begin\{table\}[]\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\centering\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\begin\{tabular\}\{|l|l|lll|\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\hline\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    &       & \\multicolumn\{1\}\{l|\}\{Komrimeringsgrad\} & \\multicolumn\{1\}\{l|\}\{\\% \'c3\'a6ndret pixel\} & SNR     \\\\ \\hline\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\multirow\{6\}\{*\}\{T1\} & Q10   & 1:7.42                                & 95.66                                & 111.36  \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & PC120 & 1:10.30                               & 89.73                                & 190.95  \\\\ \\cline\{2-5\} \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & Q50   & 1:6.62                                & 85.66                                & 581.01  \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & PC360 & 1:3.64                                & 84.10                                & 791.52  \\\\ \\cline\{2-5\} \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & Q90   & 1:4.84                                & 68.65                                & 2145.30 \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & PC720 & 1:1.91                                & 78.13                                & 2914.51 \\\\ \\hline\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\multirow\{6\}\{*\}\{T2\} & Q10   & 1:7.56                                & 94.99                                & 115.12  \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & PC120 & 1:11.60                               & 83.78                                & 730.56  \\\\ \\cline\{2-5\} \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & Q50   & 1:7.15                                & 83.25                                & 620.93  \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & PC360 & 1:4.04                                & 80.59                                & 1350.62 \\\\ \\cline\{2-5\} \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & Q90   & 1:5.37                                & 69.67                                & 1817.41 \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & PC720 & 1:2.08                                & 77.26                                & 3056.68 \\\\ \\hline\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\multirow\{6\}\{*\}\{T3\} & Q10   & 1:7.62                                & 94.94                                & 41.72   \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & P120  & 1:10.30                               & 83.24                                & 165.83  \\\\ \\cline\{2-5\} \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & Q50   & 1:7.06                                & 80.90                                & 307.30  \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & PC360 & 1:3.79                                & 79.12                                & 639.55  \\\\ \\cline\{2-5\} \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & Q90   & 1:5.61                                & 62.30                                & 958.41  \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & PC720 & 1:2.02                                & 77.88                                & 1581.68 \\\\ \\hline\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\multirow\{6\}\{*\}\{T4\} & Q10   & 1:7.49                                & 95.16                                & 62.54   \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & PC120 & 1:10.00                               & 110.57                               & 110.57  \\\\ \\cline\{2-5\} \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & Q50   & 1:6.80                                & 82.76                                & 383.17  \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & PC360 & 1:3.61                                & 82.08                                & 509.59  \\\\ \\cline\{2-5\} \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & Q90   & 1:4.94                                & 58.98                                & 1608.79 \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & PC720 & 1:1.91                                & 77.57                                & 1712.87 \\\\ \\hline\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\multirow\{6\}\{*\}\{T5\} & Q10   & 1:7.36                                & 95.66                                & 56.44   \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & PC120 & 1:9.75                                & 93.21                                & 53.10   \\\\ \\cline\{2-5\} \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & Q50   & 1:6.31                                & 85.92                                & 298.69  \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & PC360 & 1:3.48                                & 88.43                                & 238.69  \\\\ \\cline\{2-5\} \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & Q90   & 1:4.35                                & 73.65                                & 1016.64 \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & PC720 & 1:1.83                                & 81.28                                & 978.65  \\\\ \\hline\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\multirow\{6\}\{*\}\{T6\} & Q10   & 1:7.47                                & 95.48                                & 59.80   \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & PC120 & 1:9.90                                & 91.60                                & 55.94   \\\\ \\cline\{2-5\} \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & Q50   & 1:6.63                                & 83.66                                & 279.01  \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & PC360 & 1:3.53                                & 86.67                                & 226.80  \\\\ \\cline\{2-5\} \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & Q90   & 1:4.78                                & 69.68                                & 918.94  \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                    & PC720 & 1:1.85                                & 80.99                                & 819.59  \\\\ \\hline\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\end\{tabular\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\caption\{My caption\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\label\{my-label\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\end\{table\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\begin\{tikzpicture\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\begin\{axis\}[\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %    title=\{Komprimering af scaleret billede\},\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %    xlabel=\{\},\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %    ylabel=\{Komprimeringsgrad\},\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %    width = 0.83*\\textwidth,\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %    height = 0.5*\\textwidth,\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %    xtick = \{0,1,2,3,4\},\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %    xmin=0, xmax=4,\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %    ymin=0, ymax=8,\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %    %x tick label style = \{anchor = east\},\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %    xticklabels=\{PC25/13,PC50/25,PC75/38,PC100/50,PC150/75\},\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %    ytick=\{\},\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %    legend pos=south east,\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %    legend style=\{\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                at=\{(1.23,0)\}\},\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %    ymajorgrids=true,\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %    grid style=dashed,\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %]\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 % \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\addplot[\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %    color=blue,\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %    dashed,\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %    ]\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %    coordinates \{\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %    (0,6.05)(1,3.43)(2,2.36)(3,1.85)(4,1.28)\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %    \};\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\addplot[\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %    color=red,\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %    ]\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %    coordinates \{\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %    (0,7.44)(1,3.92)(2,3.39)(3,2.05)(4,1.41)\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %    \};\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %]\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\legend\{DCT 256x256,DCT 512x512, PCA 256x256, PCA512x512\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\end \{axis\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\end\{tikzpicture\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\
+\
+\
+\
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\begin\{table\}[]\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\centering\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\caption\{My caption\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\label\{my-label\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\begin\{tabular\}\{|l|l|ll|l|\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\hline\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                     &                   & \\multicolumn\{1\}\{l|\}\{512x512\} & 256x256 & Forskel (\\%) \\\\ \\hline\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\multirow\{3\}\{*\}\{Q10\} & Komprimeringsgrad & 1:7.31                       & 1:7.14  & 2.32         \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                     & \\% \'c3\'a6ndret pixel   & 96.16                        & 96.65   & 0.51         \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                     & SNR               & 29.77                        & 17.02   & 42.83        \\\\ \\hline\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\multirow\{3\}\{*\}\{Q50\} & Komprimeringsgrad & 1:5.98                       & 1:5.39  & 9.87         \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                     & \\% \'c3\'a6ndret pixel   & 92.78                        & 91.40   & 1.49         \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                     & SNR               & 106.58                       & 60.41   & 43.32        \\\\ \\hline\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\multirow\{3\}\{*\}\{Q90\} & Komprimeringsgrad & 1:3.79                       & 1:3.24  & 14.51        \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                     & \\% \'c3\'a6ndret pixel   & 89.38                        & 86.31   & 3.43         \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                     & SNR               & 292.41                       & 273.85  & 6.35         \\\\ \\hline\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\end\{tabular\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\end\{table\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\begin\{table\}[]\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\centering\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\caption\{My caption\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\label\{my-label\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\begin\{tabular\}\{|l|l|ll|l|\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\hline\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                                                                      &                   & \\multicolumn\{1\}\{l|\}\{512x512\} & \\multicolumn\{1\}\{l|\}\{256x256\} & Forskel (\\%) \\\\ \\hline\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\multirow\{3\}\{*\}\{\\begin\{tabular\}[c]\{@\{\}l@\{\}\}PC25\\\\ (PC13)\\end\{tabular\}\}  & Komprimeringsgrad & 1:7.44                       & 1:6.05                       & 18.68        \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                                                                      & \\% \'c3\'a6ndret pixel   & 95.53                        & 96.95                        & 1.83         \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                                                                      & SNR               & 23.68                        & 10.98                        & 53.63        \\\\ \\hline\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\multirow\{3\}\{*\}\{\\begin\{tabular\}[c]\{@\{\}l@\{\}\}PC75\\\\ (PC38)\\end\{tabular\}\}  & Komprimeringsgrad & 1:3.39                       & 1:2.36                       & 30.38        \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                                                                      & \\% \'c3\'a6ndret pixel   & 92.65                        & 95.01                        & 2.55         \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                                                                      & SNR               & 95.39                        & 34.01                        & 64.35        \\\\ \\hline\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\multirow\{3\}\{*\}\{\\begin\{tabular\}[c]\{@\{\}l@\{\}\}PC150\\\\ (PC75)\\end\{tabular\}\} & Komprimeringsgrad & 1:1.41                       & 1:1.28                       & 9.21         \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                                                                      & \\% \'c3\'a6ndret pixel   & 88.83                        & 91.80                        & 3.34         \\\\ \\cline\{2-2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %                                                                      & SNR               & 346.31                       & 126.98                       & 65.15        \\\\ \\hline\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\end\{tabular\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 %\\end\{table\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\
+\
+\
+\
+\
+}

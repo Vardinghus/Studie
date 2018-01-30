@@ -1,0 +1,74 @@
+\documentclass[12pt,a4paper,draft]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent \textbf{Opgave 28}\\
+I a street bet in roulette you bet on three numbers. If any of these come up, you win 11 times your wager, otherwise you lose your wager. Let $X$ be your gain if you bet one dollar on a street bet. Find the mean and variance of $X$.\\\\
+Der vindes på tre forskellige tal og tabes på 35 forskellige.
+\begin{equation}
+E[X]=11\frac{3}{38}+(-1)\frac{35}{38}=-\frac{2}{38}
+\end{equation}
+Varians beregnes ved nedenstående formel.
+\begin{equation}
+Var[X]=E[X^2]-E[X]^2=11^2\frac{3}{38}+\left((-1)\frac{35}{38}\right)^2
+\end{equation}
+\textbf{Opgave 30}\\
+The game of chuck-a-luck is played with three dice, rolled independently. You
+bet one dollar on one of the numbers 1 through 6 and if exactly k of the dice show
+your number, you win k dollars k = 1, 2, 3 (and keep your wagered dollar). If
+no die shows your number, you lose your wagered dollar. What is your expected
+loss?\\\\
+\begin{equation}
+E[X]=(-1)\left(\frac{5}{6}\right)^3+1\frac{5^2\cdot3}{6^3}+2\frac{3\cdot5}{6^3}+3\left(\frac{1}{6}\right)=-0.078703\text{ cent}
+\end{equation}
+\textbf{Opgave 35}\\
+A stick measuring one yard in length is broken into two pieces at random.
+Compute the expected length of the longest piece.\\\\
+Først bestemmes en funktion $g(x)$.
+\begin{equation}
+g(x)=\max(x,1-x)
+\end{equation}
+Derefter bruges relationen for gennemsnit af $g(x)$:
+\begin{align}
+E[g(x)]&=\int_0^1\!g(x)f_X(x)\,dx\\
+&=\int_0^1\!g(x)\,dx\\
+&=\int_0^{0.5}\!1-x\,d+\int_{0.5}^1\!x\,dx\\
+&=\frac{3}{4}
+\end{align}
+\textbf{Opgave 38}\\
+The random variable $X$ has pdf $f(x)=3x^2,0\geq x\geq 1$. \textbf{(a)} Compute $E[X]$ and
+$Var[X]$. \textbf{(b)} Let $Y=\sqrt{X}$ and compute $E[Y]$ and $Var[X]$.\\\\
+\textbf{(a)}
+\begin{align}
+E[X]&=\int_0^1\!xf(x)\,dx\\
+&=\int_0^1\!3x^3\,dx\\
+&=\left[\frac{3}{4}x^4\right]_0^1\\
+&=\frac{3}{4}
+\end{align}
+\textbf{(b)}
+\begin{align}
+Var[X]&=E[(X-\frac{3}{4})^2]\\
+&=E[X^2+\frac{9}{16}-\frac{3}{2}X]\\
+&=E[X^2]-\frac{3}{2}E[X]+\frac{9}{16}\\
+&=\frac{3}{5}-\frac{9}{8}+\frac{9}{16}\\
+&=\frac{3}{80}=0.0375
+\end{align}
+\textbf{Opgave 39}\\
+Let $X\geq 0$ be continuous. Show that $E[X]=\int_0^{\infty}\!P(X>x)\,dx$ and $E[X^2]=2\int_0^{\infty}\!xP(X>x)\,dx$.\\\\
+Der startes med definitionen
+\begin{align}
+E[X]&=\int_0^{\infty}\!xf(x)\,dx\\
+&=\int_0^{\infty}\!\int_0^x\!f(t)\,dt\,dx\\
+&=\int_0^{\infty}\!\int_t^{\infty}\!f(x)\,dx\,dt\\
+&=\int_0^{\infty}\!P(x\in [t,\infty)\,dt\\
+&=\int_0^{\infty}\!P(X>x)\,dx
+\end{align}
+
+
+
+
+
+\end{document}

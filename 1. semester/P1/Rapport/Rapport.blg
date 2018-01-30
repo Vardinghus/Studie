@@ -1,0 +1,228 @@
+This is BibTeX, Version 0.99d (TeX Live 2015)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: Rapport.aux
+The style file: bibtex/harvard.bst
+A level-1 auxiliary file: Formalia/Forside.aux
+A level-1 auxiliary file: Formalia/Titelblad.aux
+A level-1 auxiliary file: Formalia/Forord.aux
+A level-1 auxiliary file: Intro/Projektbeskrivelse.aux
+A level-1 auxiliary file: Teori/Intro.aux
+A level-1 auxiliary file: DCT/Teori.aux
+A level-1 auxiliary file: PCA/Teori.aux
+A level-1 auxiliary file: Formalia/Resultater.aux
+A level-1 auxiliary file: Formalia/Vurdering.aux
+A level-1 auxiliary file: Formalia/Konklusion.aux
+A level-1 auxiliary file: DCT/Udledning.aux
+A level-1 auxiliary file: Appendiks/Appendiks1.aux
+A level-1 auxiliary file: Appendiks/Appendiks2.aux
+A level-1 auxiliary file: Appendiks/Appendiks3.aux
+url: is an unknown function---line 320 of file bibtex/harvard.bst
+Database file #1: Bibtex/Litteratur.bib
+I was expecting a `,' or a `}'---line 248 of file Bibtex/Litteratur.bib
+ : 
+ : @manual{nbtwiki,
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 296 of file Bibtex/Litteratur.bib
+ :  
+ :  address = {\url{https://www.cs.unc.edu/~kmp/comp832-s08/readings/blinn-dct.pdf}}
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Warning--empty year in thefouriertransform
+Warning--empty year in thefouriertransform
+Warning--empty year in thefouriertransform
+1 is an integer literal, not a string, for entry thefouriertransform
+while executing---line 1485 of file bibtex/harvard.bst
+Warning--empty  in thefouriertransform
+1 is an integer literal, not a string, for entry dft_argument
+while executing---line 1485 of file bibtex/harvard.bst
+Warning--empty year in frequency_image
+Warning--empty year in frequency_image
+Warning--empty year in frequency_image
+1 is an integer literal, not a string, for entry frequency_image
+while executing---line 1485 of file bibtex/harvard.bst
+Warning--empty  in frequency_image
+Warning--there's a number but no series in applied_mathematics
+1 is an integer literal, not a string, for entry applied_mathematics
+while executing---line 1485 of file bibtex/harvard.bst
+Warning--empty year in PCA_jeff
+Warning--empty year in PCA_jeff
+Warning--empty year in PCA_jeff
+1 is an integer literal, not a string, for entry PCA_jeff
+while executing---line 1485 of file bibtex/harvard.bst
+Warning--empty  in PCA_jeff
+Warning--empty year in DTT
+Warning--empty year in DTT
+Warning--empty year in DTT
+1 is an integer literal, not a string, for entry DTT
+while executing---line 1485 of file bibtex/harvard.bst
+Warning--empty  in DTT
+Warning--empty year in lokminglui
+Warning--empty year in lokminglui
+1 is an integer literal, not a string, for entry lokminglui
+while executing---line 1485 of file bibtex/harvard.bst
+Warning--empty  in lokminglui
+Warning--empty year in lokminglui_DCT
+Warning--empty year in lokminglui_DCT
+1 is an integer literal, not a string, for entry lokminglui_DCT
+while executing---line 1485 of file bibtex/harvard.bst
+Warning--empty  in lokminglui_DCT
+Warning--empty year in konjugeret
+Warning--empty year in konjugeret
+Warning--empty year in konjugeret
+1 is an integer literal, not a string, for entry konjugeret
+while executing---line 1485 of file bibtex/harvard.bst
+Warning--empty  in konjugeret
+Warning--empty year in zero_padding
+Warning--empty year in zero_padding
+Warning--empty year in zero_padding
+1 is an integer literal, not a string, for entry zero_padding
+while executing---line 1485 of file bibtex/harvard.bst
+Warning--empty  in zero_padding
+Warning--empty year in ycbcr
+Warning--empty year in ycbcr
+Warning--empty year in ycbcr
+1 is an integer literal, not a string, for entry ycbcr
+while executing---line 1485 of file bibtex/harvard.bst
+Warning--empty  in ycbcr
+Warning--empty year in matthews
+Warning--empty year in matthews
+Warning--empty year in matthews
+1 is an integer literal, not a string, for entry matthews
+while executing---line 1485 of file bibtex/harvard.bst
+Warning--empty  in matthews
+Warning--empty year in curtis_newbold
+Warning--empty year in curtis_newbold
+Warning--empty year in curtis_newbold
+1 is an integer literal, not a string, for entry curtis_newbold
+while executing---line 1485 of file bibtex/harvard.bst
+Warning--empty  in curtis_newbold
+Warning--empty year in leftinverse
+Warning--empty year in leftinverse
+Warning--empty year in leftinverse
+1 is an integer literal, not a string, for entry leftinverse
+while executing---line 1485 of file bibtex/harvard.bst
+Warning--empty  in leftinverse
+Warning--empty year in ycbcr_definition
+Warning--empty year in ycbcr_definition
+Warning--empty year in ycbcr_definition
+1 is an integer literal, not a string, for entry ycbcr_definition
+while executing---line 1485 of file bibtex/harvard.bst
+Warning--empty  in ycbcr_definition
+Warning--there's a number but no series in normalization
+1 is an integer literal, not a string, for entry normalization
+while executing---line 1485 of file bibtex/harvard.bst
+Warning--empty year in PCA_people
+Warning--empty year in PCA_people
+Warning--empty year in PCA_people
+1 is an integer literal, not a string, for entry PCA_people
+while executing---line 1485 of file bibtex/harvard.bst
+Warning--empty  in PCA_people
+Warning--empty institution in grafteori
+Warning--empty year in guillermo_sapiro
+Warning--empty year in guillermo_sapiro
+Warning--empty year in guillermo_sapiro
+1 is an integer literal, not a string, for entry guillermo_sapiro
+while executing---line 1485 of file bibtex/harvard.bst
+Warning--empty  in guillermo_sapiro
+Warning--empty year in PCA_slens
+Warning--empty year in PCA_slens
+Warning--empty year in PCA_slens
+1 is an integer literal, not a string, for entry PCA_slens
+while executing---line 1485 of file bibtex/harvard.bst
+Warning--empty  in PCA_slens
+Warning--empty year in whydomath_basic
+Warning--empty year in whydomath_basic
+1 is an integer literal, not a string, for entry whydomath_basic
+while executing---line 1485 of file bibtex/harvard.bst
+Warning--empty  in whydomath_basic
+Warning--empty year in whydomath_dct
+Warning--empty year in whydomath_dct
+1 is an integer literal, not a string, for entry whydomath_dct
+while executing---line 1485 of file bibtex/harvard.bst
+Warning--empty  in whydomath_dct
+Warning--empty year in farvetransformation
+Warning--empty year in farvetransformation
+Warning--empty year in farvetransformation
+1 is an integer literal, not a string, for entry farvetransformation
+while executing---line 1485 of file bibtex/harvard.bst
+Warning--empty  in farvetransformation
+Warning--empty year in linalg
+Warning--empty year in linalg
+Warning--empty publisher in linalg
+Warning--empty year in linalg
+1 is an integer literal, not a string, for entry linalg
+while executing---line 1485 of file bibtex/harvard.bst
+Warning--empty  in linalg
+Warning--empty year in nbtwiki
+Warning--empty year in nbtwiki
+Warning--empty year in nbtwiki
+1 is an integer literal, not a string, for entry nbtwiki
+while executing---line 1485 of file bibtex/harvard.bst
+Warning--empty  in nbtwiki
+Warning--empty year in lena
+Warning--empty year in lena
+Warning--empty year in lena
+1 is an integer literal, not a string, for entry lena
+while executing---line 1485 of file bibtex/harvard.bst
+Warning--empty  in lena
+Warning--empty year in electronic_engineering
+Warning--empty year in electronic_engineering
+Warning--empty year in electronic_engineering
+1 is an integer literal, not a string, for entry electronic_engineering
+while executing---line 1485 of file bibtex/harvard.bst
+Warning--empty  in electronic_engineering
+Warning--empty year in smcnus_energy
+Warning--empty year in smcnus_energy
+Warning--empty year in smcnus_energy
+1 is an integer literal, not a string, for entry smcnus_energy
+while executing---line 1485 of file bibtex/harvard.bst
+Warning--empty  in smcnus_energy
+Warning--empty year in similar_wolfram
+Warning--empty year in similar_wolfram
+Warning--empty year in similar_wolfram
+1 is an integer literal, not a string, for entry similar_wolfram
+while executing---line 1485 of file bibtex/harvard.bst
+Warning--empty  in similar_wolfram
+You've used 29 entries,
+            2921 wiz_defined-function locations,
+            766 strings with 9898 characters,
+and the built_in function-call counts, 10433 in all, are:
+= -- 911
+> -- 412
+< -- 54
++ -- 145
+- -- 114
+* -- 808
+:= -- 1635
+add.period$ -- 140
+call.type$ -- 29
+change.case$ -- 67
+chr.to.int$ -- 27
+cite$ -- 158
+duplicate$ -- 619
+empty$ -- 900
+format.name$ -- 184
+if$ -- 2055
+int.to.chr$ -- 3
+int.to.str$ -- 1
+missing$ -- 6
+newline$ -- 204
+num.names$ -- 145
+pop$ -- 334
+preamble$ -- 1
+purify$ -- 67
+quote$ -- 0
+skip$ -- 302
+stack$ -- 0
+substring$ -- 58
+swap$ -- 118
+text.length$ -- 2
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 304
+warning$ -- 100
+while$ -- 87
+width$ -- 0
+write$ -- 443
+(There were 31 error messages)

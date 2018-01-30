@@ -1,0 +1,58 @@
+\documentclass[12pt,a4paper,draft]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent\textbf{To repræsentationer af samples}\\
+Hvis der haves diskrete samples $\{t_n\}$ kan der dannes en Fourierrække $T(t)=\sum_{n=-\infty}^{\infty}t_n\mathrm{e}^{int}$. De to repræsentationerne indeholder samme information:
+\begin{equation}
+t_n=\frac{1}{2\pi}\int_{-\pi}^{\pi}\!T(t)\mathrm{e}^{-int}\,dt.
+\end{equation}
+\textbf{Vektorrum for uendelige følger}
+\begin{itemize}
+\item $\ell^1=\{x=\{x_n\}:||x||_1=\sum_{-\infty}^{\infty}|x_n|<\infty\}$
+\item $\ell^2=\{x=\{x_n\}:||x||_2=\sqrt{\sum_{-\infty}^{\infty}|x_n|^2}<\infty\}$
+\item $\ell^{\infty}=\{x=\{x_n\}:||x||_{\infty}=\mathrm{sup}|x_n|<\infty\}$
+\end{itemize}
+$\ell^2$ er et Hilbertrum med indre produkt
+\begin{equation}
+<x_n,y_n>=\sum_{-\infty}^{\infty}x_n\overline{y}_n,\phantom{mm}x,y\in\ell^2(\mathbb{Z})
+\end{equation}
+\textbf{Et diskrettidssystem} på $V$ er en operator
+\begin{equation}
+T=V\to V
+\end{equation}
+\textbf{Tidsinvariant}\\
+Et diskrettidssystem $T:V\to V$ kaldes tidsinvariant, hvis
+\begin{equation}
+y=T(x)\,\Rightarrow\,y'=T(x'),\text{ hvor }\begin{cases}
+x_n'=x_{n-k}\\
+y_n'=y_{n-k}
+\end{cases}
+\end{equation}
+\textbf{BIBO-stabilt} (Bounded-in, bounded-out)\\
+Et diskrettidssystem $T:V\to V$ kaldes BIBO-stabilt, hvis
+\begin{equation}
+x\in\ell^{\infty}(\mathbb{Z})\,\Rightarrow\,y=T(x)\in\ell^{\infty}(\mathbb{Z})
+\end{equation}
+\textbf{Hukommelsesløst}\\
+Et diskrettidssystem $y=T(x)$ kaldes		 hukommelsesløst, hvis for $x,x'$
+\begin{equation}
+x_k=x_k'\,\Rightarrow\,T(x)_k=T(x')_k
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

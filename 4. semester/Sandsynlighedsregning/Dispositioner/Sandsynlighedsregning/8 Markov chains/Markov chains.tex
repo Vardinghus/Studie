@@ -1,0 +1,74 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent{\Huge 8 Markov chains}\\\\
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Define Markov chains
+\item Make example of on/off
+\item Communication
+\item Irreducibility
+\item Recurrence
+\item Stationary distribution
+\item Convergence
+\end{itemize}
+\textbf{Definition 8.1. (Markov chain).} Let $X_0,X_1,\ldots$ be a sequence of discrete random variables, taking values in som set $S$ and that are such that
+\begin{equation}
+P(X_{n+1}=j|X_0=i_0,\ldots,X_{n-1}=i_{n-1},X_n=i)=P(X_{n+1}=j|X_n=i)
+\end{equation}
+for all $i,j,i_0,\ldots i_{n-1}$ in $S$ and all $n$. The sequence $\{X_n\}$ is the called a \textit{Markov chain}.\\\\
+\begin{equation}
+p_{ij}=P(X_{n+1}|X_n=j)
+\end{equation}
+\textbf{On/Off example} Probability $p$ of switching on and $q$ of switching of.
+\begin{equation}
+P=\begin{pmatrix}
+1-p&p\\
+q&1-q
+\end{pmatrix}
+\end{equation}
+Limit distribution
+\begin{equation}
+\lim_{n\to\infty}P^{(n)}=\frac{1}{p+q}\begin{pmatrix}q&p\\q&p\end{pmatrix}
+\end{equation}
+\textbf{Definition 8.2. (Communication).} If $p_{ij}^{(n)}>0$ for som $n$, we say that state $j$ is accessible from state $i$ written $i\to j$. If both ways, they communicate.\\\\
+\textbf{Definition 8.3. (Irreducibility).} If all states in $S$ communicate with each other, the Markov chain is said to be \textit{irreducible}.\\\\
+\textbf{Definition 8.4. (Recurrence).} Consider a state $i\in S$ and $\tau_i$ the number of steps to first visit $i$:
+\begin{equation}
+\tau_i=\min\{n\geq1:X_n=i\}
+\end{equation}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item[] $\tau_i=\infty$ never visited
+\item[] Recurrent if $P_i(\tau_i<\infty)=1$
+\item[] Transcient if $P_i(\tau<\infty)<1$
+\end{itemize}
+\textbf{Definition 8.8 (Periodicity).} The \textit{period} of state $i$ is defined as
+\begin{equation}
+d(i)=gcd\{n\geq1:p_{ij}^{(n)}>0\}
+\end{equation}
+If $d(i)=1$, $i$ is said to be aperiodic; otherwise periodic.\\\\
+\textbf{Definition 8.5 (Stationary distribution).} Let $P$ be the transition matrix of a Markov chain with state space $S$. A probability distribution $\mathbf{\pi}=(\pi_1,\pi_2,\ldots)$ on $S$ satisfying
+\begin{equation}
+\mathbf{\pi}P=\mathbf{\pi}
+\end{equation}
+is called a stationary distribution of the chain.\\\\
+\textbf{Theorem 8.1 (Convergence).} Consider an irreducible, positive recurrent, and aperiodic Markov chain with stationary distribution $\mathbf{\pi}$ and $n$-step transition matrix $p_{ij}^{(n)}$. Then
+\begin{equation}
+p_{ij}^{(n)}\to\pi_j\text{ as }n\to\infty
+\end{equation}
+for all $i,j\in S$.
+
+
+
+
+
+
+
+
+
+\end{document}

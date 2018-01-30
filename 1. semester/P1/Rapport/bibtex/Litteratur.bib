@@ -1,0 +1,340 @@
+%%%% Guide til bibtex og litteratur.bib %%%%
+
+% Alle kilder angives efter Harvard-metoden og vil i rapporten fremstaa med [FORFATTER, AAR] eller mere praecist [EFTERNAVN, AAR].
+
+% Nederst findes eksempler paa kildeangivelser af typerne book, article, manual techreport og misc.
+	% - Book bruges ved helt almindelige boeger
+	% - Article bruges ved artikler og udgivelser
+	% - Manual bruges ved henvisninger fra internettet, idet \url-funktionen findes her
+	% - Techreport kan bruges ved mindre udgivelser, hvor kun titel, forfatter og aar er noedvendig eller tilgaengelig
+	% - Misc kan bruges ved det, der falder udenfor de andre kategorier - interview, forelaesninger, foredrag osv. 
+
+% Hvis der er flere forfattere paa en kilde, SKAL de listes med 'and' imellem dem - ogsaa ved 3 og derover (f.eks. FORFATTER 1 and FORFATTER 2 and FORFATTER 3). Naar kildelisten bygges i rapporten, vil der ved 2 forfattere komme til at staa [EFTERNAVN 1 og EFTERNAVN 2, AAR] og ved 3 forfattere og derover komme til at staa [EFTERNAVN 1 et. al, AAR]. 
+
+% Ved almindelige forfatternavne skal der vaere ét saet tuborg-parenteser ved Author (f.eks. author = {H. C. Andersen}). Ved andre navne (f.eks. virksomheder, hjemmesider, grupper, raad, naevn osv.) skal der vaere 2 saet tuborg-parenteser ved Author (f.eks. author = {{Dansk Standard}}). Begrundelse: Med 2 saet tuborg-parenteser skrives hele parentesen ud som forfatter, [Dansk Standard, AAR]. Alternativt ville der i eksemplet bare komme til at staa [Standard, AAR].
+
+%-----------------------------------------------------%
+
+%%%% EKSEMPLER (book, article, manual, techreport og misc) %%%%
+
+@book{fysikbog,
+	title = {Physics for Scientists and Engineers, 7th edition},
+	author = {John W. Jewett and Raymond A. Serway},
+	year = {2008},
+	number = {ISBN: 0-495-11240-2},
+	series = {Paperback},
+	publisher = {Thomson Learning}
+}
+
+@article{maalere,
+	author = {Lars Gullev and Michael Poulsen},
+	title = {The installation of meters leads to permanent changes in consumer behaviour},
+	journal = {News from DBDH},
+	volume = {Journal 3/2006},
+	pages = {s. 20-24},
+	year = {2006}
+}
+
+@manual{renostra,
+	author ={{Klima-, Energi- og Bygningsministeriet}},
+	title ={Strategi for energirenovering af bygninger},
+	address={\url{http://www.ens.dk/info/publikationer/strategi-energirenovering-bygninger}},
+	year ={2014},
+	note ={Downloadet: 23-02-2015}
+}
+
+@techreport{rcf,
+	author = {Bent Flyvbjerg},	
+	title = {Reference class forecasting: Ide, metode og anvendelse},
+	year = {2007}
+}
+
+@misc{videnskabsteori,
+	author = {Victor Hansen},
+	howpublished = {Forårssemesteret},
+	title = {Forelæsning i Videnskabsteori},
+	year = {2014}	
+}
+
+@misc{cd,
+	author ={Bilags-CD},
+	title ={CD med bilag tilhørende B205}	
+}
+
+@manual{lena,
+	author ={Mike Wakin},
+	title ={Lena},
+	address={\url{http://www.ece.rice.edu/~wakin/images/lena512color.tiff}},
+	note ={Downloadet: 20-10-2015}
+}
+
+@manual{whydomath_basic,
+	author ={{Society for Industrial and Applied Mathematics}},
+	title ={Image Compression: How Math led to the JPEG2000 Standard, Basic JPEG},
+	address={\url{http://www.whydomath.org/node/wavlets/basicjpg.html}},
+	note ={Besøgt: 21-10-2015}
+}
+
+@manual{whydomath_dct,
+	author ={{Society for Industrial and Applied Mathematics}},
+	title ={Image Compression: How Math led to the JPEG2000 Standard, The Discrete Cosine Transformation},
+	address={\url{http://www.whydomath.org/node/wavlets/dct.html}},
+	note ={Besøgt: 21-10-2015}
+}
+
+@manual{whydomath_quantization,
+	author ={{Society for Industrial and Applied Mathematics}},
+	title ={Image Compression: How Math led to the JPEG2000 Standard, Quantization},
+	address={\url{http://www.whydomath.org/node/wavlets/quantization.html}},
+	note ={Besøgt: 21-10-2015}
+}
+
+@manual{guillermo_sapiro,
+	author ={Sapiro, Guillermo},
+	title={Digital image processing: p010 - The Discrete Cosine Transform (DCT)},
+	address={\url{https://www.youtube.com/watch?v=_bltj_7Ne2c}},
+	note={Besøgt: 23-10-2015}
+}
+
+@manual{smcnus_energy,
+	author ={Wang, Ye and Vilermo, Miikka and Yaroslavski, Leonid},
+	title ={Energy Compaction Property of the MDCT in Comparison with Other Transforms},
+	address ={\url{http://www.smcnus.org/papers/1.Audio_and_Music_Analysis_and_Retrieval/2001_Energy_Compaction_Property_of_the_MDCT_in_Comparison_with_Other_Transforms.pdf}},
+	note ={Besøgt: 30-10-2015}
+}
+
+@book{applied_mathematics,
+	title = {{Applied Mathematics: Data Compression, Spectral Methods, Fourier Analysis, Wavelets, and Applications}},
+	author = {Chui, Charles K. and Jiang, Qingtang},
+	year = {2013},
+	number = {ISBN: 978-94-6239-009-6},
+	publisher = {Atlantis Press}
+}
+
+@manual{konjugeret,
+	author ={Madsen, Tage Gutmann},
+	title ={Konjugeret tal},
+	address ={\url{http://www.denstoredanske.dk/It,_teknik_og_naturvidenskab/Matematik_og_statistik/Regning,_algebra_og_talteori/konjugeret_tal}},
+	note ={Besøgt: 4-11-2015}
+}
+
+@manual{zero_padding,
+	author = {Marcus, Matt},
+	title = {JPEG Image Compression},
+	address = {\url{http://www.cs.dartmouth.edu/~mgm/Final%20Report.pdf}},
+	note = {Besøgt 12-12-2015}
+}
+
+@book{linalg,
+	title = {Elementary Linear Algebra 2015},
+	author = {Spence, Lawrence E. and Insel, Arnold J. and Friedberg, Stephen H.}},
+	year = {2008},
+	number = {ISBN: 978-1-78448-372-2},
+	publisher = {Pearson Education, Inc.}
+}
+
+@manual{lokminglui,
+	author = {Lui, Lok Ming},
+	title = {Image compression and the Discrete Cosine Trasnform},
+	address = {\url{http://www.lokminglui.com/dct.pdf}},
+	note = {Besøgt: 4-11-2015}
+}
+
+@manual{curtis_newbold,
+	author = {Newbold, Curtis},
+	title = {The Difference between CMYK and RGB color},
+	address = {\url{http://thevisualcommunicationguy.com/2013/05/14/the-difference-between-cmyk-and-rgb-color/}},
+	note = {Besøgt 8-11-2015}
+}
+
+@manual{color_matters,
+	author = {Morton, J.L.},
+	title = {Color Systems - RGB & CMYK},
+	address = {\url{http://www.colormatters.com/color-and-design/color-systems-rgb-and-cmyk}},
+	note = {Besøgt 8-11-2015}
+}
+
+@manual{RGB/CMYK,
+	author = {Miller, Eric},
+	title = {About the CMYK Color Model},
+	address = {\url{http://graphicdesign.about.com/od/colorbasics/a/cmyk.htm}},
+	note = {Besøgt 8-11-2015}
+}
+
+@manual{lokminglui_basic,
+	author = {Lui, Lok ming},
+	title = {Image Compression Basics},
+	addres = {\url{http://www.lokminglui.com/CompressionTutorial.pdf}},
+	note = {Besøgt 8-11-2015}
+}
+
+@manual{eigen_orthogonal,
+	author = {Eccles, Peter J.},
+	title = {MATH10212 • Linear Algebra • Brief lecture notes},
+	address = {\url{http://www.maths.manchester.ac.uk/~peter/MATH10212/notes10.pdf}},
+	note = {Besøgt 10-11-2015}
+}
+
+@manual{spectralteorem,
+	author = {Mattingley, Jacob},
+	title = {Spectral theorem: eigenvalue decomposition for symmetric matrices},
+	address = {\url{https://inst.eecs.berkeley.edu/~ee127a/book/login/thm_sed.html}},
+	note = {Besøgt 10-11-2015}
+}
+
+@manual{matthews,
+	author = {Matthews, Rick},
+	title = {Digital Image File Types Explained},
+	address ={\url{http://users.wfu.edu/matthews/misc/graphics/formats/formats.html}},
+	note = {Besøgt 11-11-2015}
+}
+
+@manual{KLT,
+	author = {Hsu, Chao-Hsing and Guo, Zhen and Yen, Kang},
+	title = {Comparison of Image Apprioximation Methods: Fourier Transform, Cosine Transform, Wavelets Packet and Karhunen Loeve Transform},
+	address = {\url{http://www.wseas.us/e-library/conferences/mexico2002/papers/304.pdf}},
+	note = {Besøgt 11-11-2015}
+}
+
+@manual{lokminglui_DCT,
+	author = {Lui, Lok Ming},
+	title = {The Discrete Cosine Transform (DCT): Theory and Application},
+	address = {\url{http://www.lokminglui.com/DCT_TR802.pdf}},
+	note = {Besøgt 11-11-2015}
+}
+
+@manual{electronic_engineering,
+	author = {Wang, Miaohui},
+	title = {Laboratory 1 Discrete Cosine Transform and Karhunen-Loeve Transform},
+	address = {\url{http://www.ee.cuhk.edu.hk/~mhwang/website_files/eleg5431/report_sample.pdf}},
+	note = {Besøgt 13-11-2015}
+}
+
+@book{normalization,
+	title = {Discrete Cosine Transform, Algorithms, Advantages, Applications},
+	author = {Rao, K.R. and Yip, P.},
+	year = {1990},
+	number = {0-12-580203-X},
+	publisher = {Academic Press, Inc.}
+}
+
+@manual{PCA_slens,
+	author = {Shlens, Jonathon},	
+	title = {A Tutorial on Principal Component Analysis},	
+	address = {\url{http://www.cs.cmu.edu/~elaw/papers/pca.pdf}}
+}
+
+@manual{PCA_people,
+	author = {Richardson, Mark},
+	title = {Principal Component Analysis},
+	address = {\url{http://people.maths.ox.ac.uk/richardsonm/SignalProcPCA.pdf}},
+	note = {Besøgt 25-11-2015}
+}
+
+@manual{thefouriertransform,
+	author = {Bevelacqua, Peter},
+	title = {The Fourier Transform .com},
+	address = {\url{http://www.thefouriertransform.com/}},
+	note = {Besøgt 26-11-2015}
+}
+
+@manual{thefouriertransform_intro,
+	author = {Bevelacqua, Peter},
+	title = {Introduction to the Fourier Transform},
+	address = {\url{http://www.thefouriertransform.com/#introduction},
+	note = {Besøgt 26-11-2015}
+}
+
+@manual{nbtwiki,
+	author = {{The Neurophysiological Biomarker Toolbox}},
+	title = {The Discrete Fourier Transformation (DFT): Definition and numerical examples},
+	address = {\url{https://www.nbtwiki.net/doku.php?id=tutorial:the_discrete_fourier_transformation_dft}},
+	note = {Besøgt 26-11-2015}
+}
+
+@techreport{grafteori,
+	author = {Rosenkilde, Kirsten},	
+	title = {Grafteori},
+	year = {2014},
+	address = {\url{http://www.georgmohr.dk/noter/grafteori2014.pdf}},
+	note = {Besøgt 27-11-2015}
+}
+
+@manual{Facebook,
+	author = {Barker, James},
+	title = {Avoiding Facebook image compression},
+	address = {\url{http://www.freedigitalphotos.net/blog/tutorials/avoiding-facebook-image-compression/}},
+	note = {Besøgt 27-11-2015}
+}
+
+@manual{ycbcr_definition,
+	author = {{PC Mag Encyclopedia}},
+	title = {Definition of:YCbCr},
+	address = {\url{http://www.pcmag.com/encyclopedia/term/55147/ycbcr}},
+	note = {Besøgt 29-11-2015}
+}
+
+@manual{ycbcr,
+	author = {Marjanovic, Matthew},
+	title = {What is Y'CBCR?},
+	address = {\url{http://www.mir.com/DMG/ycbcr.html}},
+	note = {Besøgt 29-11-2015}
+}
+
+@manual{farvetransformation,
+	author = {Spears and Munsil},
+	title = {Choosing a Color Space},
+	address = {\url{http://handforgedvideo.com/portfolio/choosing-a-color-space/}},
+	note = {Besøgt 29-11-2015}
+}
+
+@misc{dft_argument,
+	author = {Blinn, James F.},	
+	howpublished = {Jim Blinn's Corner, California Institute of Technology},
+	title = {What's the Deal with the DCT?},
+	year = {2014}	
+	address = {\url{https://www.cs.unc.edu/~kmp/comp832-s08/readings/blinn-dct.pdf}}
+}
+
+@manual{similar_wolfram,
+	author = {Weisstein, Eric W.},
+	title = {Similarity Transformation},
+	address = {\url{http://mathworld.wolfram.com/SimilarityTransformation.html}},
+	note = {Besøgt 8-12-2015}
+}
+
+@manual{change_of_basis,
+	author = {Frankland, Martin},
+	title = {Similar Matrices},
+	address = {\url{http://guests.mpim-bonn.mpg.de/franklan/Math416/Math416_SimilarMatrices.pdf}},
+	note = {Besøgt 8-12-2015}
+}
+
+@manual{DTT,
+	author = {Kumar, D. Maruthi and Prasanth, Babu P. and Rangaiah, Leburu},
+	title = {Implementation of Discrete Tchebichef Transform for
+Image Compression},
+	address = {\url{http://jorstem.com/Proceedings/electronics/ICETSTEM201503006.pdf}},
+	note = {Besøgt 16-12-2015}
+}
+
+@manual{leftinverse,
+	author = {OpenCourseWare, Massachusetts Institute of Technology},
+	title = {Left and right inverses; pseudoinverse},
+	address = {\url{http://ocw.mit.edu/courses/mathematics/18-06sc-linear-algebra-fall-2011/positive-definite-matrices-and-applications/left-and-right-inverses-pseudoinverse/MIT18_06SCF11_Ses3.8sum.pdf}},
+	note = {Besøgt 17-12-2015}
+}
+
+@manual{frequency_image,
+	author = {Cao, Shuhao},
+	title = {Frequency Domain},
+	address = {\url{http://tex.stackexchange.com/questions/127375/replicate-the-fourier-transform-time-frequency-domains-correspondence-illustrati}},
+	note = {Besøgt: 17-12-2015}
+}
+
+@manual{PCA_jeff,
+	author = {Jauregui, Jeff},
+	title = {Principal component analysis with linear algebra},
+	address = {\url{http://www.math.union.edu/~jaureguj/PCA.pdf}},
+	note = {Besøgt: 10-12-2015}
+}

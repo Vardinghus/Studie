@@ -1,0 +1,44 @@
+\subsection{Huffman coding}
+\label{sec:huffmanteori}
+Huffman coding er en komprimeringsmetode, hvorpå en stor mængde data kan repræsenteres ved hjælp af de enkelte symbolers (i vores tilfælde tallene $0-255$) sandsynlighed for at fremkomme. Komprimering med Huffman coding tildeler alle symboler, der fremkommer i datastrengen, et kodeord af variabel længde, der afhænger af symbolets sandsynlighed. Dette betyder at et symbol, der fremkommer mange gange være tildelt et kortere kodeord end et symbol, der fremkommer få gange. Herved vil mængden af bits brugt til at repræsentere en datastreng blive nedbragt, da symboler der fremkommer mange gange fylder mindre, end dem der fremkommer få gange. Et kodeord er en binær repræsentation af symbolet og kunne fx være
+\begin{align}
+"A=0, B=10, C=110, D=111"
+\label{fx:huffman prefix}
+\end{align}
+Vigtigt at nævne er at Huffman coding er en præfix-fri kode, hvilket betyder at symboler ikke kan beskrives som sammensætning af andre symboler. Havde eksempel \vref{fx:huffman prefix} været $"A=0, B=1, C=10, D=11"$ ville en streng af $0$ og $1$ ikke kunne afkodes uden at kodeordene var synligt adskilt, da det ikke vil være muligt at se om $10$ betyder BA eller C. Det er derfor vigtigt i Huffman coding at der ikke er nogle præfix for symbolerne, men at koden kan interpreteres entydigt.
+
+\subsubsection{Huffmantræ}
+Huffman coding foregår via skabelsen af et Huffmantræ, som er et overblik over sandsynligheden for at de enkelte symboler fremkommer og hvilket kodeord de skal tildeles. For at forklare skabelsen af et Huffmantræ laves et eksempel bestående af fire symboler, der viser principperne i skabelsen af træet.
+Lad os antage at datastrengen lyder $$ abbacdababaccaddabbbacaadabaaddaaccaaaadaadaabaadacaadabaaadacaaadabaa
+ $$ så kan sandsynligheden for at de enkelte symboler i datastrengen beregnes. Disse er agivet i tabel \vref{tb:huffman_sandsynlighed}.
+\begin{table}[!h]
+\centering
+\begin{tabular}{|c|c|c|} 
+\hline
+\textbf{Symbol}	&	\textbf{Antal}	&	\textbf{Sandsynlighed}			\\ \hline
+a		&	39		&	$\approx  0.56$	\\ \hline
+b		&	11		&	$\approx  0.16$	\\ \hline
+c		&	8		&	$\approx  0.11$	\\ \hline
+d		&	12		&	$\approx  0.17$	\\ \hline
+\textbf{Total}	&	\textbf{70}		&	\textbf{$\approx 1$}				\\ \hline
+\end{tabular}
+\caption{Sandsynligheder for de enkelte symboler}
+\label{tb:huffman_sandsynlighed}
+\end{table}
+
+Ud fra tabel \vref{tb:huffman_sandsynlighed} opstilles der fire blade, med hvert deres symbol som indgang, se figur \vref{fig:huffmantrae_ex1}. Herefter opstilles de to blade med den mindste sandsynlighed i et undertræ, med bladene som indgange, se figur \vref{fig:huffmantrae_ex2}. I dette eksempel vil det være bladene for b og c, hvor bladet med mindst sandsynlighed placeres yderst til højre. Hyppigheden af dette undertræ er summen af de to blades sandsynlighed og giver her $0.11+0.16=0.27$. Derudover tildeles indgangene hhv. et $0-$ og $1-$tal, som senere bruges til definering af symbolets kodeord. Herefter kigges der på de to blade/undertræer, der har den mindste sandsynlighed, hvilket er undertræet for b,c (samlet sandsynlighed: $0.27$) og d (sandsynlighed: $0.17$). Disse samles i et undertræ, hvor mindste sandsynlighed igen placeres yderst til højre og undertræets samlede sandsynlighed er summen af bladenes sandsynlighed ($0.27+0.17=0.44$), se figur \vref{fig:huffmantrae_ex3}. Samme fremgangsmåde gentages for de sidste to undertræer/blade og derved skabes det totale og færdige Huffmantræ, se figur \vref{fig:huffmantrae_ex4}.
+
+Qua træet på figur \vref{fig:huffmantrae_ex4} kan symbolernes kodeord defineres som værende
+\begin{table}[!h]
+\centering
+\begin{tabular}{|c|c|} 
+\hline
+\textbf{Symbol}	&	\textbf{Kodeord}	\\ \hline
+a		&	1	\\ \hline
+b		&	011	\\ \hline
+c		&	010	\\ \hline
+d		&	00	\\ \hline
+\end{tabular}
+\caption{Symbolernes kodeord}
+\label{tb:huffman_ex}
+\end{table}

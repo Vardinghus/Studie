@@ -1,0 +1,227 @@
+\begin{thebibliography}{29}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Bevelacqua()]{thefouriertransform}
+\textbf{\textbf{Bevelacqua}}.
+\newblock Peter Bevelacqua.
+\newblock \textit{The Fourier Transform .com}.
+\newblock \url{http://www.thefouriertransform.com/}.
+\newblock Besøgt 26-11-2015.
+
+\bibitem[Blinn(2014)]{dft_argument}
+\textbf{Blinn}, \textbf{2014}.
+\newblock James~F. Blinn.
+\newblock \textit{What's the Deal with the DCT?}
+\newblock Jim Blinn's Corner, California Institute of Technology, 2014.
+
+\bibitem[Cao()]{frequency_image}
+\textbf{\textbf{Cao}}.
+\newblock Shuhao Cao.
+\newblock \textit{Frequency Domain}.
+\newblock
+  \url{http://tex.stackexchange.com/questions/127375/replicate-the-fourier-transform-time-frequency-domains-correspondence-illustrati}.
+\newblock Besøgt: 17-12-2015.
+
+\bibitem[Chui og Jiang(2013)]{applied_mathematics}
+\textbf{Chui og Jiang}, \textbf{2013}.
+\newblock Charles~K. Chui og Qingtang Jiang.
+\newblock \textit{{Applied Mathematics: Data Compression, Spectral Methods,
+  Fourier Analysis, Wavelets, and Applications}}.
+\newblock  ISBN: 978-94-6239-009-6. Atlantis Press, 2013.
+
+\bibitem[Jauregui()]{PCA_jeff}
+\textbf{\textbf{Jauregui}}.
+\newblock Jeff Jauregui.
+\newblock \textit{Principal component analysis with linear algebra}.
+\newblock \url{http://www.math.union.edu/~jaureguj/PCA.pdf}.
+\newblock Besøgt: 10-12-2015.
+
+\bibitem[Kumar et~al.()Kumar, Prasanth, og Rangaiah]{DTT}
+\textbf{\textbf{Kumar et~al.}}
+\newblock D.~Maruthi Kumar, Babu~P. Prasanth  og Leburu Rangaiah.
+\newblock \textit{Implementation of Discrete Tchebichef Transform for Image
+  Compression}.
+\newblock
+  \url{http://jorstem.com/Proceedings/electronics/ICETSTEM201503006.pdf}.
+\newblock Besøgt 16-12-2015.
+
+\bibitem[Lui({\natexlab{a}})]{lokminglui}
+\textbf{Lui}, \textbf{{\natexlab{a}}}.
+\newblock Lok~Ming Lui.
+\newblock \textit{Image compression and the Discrete Cosine Trasnform}.
+\newblock \url{http://www.lokminglui.com/dct.pdf}.
+\newblock Besøgt: 4-11-2015.
+
+\bibitem[Lui({\natexlab{b}})]{lokminglui_DCT}
+\textbf{Lui}, \textbf{{\natexlab{b}}}.
+\newblock Lok~Ming Lui.
+\newblock \textit{The Discrete Cosine Transform (DCT): Theory and Application}.
+\newblock \url{http://www.lokminglui.com/DCT_TR802.pdf}.
+\newblock Besøgt 11-11-2015.
+
+\bibitem[Madsen()]{konjugeret}
+\textbf{\textbf{Madsen}}.
+\newblock Tage~Gutmann Madsen.
+\newblock \textit{Konjugeret tal}.
+\newblock
+  \url{http://www.denstoredanske.dk/It,_teknik_og_naturvidenskab/Matematik_og_statistik/Regning,_algebra_og_talteori/konjugeret_tal}.
+\newblock Besøgt: 4-11-2015.
+
+\bibitem[Marcus()]{zero_padding}
+\textbf{\textbf{Marcus}}.
+\newblock Matt Marcus.
+\newblock \textit{JPEG Image Compression}.
+\newblock \url{http://www.cs.dartmouth.edu/~mgm/Final%20Report.pdf}.
+\newblock Besøgt 12-12-2015.
+
+\bibitem[Marjanovic()]{ycbcr}
+\textbf{\textbf{Marjanovic}}.
+\newblock Matthew Marjanovic.
+\newblock \textit{What is Y'CBCR?}
+\newblock \url{http://www.mir.com/DMG/ycbcr.html}.
+\newblock Besøgt 29-11-2015.
+
+\bibitem[Matthews()]{matthews}
+\textbf{\textbf{Matthews}}.
+\newblock Rick Matthews.
+\newblock \textit{Digital Image File Types Explained}.
+\newblock
+  \url{http://users.wfu.edu/matthews/misc/graphics/formats/formats.html}.
+\newblock Besøgt 11-11-2015.
+
+\bibitem[Newbold()]{curtis_newbold}
+\textbf{\textbf{Newbold}}.
+\newblock Curtis Newbold.
+\newblock \textit{The Difference between CMYK and RGB color}.
+\newblock
+  \url{http://thevisualcommunicationguy.com/2013/05/14/the-difference-between-cmyk-and-rgb-color/}.
+\newblock Besøgt 8-11-2015.
+
+\bibitem[OpenCourseWare()]{leftinverse}
+\textbf{\textbf{OpenCourseWare}}.
+\newblock Massachusetts Institute of~Technology OpenCourseWare.
+\newblock \textit{Left and right inverses; pseudoinverse}.
+\newblock
+  \url{http://ocw.mit.edu/courses/mathematics/18-06sc-linear-algebra-fall-2011/positive-definite-matrices-and-applications/left-and-right-inverses-pseudoinverse/MIT18_06SCF11_Ses3.8sum.pdf}.
+\newblock Besøgt 17-12-2015.
+
+\bibitem[{PC Mag Encyclopedia}()]{ycbcr_definition}
+\textbf{\textbf{{PC Mag Encyclopedia}}}.
+\newblock {PC Mag Encyclopedia}.
+\newblock \textit{Definition of:YCbCr}.
+\newblock \url{http://www.pcmag.com/encyclopedia/term/55147/ycbcr}.
+\newblock Besøgt 29-11-2015.
+
+\bibitem[Rao og Yip(1990)]{normalization}
+\textbf{Rao og Yip}, \textbf{1990}.
+\newblock K.R. Rao og P.~Yip.
+\newblock \textit{Discrete Cosine Transform, Algorithms, Advantages,
+  Applications}.
+\newblock  0-12-580203-X. Academic Press, Inc., 1990.
+
+\bibitem[Richardson()]{PCA_people}
+\textbf{\textbf{Richardson}}.
+\newblock Mark Richardson.
+\newblock \textit{Principal Component Analysis}.
+\newblock \url{http://people.maths.ox.ac.uk/richardsonm/SignalProcPCA.pdf}.
+\newblock Besøgt 25-11-2015.
+
+\bibitem[Rosenkilde(2014)]{grafteori}
+\textbf{Rosenkilde}, \textbf{2014}.
+\newblock Kirsten Rosenkilde.
+\newblock \textit{Grafteori},
+  \url{http://www.georgmohr.dk/noter/grafteori2014.pdf}, 2014.
+\newblock Besøgt 27-11-2015.
+
+\bibitem[Sapiro()]{guillermo_sapiro}
+\textbf{\textbf{Sapiro}}.
+\newblock Guillermo Sapiro.
+\newblock \textit{Digital image processing: p010 - The Discrete Cosine
+  Transform (DCT)}.
+\newblock \url{https://www.youtube.com/watch?v=_bltj_7Ne2c}.
+\newblock Besøgt: 23-10-2015.
+
+\bibitem[Shlens()]{PCA_slens}
+\textbf{\textbf{Shlens}}.
+\newblock Jonathon Shlens.
+\newblock \textit{A Tutorial on Principal Component Analysis}.
+\newblock \url{http://www.cs.cmu.edu/~elaw/papers/pca.pdf}.
+
+\bibitem[{Society for Industrial and Applied
+  Mathematics}({\natexlab{a}})]{whydomath_basic}
+\textbf{{Society for Industrial and Applied Mathematics}},
+  \textbf{{\natexlab{a}}}.
+\newblock {Society for Industrial and Applied Mathematics}.
+\newblock \textit{Image Compression: How Math led to the JPEG2000 Standard,
+  Basic JPEG}.
+\newblock \url{http://www.whydomath.org/node/wavlets/basicjpg.html}.
+\newblock Besøgt: 21-10-2015.
+
+\bibitem[{Society for Industrial and Applied
+  Mathematics}({\natexlab{b}})]{whydomath_dct}
+\textbf{{Society for Industrial and Applied Mathematics}},
+  \textbf{{\natexlab{b}}}.
+\newblock {Society for Industrial and Applied Mathematics}.
+\newblock \textit{Image Compression: How Math led to the JPEG2000 Standard, The
+  Discrete Cosine Transformation}.
+\newblock \url{http://www.whydomath.org/node/wavlets/dct.html}.
+\newblock Besøgt: 21-10-2015.
+
+\bibitem[Spears og Munsil()]{farvetransformation}
+\textbf{\textbf{Spears og Munsil}}.
+\newblock Spears og Munsil.
+\newblock \textit{Choosing a Color Space}.
+\newblock \url{http://handforgedvideo.com/portfolio/choosing-a-color-space/}.
+\newblock Besøgt 29-11-2015.
+
+\bibitem[Spence et~al.()Spence, Insel, og Friedberg]{linalg}
+\textbf{\textbf{Spence et~al.}}
+\newblock Lawrence~E. Spence, Arnold~J. Insel  og Stephen~H. Friedberg.
+\newblock \textit{Elementary Linear Algebra 2015}.
+
+\bibitem[{The Neurophysiological Biomarker Toolbox}()]{nbtwiki}
+\textbf{\textbf{{The Neurophysiological Biomarker Toolbox}}}.
+\newblock {The Neurophysiological Biomarker Toolbox}.
+\newblock \textit{The Discrete Fourier Transformation (DFT): Definition and
+  numerical examples}.
+\newblock
+  \url{https://www.nbtwiki.net/doku.php?id=tutorial:the_discrete_fourier_transformation_dft}.
+\newblock Besøgt 26-11-2015.
+
+\bibitem[Wakin()]{lena}
+\textbf{\textbf{Wakin}}.
+\newblock Mike Wakin.
+\newblock \textit{Lena}.
+\newblock \url{http://www.ece.rice.edu/~wakin/images/lena512color.tiff}.
+\newblock Downloadet: 20-10-2015.
+
+\bibitem[Wang()]{electronic_engineering}
+\textbf{\textbf{Wang}}.
+\newblock Miaohui Wang.
+\newblock \textit{Laboratory 1 Discrete Cosine Transform and Karhunen-Loeve
+  Transform}.
+\newblock
+  \url{http://www.ee.cuhk.edu.hk/~mhwang/website_files/eleg5431/report_sample.pdf}.
+\newblock Besøgt 13-11-2015.
+
+\bibitem[Wang et~al.()Wang, Vilermo, og Yaroslavski]{smcnus_energy}
+\textbf{\textbf{Wang et~al.}}
+\newblock Ye~Wang, Miikka Vilermo  og Leonid Yaroslavski.
+\newblock \textit{Energy Compaction Property of the MDCT in Comparison with
+  Other Transforms}.
+\newblock
+  \url{http://www.smcnus.org/papers/1.Audio_and_Music_Analysis_and_Retrieval/2001_Energy_Compaction_Property_of_the_MDCT_in_Comparison_with_Other_Transforms.pdf}.
+\newblock Besøgt: 30-10-2015.
+
+\bibitem[Weisstein()]{similar_wolfram}
+\textbf{\textbf{Weisstein}}.
+\newblock Eric~W. Weisstein.
+\newblock \textit{Similarity Transformation}.
+\newblock \url{http://mathworld.wolfram.com/SimilarityTransformation.html}.
+\newblock Besøgt 8-12-2015.
+
+\end{thebibliography}

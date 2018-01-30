@@ -1,0 +1,119 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent{\huge Detection Theory}\\\\
+\textbf{Example:} A radar-based target detector outputs a signal
+\begin{align*}
+X(n)&=s+W(n),&n=1,2,\ldots
+\end{align*}
+where
+\begin{align*}
+s=\begin{cases}0,&\text{when no target is detected}\\
+1,&\text{when allied target is detected}\\
+2,&\text{when enemy target is detected}\end{cases}
+\end{align*}
+and $w(n=\overset{i.i.d.}\sim\mathcal{N}(0,1)$. An operator of a defense system observes
+\begin{align*}
+\mathbf{X}=\begin{bmatrix}X(1)\\X(2)\end{bmatrix}=\begin{bmatrix}1.9\\1.1\end{bmatrix}
+\end{align*}
+Should a missile be shot at the target?\\\\
+\textbf{Elements of detection theory}
+\begin{itemize}
+\item Set of $K$ hypotheses: $\mathcal{H}\{h_0,h_1,\ldots,h_{K-1}\}$
+\item True (but unknown) hypthesis: $H$
+\item Vector of observations: $\mathbf{X}=[x_0,x_2,\ldots,x_N]^T$
+\item Prior information: $P_k=P(H=h_k),\phantom{mm}k=0,\ldots,K-1$
+\end{itemize}
+\textbf{Decision Rule}
+\begin{align*}
+\hat{H}(\mathbf{X}):\phantom{mm}\hat{H}:\text{range}(\mathbf{X})\to\mathcal{H}
+\end{align*}
+$\hat{H}$ should be designed to be optimal according to a criterion. For example to make the right decision as often as possible.\\\\
+\textbf{Maximum a-posteriori (MAP) rule}\\
+The probability of a correct decision given $\mathbf{X}=\mathbf{x}$ is:
+\begin{align*}
+P(\hat{H}(\mathbf{x})=H|\mathbf{X}=\mathbf{x})
+\end{align*}
+Examine the a-posteriori probabilities (APP) of $H$:
+\begin{align*}
+P(H=h_k|\mathbf{X}=\mathbf{x})=\frac{f_{\mathbf{X}|H}(\mathbf{x}|H=h_k)P_k}{f_{\mathbf{X}}(\mathbf{x})}
+\end{align*}
+where $f_{\mathbf{X}|H}(\mathbf{x}|H=h_k)$ is called the likelihod for $h_k$ and $f_{\mathbf{X}}(\mathbf{x})=\sum_{k=0}^{K-1}f_{\mathbf{X}|H}(\mathbf{x})$.
+\textbf{MAP-rule}\\
+\begin{align*}
+\hat{H}_{MAP}(\mathbf{x})&=\underset{h_k\in\mathcal{H}}{\arg\max} P(H=h_k|\mathbf{x})\\
+&=\underset{h_k\in\mathcal{H}}{\arg\max}\frac{f_{\mathbf{X}|H}(\mathbf{x}|H=h_k)P_k}{f_{\mathbf{X}}(\mathbf{x})}
+\end{align*}
+As we are only interested in the argument and $f_{\mathbf{X}}(\mathbf{x})$ is a positive constant we can negalect it:
+\begin{align*}
+\hat{H}_{MAP}(\mathbf{x})=\underset{h_k\in\mathcal{H}}{\arg\max}f_{\mathbf{X}|H}(\mathbf{x}|H=h_k)P_k
+\end{align*}
+If $P_k$ is constant for all $k$ this can furthermore be ignored.
+Probability of error:
+\begin{align*}
+P_e=1-P(\hat{H}=H)=1-\int_{\mathbf{X}}P(\hat{H}=H|\mathbf{x})f_{\mathbf{X}}(\mathbf{x})d\mathbf{x}
+\end{align*}
+Insert the MAP-rule:
+\begin{align*}
+P_e=1-P(\hat{H}_{MAP}=H)=1-\int_{\mathbf{X}}P(\hat{H}_{MAP}=H|\mathbf{x})f_{\mathbf{X}}(\mathbf{x})d\mathbf{x}
+\end{align*}
+If the MAP-rule maximizes the part in the integral then it minimizes $P_e$.\\\\
+\textbf{Example (continued)}
+\begin{align*}
+X(n)|H&=h_k\overset{i.i.d.}\sim\mathcal{N}(s_k,1),&s_k=\begin{cases}0,&k=0\\1,&k=1\\2,&k=2\end{cases}\\
+f_{\mathbf{X}|H}(\mathbf{x}|h_k)&=f_{X(1)|H}(x(1)|h_k)f_{X(2)|H}(x(2)|h_k)\\
+&=\frac{1}{\sqrt{2\pi}}\exp\left(-(x(1)-s_k)^2\right)\frac{1}{\sqrt{2\pi}}\exp\left(-(x(2)-s_k)^2\right)
+\end{align*}
+The MAP-rule:
+\begin{align*}
+H_{MAP}(\mathbf{X})&=\underset{h_k\in\mathcal{H}}{\arg\max}f_{\mathbf{X}|H}(\mathbf{x}|h_k)P_k\\
+&=\underset{h_k\in\mathcal{H}}{\arg\max}\frac{1}{2\pi}\exp\left(-(x(1)-s_k)^2-(x(2)s_k)^2\right)P_k\\
+&=\underset{h_k\in\mathcal{H}}{\arg\max}-(x(1)-s_k)^2-(x(2)-s_k)+\log P_k,&\text{Applying }\log\\
+&=\underset{h_k\in\mathcal{H}}{\arg\min}(x(1)-s_k)^2+(x(2)-s_k)^2-\log P_k
+\end{align*}
+\textbf{Expected cost}\\
+Compute the expected cost of deciding for hypothesis $h_k$:
+\begin{align*}
+C(\hat{H}=h_k|\mathbf{X})=\sum_{k'=0}^{K=1}C_{kk'}P(H=k'+\mathbf{X})
+\end{align*}
+Notice the difference between $k$ and $k'$. We want to minimize the expected cost:
+\begin{align*}
+\hat{H}_{Bayes}(\mathbf{x})=\underset{h_k\in\mathcal{H}}{\arg\min}C(h_k|\mathbf{x})
+\end{align*}
+\textbf{Binary decisions}\\
+Only 2 hypotheses:\\
+$K=2$, $\mathcal{H}=\{h_0,h_1\}$\\
+This gives
+\begin{align*}
+\hat{H}_{ML}(\mathbf{x})&=\underset{h_k\in\mathcal{H}}{\arg\max}f_{\mathbf{X}|H}(\mathbf{x}|h_k)\\
+&=\begin{cases}h_0,&\frac{f_{\mathbf{X}|H}(\mathbf{x}|h_0)}{f_{\mathbf{X}|H}(\mathbf{x}|h_1}\geq1\\h_1,&\text{otherwise}\end{cases}
+\end{align*}
+Likelihood ratio
+\begin{align*}
+\Lambda(\mathbf{x})=\frac{f_{\mathbf{X}|H}(\mathbf{x}|h_0)}{f_{\mathbf{X}|H}(\mathbf{x}|h_1)}
+\end{align*}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,89 @@
+\documentclass[12pt,a4paper,draft]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\paragraph{Conditional probability}
+What is the probability of $A$ given $B$?
+\begin{equation}
+\# A \text{ knowing } B=\frac{\# A\cap B}{\# B}
+\end{equation}
+\paragraph{Definition (Conditional probability)}
+Let $B$ be an event with $P(B)>0$.\\
+For ant event $A\in S$
+\begin{equation}
+P(A/B)=\frac{P(A\cap B)}{P(B)}
+\end{equation}
+Putting in the same way as the axioms of probability:
+\paragraph{Proposition} For any event $B$ with $P(B)>0$, $P(\cdot / B)$ is a probability
+\begin{itemize}
+\item For $A\in S$, $0\leq P(A/B)\leq 1$
+\item $P(S/B)=1$
+\item $P(\cup_{k=1}^{+\infty} A_k/B)=\sum_{k=1}^{+\infty}P(A_k/B)$ for $A_i\cap A_j=Ø$ for $i<j$.
+\end{itemize}
+\paragraph{Example} Roll a die and observe the number
+\begin{align}
+A=\{\text{an odd number}\}\\
+B=\{\text{at least 4}\}
+\end{align}
+This gives
+\begin{equation}
+P(A/B)=\frac{P(A\cap B)}{P(B)}=\frac{\frac{1}{6}}{\frac{3}{6}}=\frac{1}{3}
+\end{equation}
+\paragraph{Properties}
+\begin{align}
+P(A^c/B)&=1-P(A/B)\\
+P(A\c/B&=P(A/B)-P(A\cap c/B)\\
+P(A\cup c/B)&=P(A/B)+P(c/B)-P(A\cap c/B)\\
+\text{If }A\in c, \ P(A/B)&\leq P(c/B)
+\end{align}
+\textbf{Independence}\\
+Let $A$ and $B$ be two events\\
+$A$ is independent of $B$ if $P(A\cap B)=P(A)P(B)$\\
+Remark: Assume $P(B)>0$.\\
+$P(A/B)=\frac{P(A\cap B)}{P(b)}=\frac{P(A)P(B)}{P(B)}=P(A)$\\\\
+If $A$ is independant of $B$ then $B$ is independant of $A$.\\\\
+\textbf{Example}\\
+Choose a card from a deck (52 cards)
+\begin{align}
+A&=\{ace\}\\
+B&=\{heart\}
+\end{align}
+Are $A$ and $B$ independant?\\
+The probability of drawing ace of hearts:
+\begin{equation}
+P(A\cap B)=1/52
+\end{equation}
+The probability of $A$:
+\begin{equation}
+P(A)=4/52
+\end{equation}
+The probability of $B$:
+\begin{equation}
+P(B)=13/52=1/4
+\end{equation}
+We have $P(A\cap B)=P(A)P(B)$ so $A$ and $B$ are independant.\\\\
+\textbf{Definition}\\
+Three events $A$, $B$ and $C$ are said to be mutually independant if
+\begin{itemize}
+\setlength\itemsep{0em}
+\item[a)] They are pairwise independant
+\item[b)] $P(A\cap B\cap C)=P(A)P(B)P(C)$
+\end{itemize}
+\textbf{Definition}\\
+For $n=1$ and $A_1,\hdots ,A_n\in S$ the events $A_1,\hdots ,A_n$ are mutually independant if 
+\begin{itemize}
+\item[a)] they are pairwise independant
+\item[b)] any combination of $A$'s is mutually independant
+\end{itemize}
+\textbf{Proposition (Law of Total Probability)}\\
+For any events $B_1,B_2,\hdots$ such that 
+\begin{itemize}
+\item $P(B_i)>0$ for $i=1,2,\hdots$
+\item $B_i\cap B_j=Ø$ for $i\neq j$ and $i,j=1,2,\hdots$
+\item $\cup_{i=1}^{+\infty}B_i=S$
+\end{itemize}
+$B_1,B_2,\hdots$ is called a partition of $S$. And for any event $A$, $P(A)=\sum_{i=1}^{+\infty}P(A/B_i)P(B_i)$
+\end{document}

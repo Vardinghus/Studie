@@ -1,0 +1,106 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent{\Huge Discrete distributions}\\\\
+\textbf{Bernoulli distribution.} Let $A$ be an event. Then random variable $I_A$ defined by
+\begin{equation}
+I_A=
+\begin{cases}
+1\text{ if $A$ occurs}\\
+0\text{ otherwise}
+\end{cases}
+\end{equation}
+is called the $indicator$ of the event $A$ or a $Bernoulli$ random variable.
+\begin{align*}
+E[I_A]&=1p+0(1-p)=p\\
+\text{Var}[I_A]&=E[I_A^2]-(E[I_A])^2=p(1-p)
+\end{align*}
+\textbf{Binomial distribution.} If $X$ has probability mass function
+\begin{equation}
+p(k)=\begin{pmatrix}n\\k\end{pmatrix}p^k(1-p)^{n-k},\phantom{mm}k=0,1,\ldots,n
+\end{equation}
+it is said to have a $biinomial$ $distribution$ with parameters $n$ and $p$, and we write $X\sim\text{bin}$($n,p$).
+\begin{align*}
+E[X]&=np\\
+\text{Var}[X]&=np(1-p)
+\end{align*}
+\textbf{Geometric distribution.} If $X$ has probability mas function
+\begin{equation}
+p(k)=p(1-p)^{k-1},\phantom{mm}k=1,2,\ldots
+\end{equation}
+it is said to have \textit{geometric distribution} with parameter $p$, and we write $X\sim\text{geom}(p)$.
+\begin{align*}
+E[X]&=\frac{1}{p}\\
+\text{Var}[X]&=\frac{1-p}{p^2}
+\end{align*}
+\textbf{Poisson distribution.} If $X$ has probability mass function
+\begin{equation}
+p(k)=\mathrm{e}^{-\lambda}\frac{\lambda^k}{k!},\phantom{mm}k=0,1,\ldots
+\end{equation}
+it is said to have \textit{Poisson distribution} with parameter $\lambda>0$, and we write $X\sim\text{Poi}(\lambda)$.
+\begin{align*}
+E[X]&=\lambda\\
+\text{Var}[X]&=\lambda
+\end{align*}
+\textbf{Hypergeometric distribution.} If $X$ has probability mass function
+\begin{equation}
+p(k)=\frac{\begin{pmatrix}r\\k\end{pmatrix}\begin{pmatrix}N-r\\n-k\end{pmatrix}}{\begin{pmatrix}N\\n\end{pmatrix}},\phantom{mm}k=0,1,\ldots,n
+\end{equation}
+it is said to have a \textit{hypergeometric distribution} with parameters $N,r$ and $n$, written $X\sim\text{hypergeom}(N,r,n)$.
+\begin{align*}
+E[X]&=\frac{nr}{N}\\
+\text{Var}[X]&=n\frac{N-n}{N-1}\frac{r}{N}\left(1-\frac{1}{N}\right)
+\end{align*}
+\clearpage
+\noindent{\Huge Continuous distributions}\\\\
+\textbf{Exponential distribution.} If the pdf of $X$ is
+\begin{equation}
+f(x)=\lambda\mathrm{e}^{-\lambda x},\phantom{mm}x\geq0
+\end{equation}
+then $X$ is said to have an \textit{exponential distribution} with parameter $\lambda>0$, written $X\sim\text{exp}(\lambda)$.
+\begin{align*}
+E[X]&=\frac{1}{\lambda}\\
+\text{Var}[X]&=\frac{1}{\lambda^2}
+\end{align*}
+\textbf{Normal distribution.} If $X$ has pdf
+\begin{equation}
+f(x)=\frac{1}{\sigma\sqrt{2\pi}}\mathrm{e}^{-(x-\mu)^2/\sigma^2},\phantom{mm}x\in\mathbb{R}
+\end{equation}
+it is said to have a \textit{normal distribution} with parameters $\mu$ and $\sigma^2$, written $X\sim N(\mu,\sigma^2)$.
+\begin{align*}
+E[X]&=\mu\\
+\text{Var}[X]&=\sigma^2
+\end{align*}
+\textbf{Corollary 2.24.} Suppose that $X\sim N(\mu,\sigma^2)$ and let $Z=(X-\mu)/\sigma$. Then $Z\sim N(0,1)$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

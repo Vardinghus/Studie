@@ -1,0 +1,92 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent{\Huge 5 Two random variables -- conditional expectation}\\\\
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Define conditional expectation
+\item Prove Law of Total Expectation
+\item $E[Y]=E[E[Y|X]]$
+\item $\text{Var}[Y|X]=E[Y^2|X]-(E[Y|X])^2$
+\item Prove special variance
+\end{itemize}
+\textbf{Definition 3.12.} Suppose $X$ and $Y$ are jointly continuous. We define
+\begin{equation}
+E[Y|X=x]=\int_{-\infty}^{\infty}\!yf_Y(y|x)\,dy
+\end{equation}
+\textbf{Proposition 3.6} Let $X$ and $Y$ be jointly continuous. Then
+\begin{equation}
+f_Y=\int_{-\infty}^{\infty}\!f_Y(y|x|)f_X(x)\,dx
+\end{equation}
+\textbf{Proposition 3.17. (Law of Total Expectation)} Suppose that $X$ and $Y$ are jointly continuous. Then
+\begin{equation}
+E[Y]=\int_{-\infty}^{\infty}E[Y|X=x]f_X(x)\,dx
+\end{equation}
+\textbf{Bevis}\\
+By definition of expected value and proposition 3.6
+\begin{equation}
+E[Y]=\int_{-\infty}^{\infty}\!yf_Y(y)\,dy=\int_{-\infty}^{\infty}\!yf_Y(y|x)f_X(x)\,dx
+\end{equation}
+Change order of integration
+\begin{equation}
+E[Y]=\int_{-\infty}^{\infty}\!\int_{-\infty}^{\infty}\!yf_Y(y|x)\,dyf_X(x)\,dx
+\end{equation}
+The inner integral is the definition of $E[Y|X=x]$.\\\\
+\textbf{Corollary 3.5.}
+\begin{equation}
+E[Y]=E\left[E[Y|X]\right]
+\end{equation}
+\textbf{Corollary 3.7.}
+\begin{equation}
+\text{Var}[Y|X]=E[Y^2|X]-(E[Y|X])^2
+\end{equation}
+\textbf{Proposition 3.19.}
+\begin{equation}
+\text{Var}[Y]=\text{Var}[E[Y|X]]+E[\text{Var}[Y|X]]
+\end{equation}
+\textbf{Bevis}\\
+Take the expected value on corollary 3.7:
+\begin{align*}
+E[\text{Var}[Y|X]]&=E[E[Y^2|X]]-E[(E[Y|X])^2]\\
+&=E[Y^2]-E[(E[Y|X])^2]
+\end{align*}
+Use the fact, that
+\begin{equation}
+\text{Var}[X]=E[X^2]-(E[X])^2
+\end{equation}
+and corollary 3.5 to write
+\begin{align*}
+\text{Var}[E[Y|X]]&=E[(E[Y|X)^2]-(E[E[Y|X])^2\\
+&=E[(E[Y|X])^2]-(E[Y])^2
+\end{align*}
+Add the two equations:
+\begin{align*}
+E[\text{Var}[Y|X]]+\text{Var}[E[Y|X]]&=E[Y^2]-E[(E[Y|X])^2]+E[(E[Y|X])^2]-(E[Y])^2\\
+&=E[Y^2]-(E[Y])^2\\
+&=\text{Var}[Y]
+\end{align*}
+Gør opmærksom på hvor vigtigt resultatet er.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

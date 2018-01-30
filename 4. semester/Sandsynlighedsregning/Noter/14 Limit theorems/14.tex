@@ -1,0 +1,88 @@
+\documentclass[12pt,a4paper,draft]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent\textbf{Limit Theorems}\\
+Let $Y_1,Y_2,\ldots,Y_n$ be random variables with cdfs $F_1,F_2,\ldots,F_n$. Let $Y$ be a random variable with cdf $F$.\\\\
+\textbf{The weak law of large numbers}\\
+We say that $\{Y_n\}_{n\in\mathbb{N}}$ converges in probability to $Y$ if
+\begin{equation}
+\forall\epsilon >0,\phantom{mm}P(|Y_n-Y|>\epsilon)\to 0
+\end{equation}
+Noted $Y_n\overset{P}\to Y$.\\\\
+\textbf{Almost surely}\\
+We say that $\{Y_n\}_{n\in\mathbb{N}}$ converges almost surely to $Y$ if
+\begin{equation}
+P(\lim_{n\to\infty}|Y_n-Y|=0)=1
+\end{equation}
+Noted $Y_n\overset{a.s.}\to Y$.\\\\
+We say that $Y$ converges in distribution to $Y$ if
+\begin{equation}
+F_n(x)\to_{n\to\infty}F(x)\text{ for all } x
+\end{equation}
+Noted $Y\overset{d}\simeq Y$.\\\\
+To illustrate the strenght of the above:
+\begin{equation}
+\{Y_n\overset{a.s.}\to Y\}\,\Rightarrow\,\{Y_n\overset{P}\to Y\}\,\Rightarrow\,\{Y_n\overset{d}\to Y\}
+\end{equation}
+\textbf{The law of large numbers}\\
+Let $X_1,X_2,\ldots X_n$ be iid random variables
+\begin{equation}
+\overline{X}:=\overline{X}_n=\frac{1}{n}\sum_{k=1}^nX_l.
+\end{equation}
+This is a reasonable approximation to the mean of $X_1(E[X_1]=\mu)$.
+\begin{equation}
+E[\overline{X}]=\frac{1}{n}\sum_{k=1}^nE[X_k]=\frac{1}{n}n\mu=\mu
+\end{equation}
+\textbf{The strong law of large numbers}\\
+\begin{equation}
+\overline{X}_n\overset{a.s.}\to\mu
+\end{equation}
+\textbf{Corollary 4.1}\\
+Consider an experiment where the event $A$ occurs with probability $p$. Let this experiment be repeated independently. We note $X_k=1_{\text{event $A$ occurs at $k$-th trial}}$. Then $\overline{X}_n\overset{P}\to P$. We call $\overline{X}_n=f_n$ the relative frequeny of $A$.\\\\
+\textbf{Corollary 4.2}\\
+Let $g$ be a continuous function $\mathrm{R}\to\mathrm{R}$. Then
+\begin{equation}
+g(\overline{X}_n)\overset{P}\to g(\mu),\text{ and }g(\overline{X}_n)\overset{a.s.}\to g(\mu)
+\end{equation}
+\textbf{Theorem 4.2: The Central Limit Theorem}\\
+Recall, that $\Phi$ is the cdf of $\mathcal{N}(0,1)$. It describes convergence to the standard normal distribution:
+\begin{equation}
+\sqrt{n}\frac{\overline{X}-\mu}{\sigma}\overset{d}\to\mathcal{N}(0,1)
+\end{equation}
+\textbf{Remarks:}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item The CLT does not depend on the disribution of $X_1$.
+\item The speed of convergence in "$\sqrt{n}$" is optimal.
+\item Direct consequence of the CLT:
+\begin{equation}
+P(|\overline{x}-\mu|>\epsilon)=P\left(\sqrt{n}\frac{|\overline{X}\mu|}{\sigma}>\frac{\sqrt{n}\epsilon}{\sigma}\right)\simeq 2\left(1-\Phi\left(\frac{\sqrt{n}\epsilon}{\sigma}\right)\right)
+\end{equation}
+\end{itemize}
+\textbf{Proposition 4.1: The Delta Method}\\
+Let $g$ be a function from $\mathrm{R}$ to $\mathrm{R}$ such that $g'(\mu)\neq0$. Then
+\begin{equation}
+\sqrt{n}\dfrac{g'(\overline{X}_n)-g(\mu)}{\sqrt{\sigma^2[g'(\mu)]^2}}\overset{d}\to\mathcal{N}(0,1)
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

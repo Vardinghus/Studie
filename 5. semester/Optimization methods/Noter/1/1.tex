@@ -1,0 +1,94 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent Optimering foregår tit under begrænsninger. F.eks.
+\begin{equation}
+\text{min }f(x)\phantom{mm}s.t.\,x\in C
+\end{equation}
+Dette problem er ækvivalent med
+\begin{equation}
+\text{min }f(x)+T_C(x)\phantom{mm}I_C=\begin{cases}0&\text{hvis }x\in C\\
+\infty&\text{ellers}\end{cases}
+\end{equation}
+\textbf{Subgradient}\\
+Lineær tangent som underestimerer funktionen for alle $x$. Det er en funktion $g$, som opfylder
+\begin{align*}
+\frac{f(x)-f(x')}{x-x'}\geq g(x')\\
+f(x)\geq f(x')+g(x')(x-x)
+\end{align*}
+\textbf{Gradient}\\
+Gradienten er en vektor med alle partielle afledede af en funktion.
+\begin{equation}
+\nabla f(x)=\begin{bmatrix}\frac{\partial}{\partial x_1}\\ \vdots\end{bmatrix}
+\end{equation}
+Hessia er den afledede af gradienten -- giver en kvadratisk matrix.
+\begin{equation}
+\nabla(\nabla f(x))^T=\begin{bmatrix}\frac{\partial^2}{\partial x_1^2}&\hdots&\hdots\\
+\frac{\partial^2}{\partial x_2\partial x_1}&\ddots& \\ \vdots & &\frac{\partial^2}{\partial x_N^2}\end{bmatrix}
+\end{equation}
+\textbf{Taylorrækker}\\
+Gradienten bruges
+\begin{equation}
+f(x+\delta)=f(x)+\nabla f(x)^T\delta+\frac{1}{2}\delta^TH(x)\delta+o(\Vert\delta\Vert_2^2)
+\end{equation}
+Hvor $H(x)$ er Hessia.\\\\
+\textbf{Local minimizer $x^{\star}$}\\
+Hvis der gælder, at
+\begin{equation}
+\Vert f(x)-f(x^{\star})\Vert_2<\varepsilon
+\end{equation}
+kan erstattes af
+\begin{equation}
+f(x)-f(x^{\star})<\varepsilon
+\end{equation}
+så kaldes $x^{\star}$ en lokal løsning.\\\\
+\textbf{Feasible direction}\\
+\begin{equation}
+x+\delta\phantom{mm}\text{new point}
+\end{equation}
+where $\delta=\alpha d$, $\alpha\in\mathbb{R}$, $d\in\mathbb{R}^N$.\\
+$d$ -- direction vector\\
+$\alpha$ -- step size\\\\
+Let $C$ be the feasible set
+\begin{equation}
+x+\alpha d\in C
+\end{equation}
+$d$ is a feasible direction at $x$ for any range $\alpha\leq\beta$.\\\\
+\textbf{Theorem}\\
+If $f\in\mathrm{C}^1$ and $x^{\star}$ is a local minimizer, then $(\nabla f(x))^Td\geq 0$ for any feasible direction $d$.\\\\
+\textit{Proof}
+Begin at $x^{\star}$ and take step $d$.
+\begin{equation}
+f(x^{\star}+d)\approx f(x^{\star})+(\nabla f(x^{\star})^Td
+\end{equation}
+Assume $(\nabla f(x^{\star})^Td<0$. Then the left hand side will be smaller than the local minimum $f(x^*)$ which is contradictionary.\\\\
+\textbf{Convex function}\\
+A convex function complies with
+\begin{equation}
+(1-\alpha)f(x_1)+\alpha f(x_2)\geq f((1-\alpha)x_1+\alpha x_2),\phantom{mm}\forall\alpha\in[0,1]
+\end{equation}
+A convex function has a non decreasing slope, equivalent with the second order derivative being positive.\\\\
+A vector function (taking vector arguments and scalar values) is convex at $x$ if the Hessian matrix of the function at $x$ is positive semi definite.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

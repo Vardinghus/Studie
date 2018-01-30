@@ -1,0 +1,115 @@
+\documentclass[12pt,a4paper,final]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\author{Gruppe 7}
+\title{Opgave 116}
+\begin{document}
+\begin{center}
+\textbf{Gruppe 7}
+\end{center}
+\noindent \textbf{Delopgave a}\\\\
+Bevis, at
+\begin{equation}
+|z|>1 \phantom{mm} \Rightarrow \phantom{mm}\{z^n\}_{n=1}^{\infty} \ \text{er divergent}.
+\end{equation}
+\begin{proof}[Bevis] \label{delopgave_a}
+Antag, at $|z|>1$, da gælder ifølge \textbf{Sætning 4.23}, at
+\begin{equation}
+|z|^n \to \infty \phantom{mm} for \ n \to \infty
+\end{equation}
+og ifølge \textbf{Korollar 2.20} gælder, at
+\begin{equation}
+|z|^n=|z^n|
+\end{equation}
+hvilket medfører, at
+\begin{equation}
+|z^n| \to \infty \phantom{mm} for \ n \to \infty.
+\end{equation}
+Jævnfør \textbf{Definition 4.7} er $\{z^n\}_{n=1}^\infty$ ikke begrænset, da
+\begin{equation}
+\neg(\exists M \in \mathbb{R} \forall n \in \mathbb{N}: |z^n|<M)
+\end{equation}
+hvilket ifølge \textbf{Sætning 4.10} medfører, at $\{z^n\}_{n=1}^{\infty}$ ikke er konvergent.
+\end{proof}
+
+\noindent \textbf{Delopgave b}\\\\
+Bevis, at
+\begin{equation}
+|z|<1 \phantom{mm} \Rightarrow \phantom{mm} \{z^n\}_{n=1}^{\infty} \ \text{er konvergent med} \ \lim_{n \to \infty}z^n=0.
+\end{equation}
+\begin{proof}[Bevis]
+Vi ønsker indledningsvist at bevise, at
+\begin{equation}\label{ligning}
+|z|<1 \phantom{mm} \Rightarrow \phantom{mm} |z|^n \to 0 \phantom{mm} \text{for} \ n \to \ \infty
+\end{equation}
+Ifølge \textbf{Sætning 4.20} og resultatet i beviset i \textbf{Delopgave a} gælder, at
+\begin{equation}
+\frac{1}{|z|^n}=\bigg(\frac{1}{|z|}\bigg)^n \ \to 0 \phantom{mm} \text{for} \ n \to \ \infty, \phantom{mm} |z|>1.
+\end{equation}
+Da $\frac{1}{|z|} < 1$, når $|z|>1$ gælder også \eqref{ligning}.\\
+Ifølge \textbf{Korollar 2.20} gælder, at
+\begin{equation}
+|z|^n=|z^n|.
+\end{equation}
+Altså gælder, at
+\begin{equation}
+|z^n| \ \to \ 0 \phantom{mm} \text{for} \ n \ \to \ \infty, \phantom{mm} |z|<1
+\end{equation}
+hvilket medfører, at
+\begin{equation}
+z^n \ \to \ 0 \phantom{mm} \text{for} \ n \ \to \ \infty.
+\end{equation}
+\end{proof}
+
+\noindent \textbf{Delopgave c}\\\\
+Bevis, at
+\begin{equation}
+z=1 \phantom{mm} \Rightarrow \phantom{mm} \{z^n\}_{n=1}^{\infty} \text{er konvergent med} \ \lim_{n \to \infty}z^n=1.
+\end{equation}
+\begin{proof}[Bevis]
+Der gælder for $1$, at
+\begin{equation}
+\forall n \in \mathbb{N}: 1^n=1
+\end{equation}
+og dermed kan der konkluderes, at
+\begin{equation}
+\lim_{n \to \infty} z^n=1, \phantom{mm} z=1
+\end{equation}
+\end{proof}
+
+\noindent \textbf{Delopgave d}\\\\
+Bevis, at
+\begin{equation}
+|z|=1 \ og \ z \neq 1 \phantom{mm} \Rightarrow \phantom{mm} \{z^n\}_{n=1}^{\infty} \ \text{er divergent}.
+\end{equation}
+\begin{proof}[Bevis](Modstridsbevis)
+Antag for modstrid, at $z^{n}$ konvergerer mod grænseværdien $c$.
+\begin{equation}
+\lim_{n \to \infty}z^n=c
+\end{equation}
+hvilket medfører, at
+\begin{equation}
+\lim_{n \to \infty}z^{n+1}=c.
+\end{equation}
+Benyt nu differensen $|z^{n+1}-z^n|$ som omskrives med \textbf{Korollar 2.20}, \textbf{Sætning 2.17} og det faktum, at $|z|^n=1 \ \forall n \in \mathbb{N}$.
+\begin{align} \label{z-1}
+|z^{n+1}-z^n| & = |z^n(z-1)| \nonumber \\
+& = |z^n||z-1| \nonumber \\
+& = |z|^n|z-1| \nonumber \\
+& = |z-1|
+\end{align}
+Siden $z \neq 1$ ses det, at $|z-1| \neq 0$.\\\\
+Grænseværdierne for $z^{n+1}$ og $z^n$ indsættes i differensen, og der fås
+\begin{equation}
+|z^{n+1}-z^n| \to |c-c|=0 \phantom{mm} \text{for} \ n \ \to \ \infty.
+\end{equation}
+Desuden haves fra \eqref{z-1}
+\begin{equation}
+|z^{n+1}-z^n|=|z-1| \not\to 0 \phantom{mm} \text{for} \ n \ \to \ \infty
+\end{equation}
+og modstrid er opnået, da højresiden ikke går mod $0$.
+\end{proof}
+\end{document}

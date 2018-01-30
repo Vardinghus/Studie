@@ -1,0 +1,91 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent\textbf{12.5}\\
+Lit $X\sim \mathcal{U}(-1,1)$ and $Y\sim \mathcal{U}(-1,1)$ for $X$ and $Y$ independent. First relate $P[X^2+Y^2\leq 1]$ to the value of $\pi$. Then generate realizations of $X$ and $Y$ and use them to estimate $\pi$.\\\\
+Relatér cirklens areal til hele firkantens areal.
+\begin{equation}
+\frac{\pi}{4}
+\end{equation}
+Dette er sandsynligheden for at et punkt med koordinaterne $X$ og $Y$ lander i cirklen. Altså
+\begin{align*}
+P[X^2+Y^2\leq 1]=\frac{4}{\pi}\\
+4P[X^2+Y^2\leq 1]=\pi
+\end{align*}
+Der genereres punkter med koordinater $X$ og $Y$ og forholdet mellem antallet af punkter, som opfylder $X^2+Y^2\leq 1$ og det totale antal punkter bruges som $P[X^2+Y^2\leq 1]$.\\\\
+\textbf{12.11}\\
+If $(X,Y)$ has a standard bivariate Gaussian PDF, find $P[X^2+Y^2=10]$.\\\\
+Sandsynligheden for at kontinuert fordelte punkter lander på en cirkel (rand) er 0, da randen har areal på 0.\\\\
+\textbf{12.15}\\
+If
+\begin{equation}
+p_{X,Y}(x,y)=
+\begin{cases}
+2&0<x<1,0<y<x\\
+0&\text{otherwise}
+\end{cases}
+\end{equation}
+find the marginal PDFs.\\\\
+Find marginal PDF ved
+\begin{equation}
+p_X(x)=\int_{-\infty}^{\infty}\!p_{X,Y}(x,y)\,dy
+\end{equation}
+Altså
+\begin{align*}
+p_X(x&)=\int_{-\infty}^{\infty}\!2\,\mathbf{1}(0<x<1)\mathbf{1}(0<y<x)\,dy\\
+&=2\int_0^x\!\mathbf{1}(0<x<1)\,dy\\
+&=2x\,\mathbf{1}(0<x<1)
+\end{align*}
+For $Y$:
+\begin{align*}
+p_Y(y)&=\int_{-\infty}^{\infty}\!2\,\mathbf{1}(0<x<1)\mathbf{1}(0<y<x)\,dx\\
+&=2\int_0^1\!\mathbf{1}(0<y<x)\,dx\\
+&=2\int_0^1\mathbf{1}(0<y)\mathbf{1}(y<x)\,dx\\
+&=2\int_y^1\mathbf{1}(y<x)\,dx\\
+&=2\,\mathbf{1}(y<x)-2y\,\mathbf{1}(y<x)\\
+&=2(1-y)
+\end{align*}
+\textbf{13.2}\\
+Determine if the proposed conditional PDF
+\begin{equation}
+p_{Y|X}(y|x)=\begin{cases}c\,\mathrm{e}^{\frac{-y}{x}}&y\geq0,x>0\\
+0&\text{otherwise}\end{cases}
+\end{equation}
+is a valid conditional PDF for some $c$. If so, find the required value of $c$.\\\\
+Udtrykket integreres i forhold til $y$.
+\begin{align*}
+&\int_0^{\infty}\!c\,\mathrm{e}^{\frac{-y}{x}}\,dy\\
+=&c\left[-x\,\mathrm{e}^{\frac{-y}{x}}\right]_0^{\infty}\\
+=&c\left(-x\cdot0-(-x\cdot1)\right)\\
+=&cx
+\end{align*}
+Funktionen er valid og $c=\frac{1}{x}$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

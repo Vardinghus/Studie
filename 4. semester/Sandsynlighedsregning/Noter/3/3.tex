@@ -1,0 +1,70 @@
+\documentclass[12pt,a4paper,final]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent \textbf{Stochastic (random) variables}\\\\
+\textbf{Definition}\\
+A random variable $X$ is a function that takes its values from the sample space.
+\begin{equation}
+X:S\to\mathbb{R}
+\end{equation}
+For a set A we note
+\begin{equation}
+P(X\in A)=P(\{s<in S,X(s)\in A\})
+\end{equation}
+\textbf{Comulative distribution function}\\
+Let $X$ be a random variable with cumulative distribution function $F$. Then $F$ verfies the following properties:
+\begin{enumerate}
+\item For $a,b\in \mathbb{R}$ with $a<b$\\
+$F(b)=P(x\leq a)+P(a<X\leq b)=F(a)+P(a<x\leq b)$
+\item $F(x)=1-P(X>x)$, for $x\in \mathbb{R}$
+\item $F$ is \textit{cadlag}: right-continuous with limits from the left
+\item $\lim_{x\to -\infty}F(x)=0$ and $\lim_{x\to \infty}F(x)=1$
+\end{enumerate}
+The cumulative distribution funtion (cdf) $F_x$ characterizes $X$ completely.\\\\
+\textbf{Probability mass function}\\
+Let $\{x_1,x_2,...\}$ be the values of the discrete random variable $X$.\\
+The function $p(x_k)=P(X=x_k),\phantom{mm}k=1,2,...$ is called the probability mass function.\\\\
+Let $X$ be a random variable with cdf $F$ and pdf $p$.\\
+Then we have the following properties:
+\begin{enumerate}
+\item $F(x_k)=\sum$ Nåede ikke mere. Lårt.
+\end{enumerate}
+Står i bogen.\\\\
+\textbf{Continuous variable}\\
+If $F_x$ is continuously differentaible, $X$ is called a continuous random variable.\\
+The function $f=F_x'$ is called the qualitatively density function of $X$.\\\\
+Let $X$ be a continuous random variable with cdf $F$ and pdf $f$.\\
+Then
+\begin{enumerate}
+\item $F(x)=\int_{-\infty}^{x} f(t) dt$
+\item $f(x)=F_x'(x)$
+\item $P(x\in B)=\int_B f(x)dt$
+\end{enumerate}
+$f$ characterizes $X$ completely.\\\\
+\textbf{The uniform distribution}\\
+$X$ is a unform distribution on $[a,b]$ for $a<b$ if $f(x)=\frac{1}{b-a}$ if $x\in [a,b]$.\\
+We write $X\sim Unif([a,b])$\\\\
+Let $X\sim Unif([0,1])$ and $Y=a+(b-a)X$.\\
+Then $Y\sim Unif([a,b])$\\
+\textit{Proof} For $y\in\mathbb{R}$\\
+$F_Y(y)=P(Y\leq y)=P(a+(b-a)X\leq y)=P(X\leq\frac{y-a}{b-a})$\\
+A $X$ in $Unif([0,1])$; we have
+\begin{enumerate}
+\item $F_X(x)=x$ if $f\in [0,1]$
+\item $F_X(x)=0$ if $x\leq 0$
+\item $F_X(x)=1$ if $x\geq 1$
+\end{enumerate}
+Hence
+\begin{enumerate}
+\item $F_Y(y)=\frac{y-a}{b-a}$ if $y\in [a,b]$
+\item $F_X(y)=0$ if $y\leq a$
+\item $F_Y(y)=1$ if $y\geq 1$
+\end{enumerate}
+Therefore $f_y(y)=F_Y'(y)=\frac{1}{b-a}$ if $y\in [a,b]$.\\\\
+Let $X$ be a random variable, $a,c\in\mathbb{R}$\\
+Then
+\end{document}

@@ -1,0 +1,77 @@
+\documentclass[12pt,a4paper,draft]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent{\Huge 4 Two random variables -- independence}\\\\
+Define
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Discrete random vector
+\item Joint pmf
+\end{itemize}
+Prove
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Marginal pmfs
+\item Independence if and only if
+\end{itemize}
+\textbf{Definition 3.3. (Discrete random vector)} If $X$ and $Y$ are discrete random variables, then $(X,Y)$ is called a \textit{discrete random vector}.\\\\
+\textbf{Definition 3.4. (Joint pmf)} If $(X,Y)$ is discrete with range $\{(x_j,y_k):j,k=1,2,\ldots\}$, the function
+\begin{equation}
+p(x_j,y_k)=P(X=x_j,Y=y_k)
+\end{equation}
+is called the \textit{joint pmf} of $(X,Y)$.\\\\
+\textbf{Proposition 3.2 (Marginal pmfs)} If $(X,Y)$ has joint pmf $p$, then the marginal pmfs of $X$ and $Y$ are
+\begin{align*}
+p_X(x_j)&=\sum_{k=1}^{\infty}p(x_j,y_k),\phantom{mm}j=1,2,\ldots\\
+p_Y(y_k)&=\sum_{j=1}^{\infty}p(x_j,y_k),\phantom{mm}k=1,2,\ldots
+\end{align*}
+\textbf{Bevis}\\
+\begin{align*}
+p_X(x_j)=P(X=x_j)&=P\left(\{X=x_j\}\cap\{\cup_{k=1}^{\infty}Y=y_k\}\right)\\
+&=P\left(\cup_{k=1}^{\infty}\{X=x_j,Y=y_k\}\right)\\
+&=\sum_{k=1}^{\infty}P(X=x_j,Y=y_k)=\sum_{k=1}^{\infty}p(x_j,y_k)
+\end{align*}
+\textbf{Definition 3.8. (Independence)} The random variables $X$ and $Y$ are said to be $independent$ if
+\begin{equation}
+P(X\in A,Y\in B)=P(X\in A)P(Y\in B)
+\end{equation}
+for alle $A,B\subseteq\mathbb{R}$.\\\\
+\textbf{Proposition 3.9. (Independence if and only if)} Suppose that $(X,Y)$ is discrete with joint pmf $p$. Then $X$ and $Y$ are independent if and only if
+\begin{equation}
+p(x,y)=p_X(x)p_Y(y)
+\end{equation}
+for all $x,y\in\mathbb{R}$.\\\\
+\textbf{Bevis}\\
+Suppose $X$ and $Y$ independent. Let $A=\{x\}$ and $B=\{y\}$ so that
+\begin{equation}
+p(x,y)=P(X=y,Y=y)=P(X=x)P(Y=y)=p_X(x)p_Y(y)
+\end{equation}
+Conversely, suppose $p(x,y)=p_X(x)p_Y(y)$ and take  the subsets $A$ and $B$ of $\mathbb{R}$.
+\begin{align*}
+P(X\in A,Y\in B)&=\sum_{x\in A}\sum_{y\in B}p(x,y)=\sum_{x\in A}p_X(x)\sum_{y\in B}p_Y(y)\\
+&=P(X\in A)P(Y\in B)
+\end{align*}
+Both ``if'' and ``only if'' have been shown.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

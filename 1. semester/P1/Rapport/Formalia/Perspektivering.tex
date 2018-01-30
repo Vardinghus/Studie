@@ -1,0 +1,22 @@
+\chapter{Perspektivering}
+Dette projekt har været begrænset til billedkomprimering med en diskret cosinustransformation og principale komponenter i et billede. Der findes mange andre komprimeringsmetoder, tabsfri såvel som ikke-tabsfri, som ikke er undersøgt i denne rapport. I dette afsnit overvejes nogle af mulighederne, som kunne have været relevante for projektet, men som ikke er inkluderet.
+
+\textbf{DCT}\\
+Der findes andre transformationer end en diskret cosinustransformation, som kan benyttes i en billedkomprimeringsalgoritme. Blandt disse kan nævnes
+\begin{itemize}
+	\item[]{\textit{Diskret Fouriertransformation} (DFT)\\
+	som allerede er blevet omtalt. Transformationen er DCT underlegen i forbindelse med billedkomprimering.}\\
+	\item[]{\textit{Diskret Sinustransformation} (DST)\\
+	som udtrykker et singal ved sinusfunktioner, men som ikke opnår lige så høj energikomprimering af billeder som DCT.}\\
+	\item[]{\textit{Diskret Wavelettransformation} (DWT)\\
+	som indgår i den nye og forbedrede JPEG-algoritme, JPEG2000. Transformationen er DCT overlegen og kan tilmed udføre tabsfri komprimering.}
+\end{itemize}
+
+\textbf{PCA}\\
+Som tidligere bemærket kan PCA bruges til meget andet end billedkomprimering, hvor det er nyttigt at finde ligheder i store mængder data. En udbredt brug af PCA er inden for ansigtsgenkendelse, hvor ansigter udtrykkes som en sum af egenansigter komponeret af principale komponenter. Man kunne alternativt have lavet egenansigter med PCA på DCT-komprimerede billeder for at se hvordan komprimeringen påvirker PCAs funktionsdygtighed.
+
+\textbf{Tabsfri}\\
+I projektet benyttes Huffmankodning, som er en tabsfri komprimeringsmetode. Denne bruges dog ikke isoleret til billedkomprimering og i projektet er der ikke arbejdet med en udelukkende tabsfri billedkomprimeringsmetode. Det kunne være interessant at undersøge eller lave en tabsfri algoritme, for at kunne sammenligne de to typer på billedkvalitet og komprimeringsgrad. Blandt tabsfrie billedformater kan nævnes bl.a. PNG og TIFF.
+
+\textbf{Farverum}\\
+I projektet arbejdes med farvebilleder efter RGB-farvemodellen, og komprimeringerne udføres ligeledes i denne opdeling af farverummene. Til billedkomprimering deles billeder ofte op i farverummene YCrCb (se afsnit \vref{teori_intro}), da det med denne opdeling kan lade sig gøre at lave en mere effektiv komprimering grundet farverummenes egenskaber.

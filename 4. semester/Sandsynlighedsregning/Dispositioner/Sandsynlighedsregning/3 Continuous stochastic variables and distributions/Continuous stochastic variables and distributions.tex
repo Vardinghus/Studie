@@ -1,0 +1,85 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent{\Huge Continuous stochastic variables}\\\\
+Define and present
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Continuous random variable
+\item Expected value
+\item Variance
+\item Expected value of a function
+\end{itemize}
+Prove
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Expected value of unif
+\item Variance of unif
+\end{itemize}
+\textbf{Definition 2.5. (Continuous random variable)} If the cdf $F$ is a continuous function, then $X$ is said to be a $continuous$ $random$ $variable$.\\\\
+\textbf{Definition 2.9 (Expected value)} Let $X$ be a continuous random variable with pdf $f$. The $expected$ $value$ of $X$ is defined as
+\begin{equation}
+E[X]=\int_{-\infty}^{\infty}\!xf(x)\,dx
+\end{equation}
+\textbf{Defintion 2.10. (Variance)} Let $X$ be a random variable with expected value $\mu$. The $variance$ of $X$ is defined as
+\begin{equation}
+\text{Var}[X]=E[(X-\mu)^2]
+\end{equation}
+\textbf{Proposition 2.12.(Expected value of function)} Let $X$ be a random variable with pdf $f_X$, and let $g:\mathrm{R}\to\mathrm{R}$ be any function. Then
+\begin{equation}
+E[g(X)]=\int_{-\infty}^{\infty}\!g(x)f_X(x)\,dx
+\end{equation}
+\textbf{Proposition 2.13. (Expected value and variance of unif)} If $X\sim\text{unif}[a,b]$, then
+\begin{equation}
+E[X]=\frac{a+b}{2}\phantom{mm}\text{and}\phantom{mm}\text{Var}[X]=\frac{(b-a)^2}{12}
+\end{equation}
+\textbf{Bevis}\\
+Calculating $E[X]$:
+\begin{align*}
+E[X]&=\int_{-\infty}^{\infty}\!xf(x)\,dx=\int_a^b\!x\frac{1}{b-a}\,dx\\
+&=\frac{1}{b-a}\int_a^b\!x\,dx=\frac{b^2-a^2}{2(b-a)}\\
+&=\frac{b+a}{2}
+\end{align*}
+Calculating $E[X^2]$:
+\begin{align*}
+E[X^2]&=\int_a^b\!x^2f(x)\,dx=\frac{1}{b-a}\int_a^b\!x^2\,dx\\
+&=\frac{b^3-a^3}{3(b-a)}=\frac{(b-a)(a^2+ab+b^2)}{3(b-a)}\\
+&=\frac{a^2+ab+b^2}{3}
+\end{align*}
+This gives variance:
+\begin{align*}
+\text{Var}[X]&=\frac{a^2+ab+b^2}{3}-\left(\frac{a+b}{2}\right)^2\\
+&=\frac{a^2+ab+b^2}{3}-\frac{a^2+ab+b^2}{4}\\
+&=\frac{4(a^2+ab+b^2)}{12}-\frac{3(a^2+2ab+b^2)}{12}\\
+&=\frac{(b-a)^2}{12}
+\end{align*}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

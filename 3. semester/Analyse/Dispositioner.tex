@@ -1,0 +1,787 @@
+%  A simple AAU report template.
+%  2015-05-08 v. 1.2.0
+%  Copyright 2010-2015 by Jesper Kjær Nielsen <jkn@es.aau.dk>
+%
+%  This is free software: you can redistribute it and/or modify
+%  it under the terms of the GNU General Public License as published by
+%  the Free Software Foundation, either version 3 of the License, or
+%  (at your option) any later version.
+%
+%  This is distributed in the hope that it will be useful,
+%  but WITHOUT ANY WARRANTY; without even the implied warranty of
+%  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%  GNU General Public License for more details.
+%
+%  You can find the GNU General Public License at <http://www.gnu.org/licenses/>.
+%
+\input{setup/preamble.tex}% package inclusion and set up of the document
+\input{setup/hyphenations.tex}%
+\input{setup/macros.tex}% my new macros
+\begin{document}
+\begin{itemize}
+\item[\checkmark] Fuldstændighed af de reelle tal
+\item[] Grænseværdier
+\item[\checkmark] Bolzano-Weierstrass
+\item[\checkmark] Kvotient- og rodkriteriet
+\item[] Kontinuitetsbegreber og -egenskaber
+\item[\checkmark] Hovedsætninger om kontinuerte funktioner
+\item[\checkmark] Åbne og lukkede mængder
+\item[\checkmark] Differentiation
+\item[\checkmark] Rolles- og Middelværdisætningen
+\item[\checkmark] L'Hôpitals regel
+\item[\checkmark] Riemann-integralet
+\item[\checkmark] Analysens Fundamentalsætning
+\end{itemize}
+\chapter{Fuldstændighed af de reelle tal}
+\subsubsection{Bøger og noter}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Funktioner af en og flere variable
+\item Punktmængdetopologi, metriske rum og fuldstændighed
+\end{itemize}
+\subsubsection{Tidligere kapitler}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Korollar 1.9 (Egenskaber for legemer)
+\end{itemize}
+\subsubsection{Definitioner vi skal have styr på}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item 3.1 (Ordnet mængde)
+\item 3.2 (Største/mindste element)
+\item 3.6 (Øvre grænse)
+\item 3.10 (Mindste øvre grænse)
+\item 3.15 (Supremum/infimum)
+\item 3.4 (De reelle tal)
+\end{itemize}
+\subsubsection{Sætninger/lemmaer vi skal have styr på med bevis}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item 3.7 (Ækvivalente udsagn for øvre grænse)
+\item 3.8 (Ækvivalente udsagn for !øvre grænse)
+\item 3.11 (Mindste øvre grænse)
+\item 3.12 (Mindste øvre grænse - anden måde)
+\item 3.14 (Infimumegenskaben)
+\item 3.17 (Arkimedes' princip)
+\end{itemize}
+\subsubsection{Sætninger, som kan bevises til eksamen}
+\begin{itemize}
+\item 4.16 (Hovedsætning om monotone talfølge) (se 3.4 på 255)
+\item 4.42 (Enhver Cauchy-følge i $\mathbb{R}$ eller $\mathbb{C}$ er konvergent)
+\item 3.4 i (PMT) (Fuldstændighed af $\mathbb{R}$)
+\end{itemize}
+\clearpage
+\begin{theorem}[Fuldstændighed af de reelle tal]Antag, at $K$ er et legeme, som er ordnet, og fuldstændigt og som opfylder, at for ethvert $k \in K$ eksisterer  et $n \in \mathbb{N}$ så $k < n$. Så er $K=\mathbb{R}$.
+\end{theorem}
+$\mathbb{R}$ er defineret som et ordnet legeme, som opfylder supremumegenskaben. Der vises, at enhver ikke-tom opadtil begærnset delmængde af $K$ har en mindste øvre grænse.
+\begin{proof} for Lad $S \in K$ være ikke-tom og opad begrænset. Så eksisterer en øvre grænse $b \in K$ og et $a \in S$, således 
+\begin{equation}
+\exists -m,M \in\mathbb{N}: m < a \leq b < M
+\end{equation}
+Definér
+\begin{equation}
+T_k = \{p \in \mathbb{Z}|p^kM \leq M\text{ og }\frac{p}{2^k}\text{ er en ø.g. for }S\}
+\end{equation}
+$T_k$ er
+\begin{itemize}
+\item nedadtil begrænset af $2^km$
+\item opadtil begrænset af $2^kM$
+\item ikke-tom, da $2^kM \in S$
+\end{itemize}
+Da $T_k$ er ikke-tom og begrænset, så har den et mindste element (da den er delmængde af $\mathbb{Z}$).\\
+Mindste element kaldes $p_k = \min T_k$.\\
+Konstruér følge $a_k = \frac{p_k}{2^k}$, som er ø.g. for $S$. Da $p_k$ er mindste elemtn, som opfylder, at $a_k$ er en ø.g. kan $\frac{p_k-1}{2^k}$ ikke være ø.g.\\
+Der fås, da de venstre brøker ikke er ø.g., at
+\begin{equation}
+\frac{p_k-1}{2^k} = \frac{2p_k-2}{2^{k+1}} < a_{k+1} = \frac{p_{k+1}}{2^{k+1}} \leq \frac{2p_k}{2^k} = a_k
+\end{equation}
+hvilket betyder, at
+\begin{equation}
+p_{k+1} = 2p_k \text{ eller } p_{k+1} = 2p_k
+\end{equation}
+Næste skridt er altså mindre-end-lig det foregående. Derfor
+\begin{equation}
+0 \leq a_k - a_{k+1} = \frac{p_k}{2^k} - \frac{p_{k+1}}{2^{k+1}} \leq \frac{1}{2^{k+1}}
+\end{equation}
+Lad $m > n \geq 1$. Så er
+\begin{align}
+0 &\leq a_n - a_m\\
+&= (a_n - a_{n+1})+(a_{n+1}-a_{n+2})+\hdots+(a_{m-2}-a_{m-1})+(a_{m-1}-a_m)\\
+&\leq \frac{1}{2^{n+1}} + \frac{1}{2^{n+2}} +\hdots+\frac{1}{2^{m-1}}\\
+&=\frac{1}{2^{n+1}}\left(\frac{1}{2^0}+\frac{1}{2^1}+\hdots+\frac{1}{2^{m-n-2}}+\frac{1}{2^{m-n-1}}\right)\\
+&=\frac{1}{2^{n+1}}\left(\frac{\frac{1}{2^{m-n}}-1}{\frac{1}{2}-1}\right)\\
+&=\frac{1}{2^{n+1}}\left(2-\frac{1}{2^{m-n-1}}\right)\\
+&=\frac{1}{2^n}-\frac{1}{2^m}\\
+&\leq \frac{1}{2^n}
+\end{align}
+$\{a_k\}_{k=0}^\infty$ er altså Cauchy.\\
+Sæt $s=\lim_{n\to\infty}a_k$ og antag $s$ ikke ø.g.
+\begin{equation}
+\exists x \in S: x > s
+\end{equation}
+Lad $\varepsilon = x - s > 0$ og find $k$ således
+\begin{equation}
+x - s = \varepsilon > |a_k - s| = a_k - s\text{ ($a_k$ er aftagende)}
+\end{equation}
+$x > a_k$ er modstrid, da $a_k = \frac{p_k}{2^k}$, som var ø.g. for $S$.\\
+Antag for modstrid, at $s' < s$.\\
+Find $k$, så $\frac{1}{2^k} < s-s'$.
+$s' < s-\frac{1}{2^k} \leq a_k-\frac{1}{2^k} = \frac{p_k-1}{2^k}$
+Ovenstående siger, at $\frac{p_k-1}{2^k}$ er en ø.g., hvilket er i modstrid med tidligere.
+\end{proof}
+\clearpage
+\chapter{Grænseværdier}
+\subsubsection{Definitioner der skal være styr på}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item 4.1 (Talfølger)
+\item 4.2 (Konvergens af talfølger)
+\item 4.6 (Begrænset talfølge)
+\item 4.9 (Begrænsethed af konvergent talfølge)
+\item 4.17 og 4.20 (Divergens mod $\pm \infty$)
+\end{itemize}
+\subsubsection{Sætninger, som kan bevises til eksamen}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item 6.41 (Grænseværdi for en monoton funktion)
+\item 6.34 eller 6.44 (Grænseværdi for en sammensat funktion. II)
+\end{itemize}
+\clearpage
+\begin{theorem}[Grænseværdi for en sammensat funktion]
+Lad $f:]a,\infty[\to\mathbb{R}$ og $g:]b,\infty[\to\mathbb{R}$ være to reelle funktioner således, at $g(x)\in ]a,\infty[$ for $x\in ]b,\infty[$.\\
+Bevis, at hvis $g(x)\to\infty$ for $x\to\infty$ og $f(x)\to c$ for $x\to\infty$, så gælder $f(g(x))\to c$ for $x\to\infty$.
+\end{theorem}
+\begin{proof}
+\textbf{(i)} Bevis, at
+\begin{equation}
+\forall \varepsilon >0\exists\k >0: x \geq k\phantom{mm}\Rightarrow\phantom{mm}|f(g(x))-c|<\varepsilon
+\end{equation}
+Ifølge definition 6.42
+\begin{equation}
+\forall \varepsilon >0\exists k\in\mathbb{R}:x\geq k\phantom{mm}\Rightarrow\phantom{mm} |f(x)-c|<\varepsilon
+\end{equation}
+På samme vis
+\begin{equation}
+\forall k\in\mathbb{R}\exists \tilde{k}>0:x\geq \tilde{k}\phantom{mm}\Rightarrow\phantom{mm}g(x)>k
+\end{equation}
+Dermed haves
+\begin{equation}
+\forall \varepsilon >0\exists \tilde{k}>0:x\geq\tilde{k}\phantom{mm}\Rightarrow\phantom{mm}|f(g(x))-c|<\varepsilon
+\end{equation}
+\textbf{(ii)} Bevis, når $c=\pm\infty$.\\
+Antag UTAG, at $c=+\infty$.\\
+Der kan nu skrives (ifølge 6.38)
+\begin{equation}
+\forall M\in\mathbb{R}\exists K\in\mathbb{R}:x\geq K\phantom{mm}\Rightarrow\phantom{mm}f(x)>M
+\end{equation}
+og på samme måde for $g$
+\begin{equation}
+\forall N\in\mathbb{R}\exists \tilde{K}\in\mathbb{R}:x\geq \tilde{K}\phantom{mm}\Rightarrow\phantom{mm}g(x)>N
+\end{equation}
+Altså haves
+\begin{equation}
+\forall M\in\mathbb{R}\exists\tilde{K}\in\mathbb{R}:x\geq K\phantom{mm}\Rightarrow\phantom{mm}f(g(x))>M
+\end{equation}
+Der haves altså, at $f(x)\to\infty$ for $x\to\infty$.
+\end{proof}
+\clearpage
+\chapter{Bolzano-Weierstrass}
+\subsubsection{Definitioner}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item 6.9 (Indre punkt)
+\item 6.10 (Åben mængde)
+\item 6.11 (Lukket mængde)
+\item 6.13 (Begrænset mængde)
+\end{itemize}
+\subsubsection{Sætninger/lemmaer der skal være styr på med bevis}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item 4.16 (Hovedsætning om monotone talfølger)
+\item 4.26 (Konvergent/divergent følge og delfølge)
+\item 4.27 (Monoton delfølge)
+\item 6.5 (Koordinatvis konvergens)
+\end{itemize}
+\subsubsection{Sætninger, som kan bevises til eksamen}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Forklar BWI (4.28), bevis BWII (4.29) og forklar BWIII (6.7) om punktfølger
+\item Inddrag punktmængdetopologi i forbindelse med BW-egenskab (6.14) - enhver kompakt delmængde af $\mathbb{R}^n$ er følgekompakt
+\end{itemize}
+\begin{theorem}
+Enhver begrænset kompleks talfølge har en konvergent delfølge.
+\end{theorem}
+\begin{proof}
+Lad $\{z_n\}_{n=0}^\infty$ være en begrænset kompleks talfølge.\\
+Skriv $z_n=x_n+iy_n$ - altså udtrykt ved reelle talfølger. Ifølge BWI har $\{x_n\}_{n=0}^\infty$ en konvergent delfølge $\{x_{n_k}\}_{k=0}^\infty$. Sæt $\lim_{k\to\infty}x_{n_k}=x$.\\
+Følgen $\{y_{n_k}\}_{k=0}^\infty$ har ifølge BWI en konvergent delfølge $\{y_{n_{k_j}}\}_{j=0}^\infty$.\\
+Sæt $\lim_{j\to\infty}y_{n_{k_j}}=y$.
+Delfølgen $\{x_{n_{k_j}}\}_{j=0}^\infty$ har samme grænseværdi $x$ som $\{x_{n_k}\}_{k=0}^\infty$.\\
+Delfølgen $\{z_{n_{k_j}}\}_{j=0}^\infty$ er nu ifølge sætning 4.14 konvergent.
+\end{proof}
+\clearpage
+\chapter{Kvotient- og rodkriteriet}
+\subsubsection{Hav styr på}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item 4.35 (Halelemma, indskudsregel for rækker)
+\item 4.34 (Sammenligningskriteriet)
+\item 4.11 (Konvergent delfølge større end et tal fra et vist trin)
+\end{itemize}
+\subsubsection{Disposition}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Forklar talfølge, række, kvotientrække og konvergens af denne og/eller sammenligningskriteriet og halelemmaet
+\item Bevis rod- og/eller kvotientkriteriet for rækker i bogen (4.36 og 4.37) eller for potensrækker i noterne (Sætning 6) og fortsæt med konvergensradius
+\end{itemize}
+\clearpage
+\begin{theorem}[Kvotientkriteriet]
+Lad $\sum_{n=1}\infty a_n$ være en række med positive led og antag, at grænseværdien
+\begin{equation}
+q=\lim_{n\to\infty}\frac{a_{n+1}}{a_n}
+\end{equation}
+eksisterer (den må gerne være $\infty$). Så gælder
+\begin{itemize}
+\setlength\itemsep{0em}
+\item[\textbf{a}] Hvis $q<1$, er rækken konvergent.
+\item[\textbf{b}] Hvis $q>1$ er rækken divergent.
+\end{itemize}
+\end{theorem}
+\begin{proof}
+\textbf{(a)} Antag $q < 1$ og lad $r>q$. Find ved lemma 4.10 (større end et tal fra et vist skridt) et $N\in\mathbb{N}$ således
+\begin{equation}
+q < \frac{a_{n+1}}{a_n} < r\text{ for } n \geq N
+\end{equation}
+Hvilket medfører
+\begin{equation}
+a_{n+1}<a_nr
+\end{equation}
+Ved at føre dette videre i successive skridt fra $N$ fås
+\begin{align}
+&a_{N+1}<a_Nr\\
+&a_{N+2}<a_{N+1}r<a_Nr^2\\
+\vdots\\
+&a_{N+k}<a_Nr^k
+\end{align}
+Det $k$'te led i halen af den oprindelige række er mindre end det $k$'te led af kvotientrækken $\sum_{n=1}^\infty a_Nr^n$, som er konvergent, da $r<1$. Sammeligningskriteriet giver, at halen er konvergent, og halelemmaet giver, at hele rækken er konvergent.
+\textbf{(b)} Antag $q>1$. Fra lemma 4.10 (større end et tal fra et vist skridt) fås et $N\in\mathbb{N}$ således at
+\begin{equation}
+n\geq N \phantom{mm} \Rightarrow \phantom{mm} \frac{a_{n+1}}{a_n}>1\phantom{mm} \Rightarrow \phantom{mm} a_{n+1}>a_n
+\end{equation}
+Rækkens led går ikke mod 0, og rækken konvergerer altså ikke.
+\end{proof}
+\begin{theorem}[Konvergensradius] Hvis grænseværdien 
+\begin{equation}
+R=\lim_{n\to\infty}\frac{|a_n|}{a_{|n+1|}}
+\end{equation}
+eksisterer (må gerne være $\infty$), da er $R$ konvergensradius for enhver potensrække på formen $\sum_{n=0}^\infty a_n(z-a)^n$.
+\end{theorem}
+\begin{proof}
+Når $z\neq a$ giver antagelsen om $R=\lim_{n\to\infty}\frac{|a_n|}{|a_{n+1}|}$, at 
+\begin{equation}
+\lim_{n\to\infty}\frac{|a_{n+1}(z-a)^{n+1}|}{|a_n(z-a)^n|}=\frac{|z-a|}{R}
+\end{equation}
+som har samme form som ovenstående kvotientkriterium.\\
+Altså
+\begin{align}
+|z-a|<R \phantom{mm} &\Rightarrow \phantom{mm} \frac{|z-a|}{R}<1\\
+|z-a|>R \phantom{mm} &\Rightarrow \phantom{mm} \frac{|z-a|}{R}>1
+\end{align}
+Dermed er $R=\lim_{n\to\infty}\frac{|a_n|}{|a_{n+1}|}$ konvergensradius for rækken.
+\end{proof}
+\clearpage
+\chapter{Kontinuitetsbegreber og -egenskaber}
+\subsubsection{Ting der skal være styr på}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item 5.3 (Kontinuitet i et punkt)
+\item 5.6 (Følgekontinuitet)
+\item 5.7 (Følgekarakterisation af kontinuitet)
+\item 5.8 (Kontinuitet (i alle punkter))
+\end{itemize}
+I kapitel 6 defineres kontinuitet for funktioner af flere variable, og definitioner og sætninger er analoge med dem i kapitel 5. I stedet for absolutværdi bruges normen.\\
+Der findes desuden disse yderligere kontinuitetsbegreber i kapitel 6 og 7:
+\begin{itemize}
+\setlength\itemsep{0em}
+\item 6.28 (Uniform kontinuitet)
+\item 6.29 (Uniformt kontinuert funktion på kompakt mængde)
+\item 7.5 (Hvis $f$ er differentiabel i $a$ er $f$ kontinuert i $a$)
+\end{itemize}
+For vektorfunktioner gælder samme begreber om kontinuitet, hvis alle funktionerne i vektorfunktionen er kontinuerte. Se 6.45-6.47.
+\subsubsection{Disposition}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Forklar kontinuitet ved topologiske rum
+\item Bevis, at $f$ er kontinuert i "$\varepsilon$-$\delta$"-forstand hvis
+og kun hvis $f$ er kontinuert mellem de topologiske rum $(\mathrm{A}, \mathrm{T}_\mathrm{A})$ og ($\mathbb{R}^m$, $\mathrm{T}_{\mathbb{R}^m}$)
+ifølge Definition 1.3, hvor $\mathrm{T}_\mathrm{A}$ er sportopologien (se Definition 1.4).
+\end{itemize}
+%\clearpage
+%\begin{proof}"$\Rightarrow$"
+%Antag, at $f$ er kontinuert i "$\varepsilon$-$\delta$"-forstand. Altså
+%\begin{equation}
+%\forall \varepsilon >0 \exists \delta >0\forall x\in A:||x-a||<\delta\phantom{mm}\Rightarrow\phantom{mm}||f(x)-f(a)||<\varepsilon
+%\end{equation}
+%Antag, at $a$ ligger i $D_f$ - altså $a\in f^{-1}(U)$ hvor $U\in \mathcal{T}_{\mathbb{R}^m}$.
+%
+%\end{proof}
+\clearpage
+\chapter{Hovedsætninger om kontinuerte funktioner}
+\subsubsection{De tre hovedsætninger}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item 5.13 (Begrænsethed)
+\item 5.14 (Eksistens af største- og mindsteværdi)
+\item 5.16 (Mellemværdisætningen)
+\end{itemize}
+Sætningerne 6.26 og 6.27 siger tilsvarende om kontinuerte funktioner af flere variable på kompakte mængder.
+\clearpage
+\begin{theorem}[Mellemværdisætningen]
+Hvis funktionen $f:[a,b]\to\mathbb{R}$ er kontinuert og $d$ er et reelt tal, der ligger strengt mellem $f(a)$ og $f(b)$, så finder der et tal $c\in[a,b]$ således, at $f(c)=d$.
+\end{theorem}
+Til dette skal bruges følgende lemma.
+\begin{lemma}
+Hvis funktionen $f:[a,b]\to\mathbb{R}$ er kontinuert, og der gælder $f(a)<0, f(b)>0$, så har $f$ et nulpunkt $c\in[a,b]$.
+\end{lemma}
+\begin{proof}
+Betragt $A=\{x\in[a,b]|f(x)\leq0\}$. Da er $A$
+\begin{itemize}
+\setlength\itemsep{0em}
+\item ikke-tom, da $a\in A$
+\item opad begrænset, da $x\in A\leq b$
+\end{itemize}
+Sæt $c=\sup A$ og vis, at $0\leq f(c)\leq 0$.\\\\
+\textbf{Bevis for }$\mathbf{f(c)\leq 0}$\\
+Opskriv
+\begin{equation}
+\forall\varepsilon>0\exists x\in A: x>c-\varepsilon\text{ for } \varepsilon=1/n, n=1,2,\hdots
+\end{equation}
+Da $c$ ø.g. og $\forall n\in\mathbb{N}\exists x_n:$
+\begin{equation}
+c-\frac{1}{n}<x_n\leq c
+\end{equation}
+Altså $x_n\to c\text{ for } n\to\infty$.\\
+$f$ er kontinuert og dermed følgekontinuert, så
+\begin{equation}
+f(x_n)\to f(c)\text{ for }n\to\infty
+\end{equation}
+Da $x_n\in A$ følger at $f(x_n)\leq 0$ og dermed fra korollar 4.12 (om grænseværdier af en følge, som er $\leq 0$) at $f(c)\leq 0$.\\\\
+\textbf{Bevis for }$f(c)\geq 0$\\
+Da $f(c)\leq 0$ og $f(b)>0$ er $c<b$.\\
+Konstruér følge $\{x_n'\}_{n=0}^\infty$, hvor $x_n'=c+1/n$. Fra et vist trin er $x_n'\in[a,b]$ og $x_n'\to c\text{ for }c\to\infty$. Da $c$ er ø.g. for $A$ og $x_n'>c$ er $x_n'\notin A$ og altså $f(x_n')>0$. Altså fås med korollar 4.12, at $f(c)\geq 0$.
+\end{proof}
+\begin{proof}[Bevis for Middelværdisætningen]
+$d$ ligger strengt imellem $f(a)$ og $f(b)$ - altså
+\begin{equation}
+f(a)<d<f(b)\text{ eller }f(a)>d>f(b)
+\end{equation}
+Hvis ovenstående lemma anvendes på funktionen $x\mapsto f(x)-d$ eller $x\mapsto d-f(x)$ findes $d$ til at være lig $c$ iovenstående bevis. Grafen forskydes, således $f(a)<0$ eller $f(a)>0$.
+\end{proof}
+\clearpage
+\chapter{Åbne og lukkede mængder}
+\subsubsection{Bogen}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item 6.8 (Kugle)
+\item 6.9 (Indre punkt)
+\item 6.10 (Åben mængde)
+\item 6.11 (Lukket mængde)
+\item 6.12 (Følgekarakterisation af lukkede mængder)
+\end{itemize}
+\subsubsection{Afsnit 1.4 om kompakthed i noterne}
+Omhandler lukkede mængder i et topologisk rum. Viser, at lukkede og begrænsede mængder er kompakte.
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Definition 1.12 (Lukket mængde)
+\item Definition 1.13 (Kompakt mængde)
+\item Definition 1.14 (Hvis $K \in X$ er kompakt, er $f(K)$ kompakt)
+\item Proposition 1.15 (Hvis $C \in K$ (kompakt), så er $C$ kompakt)
+\item Defition 1.16 (Følgekompakthed)
+\end{itemize}
+\subsubsection{Afsnit 2.1 om metriske rum i noterne}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Definition 2.1 (Metrisk rum)
+\item Definition 2.2 (Åbne og lukkede kugler)
+\item Definition 2.3 (Topologien induceret af en metrik)
+\item Definition 2.9 (Hvis $K \in X$ er kompakt, som er $K$ lukket og begrænset)
+\end{itemize}
+\subsubsection{Afsnit 2.3 om normerede vektorrum i noterne}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Definition 2.16 (Normeret vetkorrum)
+\item Sætning 2.19 (Heine-Borels sætning)
+\end{itemize}
+\subsubsection{Bevis til eksamen}
+Der kan gøres flere ting men 6.12 om følgekarakterisation af lukkede mængder er oplagt. Derefter eventuelt 2.9 i noterne.
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Nem(meste)\\
+Definér åbne og lukkede mængder ved definition 1.12 i noterne. Definér derefter kompakte mængder ved topologi (1.13 i noterne) og bevis slutteligt 1.15 om lukkede delmængder af kompakte mængder.
+\item Mellem(ste)\\
+Definér åbne og lukkede mængder og begrænsethed mht. metriske rum og bevis derefter 2.9 om lukket- og begrænsethed af kompakte mængder i metriske rum.
+\item Svær(este)\\
+Bevis 2.19 (Heine-Borels sætning) eller tilhørende lemmaer om at kompakte mængder i $\mathbb{R}^n$ er lukkede og begrænsede.
+\end{itemize}
+\clearpage
+\begin{theorem}[Følgekarakterisation af lukkede mængder]
+En delmængde $F\subset\mathbb{R}$ er lukket, hvis og kun hvis følgende betingelse er opfyldt:\\\\
+\centerline{For enhver punktfølge $\{x^k\}_{k=1}^\infty$ i $F$ gælder, at hvis den er konvergent,}\\ \centerline{så er grænsepunktet $lim_k\to\infty x^k=x\in F$.}
+\end{theorem}
+\begin{proof}
+Det skal bevises, at en vilkårlig punktfølge med alle punkter i $F$ for alle $k$ med en eksisterende grænseværdi har denne grænseværdi i $F$.\\
+Antag for modstrid, at $x\in F$. Så ligger $x$ i komplementærmængden $\mathbb{R}^n\textbackslash F$.\\
+Der konstrueres en kugle med radius $r$ og centrum $x$. Denne ligger i $\mathbb{R}^n\textbackslash F$. Da $\{x^k\}_{k=1}^\infty$ er konvergent mod $x$ gælder der fra et vist trin, at
+\begin{equation}
+||x^k-x||<r \phantom{mm}\Rightarrow\phantom{mm}x^k\in\mathbb{R}^n\textbackslash F
+\end{equation}
+hvilket er modstrid.\\\\
+Antag for modstrid, at $F$ ikke er lukket. Så er komplementet $\mathbb{R}^n\textbackslash F$ ikke åbent. Det skal negeres, at alle punkter er indre punkter i komplementet:
+\begin{align}
+\neg(\forall x\in\mathbb{R}^n\textbackslash F\ \exists r>0&: B_r(x)\subseteq\mathbb{R}^n\textbackslash F)\\
+\exists x \in \mathbb{R}^n\textbackslash F \ \forall r>0&: B_r(x)\nsubseteq\mathbb{R}^n\textbackslash F
+\end{align}
+Kan også skrives som at en kugle på randen af komplementet har en fællesmængde med $F$:
+\begin{equation}
+\exists x \in \mathbb{R}^n\textbackslash F \ \forall r>0: B_r(x)\cap F \neq \emptyset
+\end{equation}
+Lad $y^k$ opfylde
+\begin{equation}
+\forall k\in\mathbb{N}:\exists y^k\in B_r(x)\cap F
+\end{equation}
+Punktfølgen $\{y^k\}_{n=1}^\infty\in F$ konvergerer altså mod $x$, som derfor på være i $F$. Altså er modstrid opnået og $F$ er lukket.
+\end{proof}
+\begin{theorem}[Kompakt delmængd af metrisk rum er lukket og begrænset]
+Lad $(X,d)$ være et metrisk rum. Hvis $K\subset X$ er kompakt, så er $K$ lukket og begrænset.
+\end{theorem}
+\begin{proof}
+Antag for modstrid, at $K$ ikke lukket. Så er komplementet $K^c$ ikke åbent.\\
+Der eksisterer et punkt $a\in K^c$ som ikke er et indre punkt. Fællesmængde mellem kugle på randen og $K$ er ikke-tom.
+\begin{equation}
+\forall n\in\mathbb{N}:\overline{B_{\frac{1}{n}}(a)}\cap K\neq\emptyset
+\end{equation}
+Den åbne overdækning
+\begin{equation}
+\left\{\overline{B_{\frac{1}{n}}(a)}^c\right\}_{n=1}^\infty
+\end{equation}
+kan ikke udtryndes til en endelig overdækning i modstrid med at $K$ er kompakt.\\
+Da $K\in X$ er kompakt og $a\in X$ findes en endelig udtynding af $X = \cup_{n=1}^\infty B_n(a)$ således $K\subset\cup_{i\in J}^\infty=B_{\max\{n_i|i\in J\}}(a)$. Altså er $K$ begrænset.
+\end{proof}
+\clearpage
+\chapter{Differentiation}
+\subsubsection{Definitioner}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item 5.24 (Arcus sinus)
+\item 5.26 (Arcus tanges)
+\item 6.9 (Indre punkt)
+\item 6.10 (Åben mængde)
+\item 7.1 (Differentialkvotient)
+\end{itemize}
+\subsubsection{Sætninger og lemmaer}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item 5.9 (Sum og produkt af kontinuerte funktioner)
+\item 5.11 (Sammensat funktion)
+\item 5.23 (Omvendt funktion)
+\item 6.35 (Grænseværdi og kontinuitet)
+\item 7.2 (Vigtige differentialkvotienter)
+\item 7.6 (Kædereglen)
+\item 7.7 (Omvendt funktion)
+\item 7.8 (Arcus-funktionernes differentialkvotienter)
+\end{itemize}
+\subsubsection{Vigtige sætninger/definitioner}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Definition 7.3 ($o$-funktion)
+\item Lemma 7.4 (Hvis $f$ er differentiabel findes en $o$-funktion...)
+\item Sætning 7.5 (Kontinuert hvis differentiabel) - gør brug af 7.4, 5.9 og 5.11 til bevis
+\item Sætning 7.1 (Regneregler for diffferentiation)
+\end{itemize}
+\clearpage
+\begin{theorem}[Differentiation med o-funktion]
+Se side 112 i bogen.
+\end{theorem}
+\begin{proof}
+\textbf{(a)}\\
+Hvis første ligning i sætningen skal gælde, skal $h\neq 0$ medføre
+\begin{equation}
+\varphi (h)=\frac{f(a+h)-f(a)}{h}-f'(a)
+\end{equation}
+Da ovenstående ikke er defineret ved $h=0$ omskrives og $\varphi (h)$ defineres ved 
+\begin{equation}
+\varphi (h)=\begin{cases}
+\frac{f(a+h)-f(a)}{h}-f'(a)&\text{ for } h\neq 0\\
+0&\text{ for } h=0
+\end{cases}
+\end{equation}
+Så er det opfyldt, at $\varphi (0)=0$ og $\varphi (h)\to 0\text{ for }h\to 0$.\\\\
+\textbf{(ii)}\\
+Hvis 
+\begin{equation}
+f(a+h)=b+\alpha h+\varphi (h)h
+\end{equation}
+fås
+\begin{equation}
+\frac{f(a+h)-f(a)}{h}=\alpha+\varphi (h)
+\end{equation}
+som har grænseværdien $\alpha$ for $h\to 0$.
+\end{proof}
+\begin{theorem}
+Hvis $f$ er differentiabel i $a$, så er $f$ kontinuert i $a$.
+\end{theorem}
+\begin{proof}
+Af lemma 4 følger, at
+\begin{equation}
+f(x)=f(a)+f'(a)(x-a)+\varphi (x-a)(x-a)
+\end{equation}
+Hvor højre side er kontinuert ifølge regnereglerne for kontinuerte funktioner (sætning 5.9 og 5.11 om sum af og sammensatte kontinuerte funktioner).
+\end{proof}
+\clearpage
+\chapter{Rolles- og Middelværdisætningen}
+En del af beviserne i afsnittet om differentiation bygger på indre punkter og åbne og lukkede kugler og mængder, så hav styr på disse definitioner - også i PMT.
+\subsubsection{Sætninger, lemmaer og definitioner}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Definition 7.14 (Lokalt ekstremum)
+\item Sætning 5.14 (Eksistens af største- og mindsteværdi)
+\item 7.13 ($f'$ og monotoni)
+\end{itemize}
+Vær klar på de mange korollarer, som gør brug af $f'$ og $f''$ i forbindelse med lokalt og globalt ekstremum.
+\subsubsection{Beviser til eksamen}
+Bevis
+\begin{itemize}
+\setlength\itemsep{0em}
+\item 7.9 (Maksimums- og minimumspunkt)
+\item 7.10 (Rolles sætning)\\
+Her bruges sætning 5.4 og 7.9.
+\item 7.11 (Middelværdisætningen)
+\end{itemize}
+\clearpage
+\begin{theorem}[Hældning i ekstremumspunkt er 0]
+Lad $I$ være et interval og $c$ et indre punkt i $I$. Hvis $c$ er et ekstremumspunkt for $f$ og $f$ er differentiable i $c$, så er $f'(c)=0$.
+\end{theorem}
+\begin{proof}
+Bevis ved modstrid - hvis $f'(c)\neq 0$, så er $c$ ikke ekstremumspunkt.\\
+Da $f$ er differentiabel eksisterer en o-funktion, således
+\begin{equation}
+f(c+h)=f(c)+(f'(c)+\varphi(h))h\phantom{mm} \forall h\in[-r,r]
+\end{equation}
+Lad $f'(c)<0$. Ddermed eksisterer et $\delta\in]0,r[$ således $f'(c)+\varphi(h)<0$ for alle $|h|<\delta$ (tjek definition af o-funktion). Dermed følger
+\begin{align}
+f(c+h)<0&\text{ for }0<h<\delta\\
+f(c+h)>0&\text{ for }-\delta<h<0
+\end{align}
+Altså har $f$ ikke ekstremumspunkt i et punkt $c$, hvor $f'(c)\neq 0$.
+\end{proof}
+\begin{theorem}[Rolles sætning]
+Lad $f:[a,b]\to\mathbb{R}$ være en funktion, som er kontinuert i det lukkede interval $[a,b]$ og differentiabel i det åbne interval $]a,b[$.\\
+\centerline{Hvis $f(a)=f(b)=0$, eksisterer det er $c\in]a,b[$ således, at det gælder $f'(c)=0$.}
+\end{theorem}
+\begin{proof}
+Ifølge 5.14 (eksistens af største- og mindsteværdi) har $f$ ekstremumspunkter på intervallet fordi den er kontinuert. I disse ekstremumspunkter er hældningen 0 ifølge ovenstående sætning.\\
+Hvis ekstremumspunkterne er i endepunkterne, så er  de både maksimum og minimum og funktionen er dermed konstant.
+\end{proof}
+\begin{theorem}[Middelværdisætningen]
+Lad $f:[a,b]\to\mathbb{R}^n$ være en funktion, som er kontinuert i det lukkede interval og differentiabel i det åbne.\\
+\centerline{Så eksisterer der et $c\in]a,b[$ således at}
+\begin{equation}
+f'(c)=\frac{f(b)-f(a)}{b-a}
+\end{equation}
+\end{theorem}
+\begin{proof}
+Lav ret linje mellem endepunkterne:
+\begin{equation}
+y=\alpha x+b,\phantom{mm}\alpha=\frac{f(b)-f(a)}{b-a}
+\end{equation}
+Lav kontinuert funktion
+\begin{equation}
+h(x)=f(x)+(\alpha x+b)
+\end{equation}
+Se, at $h(a)=h(b)=0$. Da gælder Rolles sætning således der findes et $c$
+\begin{equation}
+h'(c)=0=f'(c)-\alpha=f'(c)-\frac{f(b)-f(a)}{b-a}
+\end{equation}
+Dermed er sætningen bevist.
+\end{proof}
+\clearpage
+\chapter{L'Hôpitals regel}
+\subsubsection{Definitioner, sætninger og lemmaer der skal være styr på}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Sætning 4.33 (Konvergent, hvis afsnitsfølgen er begrænset)
+\item Sætning 4.34 (Sammenligningskriteriet)\\
+Benytter definition 4.33
+\item Sætninger og lemmaer om konvergens af Cauchy-følger i $\mathbb{R}$ og $\mathbb{C}$ (4.42-4.45)
+\item Sætning 6.35 (Grænseværdi og kontinuitet)
+\item Sætning 7.5 (Kontinuert, hvis differentiabel)
+\item Sætningerne 7.9, 7.10 og 7.11, som leder op til og er Middelværdisætningen
+\end{itemize}
+\subsubsection{Sætninger til eksamen}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Sætning 7.19 (Cauchys middelværdisætning)\\
+Benyttes i beviset for 7.20
+\item Sætning 7.20 (L'Hôpitals regel om 0/0-udtryk, når $x$ går mod $a$)
+\item Sætning 7.21 (L'Hôpitals regel om 0/0-udtryk, når $x$ går mod $\infty$)
+\item Sætning 7.22 (L'Hôpitals regel om $\infty / \infty$-udtryk)
+\end{itemize}
+\clearpage
+\begin{theorem}[L'Hôpitals regel om 0/0-udtryk, når $x$ går mod $a$]
+Se side 123 i bogen.
+\end{theorem}
+\begin{proof}
+Kun for grænseovergangen $f(x)\to 0$ for $x\to a^+$ for $x\in ]a,a+\rho[$.\\\\
+\textbf{(i)}\\
+$f$ og $g$ er definerede og kontinuerte i $[a,a+\rho[$, ifølge sætning 6.35 om grænseovergange.\\\\
+\textbf{(ii)}\\
+Det er antaget, at $f'(x)/g'(x)$ er defineret i et interval $]a,a+\rho_1[$, og derfor $g'(x)\neq 0$.\\
+$f$ og $g$ skal være definerede for at de afledede kan, så $\rho_1\leq\rho$.\\
+Brøken $f(x)/g(x)$ er også defineret, da $g$ opfylder kravene i Middelværdisætningen og man kan derfor skrive
+\begin{equation}
+\frac{g(x)-g(a)}{x-a}=g'(\xi)
+\end{equation}
+og siden $g(a)=0$, så er $g(x)\neq 0$.\\\\
+\textbf{(iii)}\\
+Bevis
+\begin{align}
+\forall \varepsilon > 0\exists\delta >0: x-a< \delta\phantom{mm}&\Rightarrow\phantom{mm}\left|\frac{f(x)}{g(x)}-c\right|<\varepsilon\text{ når}\\
+\forall \varepsilon > 0\exists\delta >0: x-a< \delta\phantom{mm}&\Rightarrow\phantom{mm}\left|\frac{f'(x)}{g'(x)}-c\right|<\varepsilon
+\end{align}
+Lad $\varepsilon >0$ være bestemt og $\delta >0$ for nedereste ligning. Dette skal gælde for øverte ligning.\\
+$f$ og $g$ opfylder kravene i Cauchys middelværdisætning, så
+\begin{equation}
+\frac{f(x)}{g(x)}=\frac{f(x)-f(a)}{g(x)-g(a)}=\frac{f(\xi)}{g(\xi)}
+\end{equation}
+Altså haves
+\begin{equation}
+\left|\frac{f(x)}{g(x)}-c\right|=\left|\frac{f(\xi)}{g(\xi)}-c\right|<\varepsilon
+\end{equation}
+Bevis for $x\to a^-$ gøres ved at lave funktioner med omvendt fortegn. Se opgave 292.
+\end{proof}
+\clearpage
+\chapter{Riemann-integralet}
+\subsubsection{Definitioner der skal være styr på}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Definition 8.1 (Inddeling, oversum, undersum)
+\end{itemize}
+\subsubsection{Beviser og definitioner til eksamen}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Bevis sætning 8.7 (En funktion er integrabel hvis og kun hvis der findes en fin nok inddeling for $\varepsilon>0$)
+\item Bevis sætning 8.9 (En kontinuert funktion er integrabel)\\
+Der gøres brug af sætning 6.29 om uniform kontinuitet.
+\end{itemize}
+\clearpage
+\begin{theorem}[Integrabel hviss over- og undersum går mod hinanden]
+En begrænset funktion $f$ på et lukket interval er integrabel hvis og kun hvis der for ethvert $\varepsilon >0$ findes en inddeling $D$ af intervallet således
+\begin{equation}
+O(D)-U(D)=\sum_{i=1}^n(G_i-g_i)(x_i-x_{i-1})<\varepsilon
+\end{equation}
+\end{theorem}
+\begin{proof}
+Antag for modstrid at $f$ ikke er integrabel
+\begin{equation}
+\underline{\int_a^b}\! f(x) \ dx\neq\overline{\int_a^b}\! f(x) \ dx
+\end{equation}
+Sætning 8.4 giver
+\begin{equation}
+\underline{\int_a^b}\! f(x) \ dx\leq\overline{\int_a^b}\! f(x) \ dx
+\end{equation}
+Det vides, at 
+\begin{equation}
+U(D)\leq\underline{\int_a^b}\! f(x) \ dx\text{ og }O(D)\leq\overline{\int_a^b}\! f(x) \ dx
+\end{equation}
+Sæt
+\begin{equation}
+\varepsilon = \overline{\int_a^b}\! f(x) \ dx-\underline{\int_a^b}\! f(x) \ dx
+\end{equation}
+Omskriv
+\begin{equation}
+O(D)-U(D)\leq\overline{\int_a^b}\! f(x) \ dx-\underline{\int_a^b}\! f(x) \ dx=\varepsilon
+\end{equation}
+Summerne konvergerer dermed mod hinanden og er i modstrid med antagelsen. Der er brugt, at $f$ begrænset på et lukket og begrænset interval.\\\\
+\textbf{(ii)}\\
+Bevis, at summerne går mod hinanden
+\begin{equation}
+O(D)-U(D)<\varepsilon
+\end{equation}
+Da integralet er infimum af mængden af oversummer ved forskellige inddelinger fås
+\begin{equation}
+O(D_1)<\overline{\int_a^b}\! f(x) \ dx + \frac{\varepsilon}{2}
+\end{equation}
+På samme måde med supremum for undersummerne
+\begin{equation}
+U(D_2)>\underline{\int_a^b}\! f(x) \ dx - \frac{\varepsilon}{2}
+\end{equation}
+Det følger dermed, at 
+\begin{equation}
+O(D)-U(D)<\varepsilon
+\end{equation}
+$f$ er integrabel hvis og kun ovenstående gælder.
+\end{proof}
+\clearpage
+\chapter{Analysen Fundamentalsætning}
+Der skal forberedes på alt fra Analysens Fundamentalsætning til slutningen af kapitel 8.
+\subsubsection{Beviser til eksamen}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Præsentér sætning 8.13 (Indskudsreglen) og 8.14 (Middelværdisætningen for integraler)
+\item Bevis Analysens Fundamentalsætning
+\end{itemize}
+\begin{theorem}[Analysen Fundamentalsætning]
+Lad $I$ være et interval og lad $f:I\to\mathbb{R}$ være en kontinuert funktion. Lad endvidere $a\in I$ og lad funktionen $F:I\to\mathbb{R}$ være defineret ved
+\begin{equation}
+F(x)=\int_a^x \! f(t) \ dt
+\end{equation}
+Så er $F$ kontinuert på $I$ og differentiabel i det indre af $I$ mid differentialkvotienten
+\begin{equation}
+F'(x)=f(x)
+\end{equation}
+\end{theorem}
+\begin{proof}
+\textbf{(i)}\\
+Lad $x$ og $y\in I$. Med indskudsreglen og Middelværdisætningen fås
+\begin{equation}
+F(y)-F(x)=\int_a^y \! f(t) \ dt-\int_a^x \! f(t) \ dt=\int_x^y \! f(t) \ dt=f(c)(y-a)
+\end{equation}
+hvor $c$ ligger mellem $x$ og $y$.\\\\
+\textbf{(ii)}\\
+Bevis, at $F$ kontinuert i $x\in I$. $f$ er kontinuert i $x$, så der findes $r>0$, således
+\begin{equation}
+|t-x|<r\phantom{mm}\Rightarrow\phantom{mm}|f(t)|\leq K
+\end{equation}
+Lad vilkårligt $y$ opfylde ovenstående, og et $c$ imellem $y$ og $x$ opfylde $F(y)-F(x)=f(c)(y-x)$. Da $|f(c)|\leq K$ fås $|F(y)-F(x)|\leq K|y-x|$. Hvis $|y-x|$ mindskes er det mindre end et $\varepsilon$ og $F$ er altså kontinuert i $x$.\\\\
+\textbf{(iii)}\\
+Bevis, at $F$ er differentiabel i $x$ med differentialkvotient $f(x)$.
+\begin{equation}
+\forall \varepsilon >0\exists\delta >0:0<|y-x|<\delta\phantom{mm}\Rightarrow\phantom{mm}\left|\frac{F(y)-F(x)}{y-x}-f(x)\right|<\varepsilon
+\end{equation}
+Lad $\varepsilon >0$ være givet. Dermed
+\begin{align}
+\exists \delta_1 >0\forall t\in I:|t-x|<\delta_1\phantom{mm}&\Rightarrow\phantom{mm}|f(t)-f(x)|<\varepsilon\\
+\exists \rho >0\forall t\in\mathbb{R}:|t-x|<\rho\phantom{mm}&\Rightarrow\phantom{mm}t\in I
+\end{align}
+Sæt $\delta=\min\{\delta_1,\rho\}$ og find $y$ således $|y-x|<\delta<\delta_1\leq\rho$. Et tal $c$ mellem $x$ og $y$ opfylder også ovenstående og ligning i \textbf{(i)}. Dermed
+\begin{equation}
+\left|\frac{F(y)-F(x)}{y-x}-f(x)\right|=|f(c)-f(x)|<\varepsilon
+\end{equation}
+Dermed er $F$ differentiabel i $x\in I$ med differentialkvotient $f(x)$.
+\end{proof}
+\pagestyle{empty} %disable headers and footers
+\pagenumbering{roman} %use roman page numbering in the frontmatter
+%\lstset{
+%	language = C,
+%	backgroundcolor=\color{gray},
+%	basicstyle=\ttfamily,
+%	keywordstyle=\color{red},
+%	numberstyle=\tiny\color{black},
+%	numbers = left,
+%	numbersep=5pt,
+%	captionpos=b
+%	}
+%\def\inline{\lstinline[basicstyle=\ttfamily,keywordstyle={}]}
+\pagestyle{fancy} %enable headers and footers again
+\pagenumbering{arabic} %use arabic page numbering in the mainmatter
+\end{document}

@@ -1,0 +1,87 @@
+\documentclass[12pt,a4paper,draft]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent{\Huge 6 Generating functions}\\\\\begin{itemize}
+\setlength\itemsep{0em}
+\item Define generating function
+\item Prove the generating function for a sum of random variables
+\item Explain the above for the sum of iid varaibels with common pgf
+\item Prove that a thinng of a Poisson process is a Poisson process
+\end{itemize}
+\textbf{Definition 3.23.} Let $X$ nonnegative and integer valued. The function
+\begin{equation}
+G_X(s)=E[s^X],\phantom{mm}0\leq s\leq1
+\end{equation}
+is called the \textit{probability generating function} of $X$.\\\\
+The pgf can be calculated by
+\begin{equation}
+G_X(s)=\sum_{k=1}^{\infty}s^kp_X(k),\phantom{mm}0\leq s\leq1
+\end{equation}
+\textbf{Proposition 3.38.} Let $X_1,X_2,\ldots,X_n$ be independent random variables with pgfs $G_1,G_2,\ldots,G_n$, respectively and let $S_n=X_1+X_2+\ldots+X_n$. Then $S_n$ has pgf
+\begin{equation}
+G_{S_n}(s)=G_1(s)G_2(s)\ldots G_n(s),\phantom{mm}0\leq s\leq1
+\end{equation}
+\textbf{Bevis}\\
+Since $X_1,\ldots,X_n$ are independent so are $s^{X_1},\ldots,s^{X_1}$ for each $s$ in $[1,0]$, and we get
+\begin{align*}
+G_{S_n}(s)&=E[s^{X_1+X_2+\ldots+X_n}]\\
+&=E[s^{X_1}]E[s^{X_2}]\ldots E[s^{X_n}]\\
+&=G_{X_1}(s)G_{X_2}(s)\ldots G_{X_n}(s)
+\end{align*}
+Explain \textbf{Proposition 3.39.}\\
+States that the sum $S_N$ of $N$ independent identical distributions with commen pgf $G_X$ has pgf
+\begin{equation}
+G_{S_N}(s)=G_N(G_X(s))
+\end{equation}
+\textbf{Proposition 3.44.} The thinned process is a Poisson process with rate $\lambda p$.\\\\
+\textbf{Bevis}\\
+Proposition 3.39 can be used as observations in two disjoint intervals are independent. Consider an interval of length $t$, letting $X(t)$ be the total number of points and $X_p(t)$ be the number of observed points in the interval. Then,
+\begin{equation}
+X_p(t)=\sum_{k=1}^{X(t)}I_k
+\end{equation}
+where $I_k=1$ if $k$th point observed and 0 otherwise. From proposition 3.39 the pgf of  $X_p(t)$ is
+\begin{equation}
+G_{X_p}(s)=G_{X(t)}(G_{I}(s))
+\end{equation}
+where
+\begin{equation}
+G_{X(t)}(s)=\mathrm{e}^{\lambda t(s-1)}
+\end{equation}
+and as $I\sim\text{Bern}(p)$ we get
+\begin{align*}
+G_I(s)&=\sum_{k=1}^{\infty}p_X(x)s^x\\
+&=p_X(0)s^0+p_X(1)s^1\\
+&=(1-p)+ps
+\end{align*}
+Therefore
+\begin{align*}
+G_{X_p}(s)&=G_{X(t)}(G_I(s))=\mathrm{e}^{\lambda t(G_I(s)-1)}=\mathrm{e}^{\lambda t(1-p+ps-1)}\\
+&=\mathrm{e}^{\lambda tp(s-1)}
+\end{align*}
+which is the pgf of a Poisson distribution with parameter $\lambda tp$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

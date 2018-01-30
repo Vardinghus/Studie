@@ -1,0 +1,81 @@
+\documentclass[12pt,a4paper,draft]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\paragraph{Opgave 38} Let $A$ and $B$  be disjoint  events. Show that
+\begin{equation}
+P(A/A\cup B)=\frac{P(A)}{P(A)+P(B)}
+\end{equation}
+Definition 1.4 bruges. Så fås
+\begin{equation}
+P(A/A\cup B)=\frac{P(A\cap (A\cup B))}{P(A\cup B)}
+\end{equation}
+Den distributive lov bruges og regel om foreningsmængder, som ingen skæring har, bruges, og der fås
+\begin{equation}
+\frac{P(A\cap (A\cup B))}{P(A\cup B)}=\frac{P(A\cap A)\cup P(A\cap B)}{P(A\cup B)}=\frac{P(A)}{P(A)+P(B)}
+\end{equation}
+\paragraph{Opgave 43}
+Show that both $\emptyset$ and the sample space $S$ are independent  of any event. Explain intuitively.\\\\
+Brug definitionen for uafhængighed og sæt $S$ ind.
+\begin{align}
+P(A\cap B)&=P(A)P(B)\\
+P(S\cap B)&=P(S)P(B)
+\end{align}
+Da $P(S\cap B)=P(B)$ og $P(S)=1$ fås
+\begin{equation}
+P(B)=P(B)
+\end{equation}
+og udsagnet er altså sandt.\\
+Det samme gøres med den tomme mængde. Da $P(\emptyset)=0$ og $P(\emptyset\cap B)=0$ fås
+\begin{align}
+P(\emptyset \cap B)&=P(S)P(B)\\
+0&=0
+\end{align}
+\paragraph{Opgave 46}
+A fair coin is flipped twice. Explain the difference between  the following: \textbf{(a)} the probability  that both flips  give heads, and \textbf{(b)} the conditional probability that the seecond flip gives heads given that the first flip gave heads.\\\\
+Se, at 
+\begin{align}
+S&=\{HH,HT,TH,TT\}\\
+A&=\{HH\}\\
+B&=\{HT,HH\}
+\end{align}
+Det ses dermed, at
+\begin{align}
+P(A)&=\frac{\# A}{\# S}=\frac{1}{4}\\
+P(B)&=\frac{\# B}{\# S}=\frac{1}{2}
+\end{align}
+Formlen for betinget sandsynlighed er dermed
+\begin{align}
+P(A/B)&=\frac{P(A\cap B)}{P(B)}\\
+&=\frac{P(A)}{P(B)}\\
+&=\frac{1}{2}
+\end{align}
+Det ses, at de to sandsynligheder er forskellige. Rent intuitivt sker dette fordi der i \textbf{(b)} er elimineret to af mulighederne i $S$ fra starten.
+\paragraph{Opgave 50}
+You roll a dice twice  and record the largest number. \textbf{(a)} Given that the first roll gives 1, what is the conditional probability that the largest number is 3? \textbf{(b)} Given that the first roll gives 3, what is the conditional probability that the largest number is 3?\\\\
+Lad $S=\{(1,1),(1,2),\hdots,(1,6)\}$ og $A=\{(1,3)\}$.
+Da haves
+\begin{equation}
+P(A)=\frac{\# A}{\# S}=\frac{1}{6}
+\end{equation}
+og
+\begin{equation}
+P(A/S)=\frac{P(A\cap S)}{P(S)}=\frac{P(A)}{1}=P(A)=\frac{1}{6}
+\end{equation}
+Lad nu $S=\{(3,1),(3,2),\hdots,(3,6)\}$ og $A=\{(3,1),(3,2),(3,3)\}$. Da haves
+\begin{equation}
+P(A)=\frac{\# A}{\# S}=\frac{1}{2}
+\end{equation}
+og
+\begin{equation}
+P(A/S)=\frac{P(A\cap S)}{P(S)}=\frac{P(A)}{1}=P(A)=\frac{1}{2}
+\end{equation}
+\paragraph{Opgave 73}
+You roll a die and flip a fair coin a number of times  determined by the number on the die. What is the probability that you get no heads?\\\\
+
+\paragraph{Opgave 87}
+
+\end{document}

@@ -1,0 +1,65 @@
+\documentclass[12pt,a4paper,draft]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent \textbf{Joint distribution function of random variable $(X,Y)$}
+\begin{equation}
+F(x,y)=P(X\leq x,y\leq y),\text{ for }x,y\in\mathbb{R}
+\end{equation}
+\textbf{Properties}
+\begin{itemize}
+\item $F(x,\infty)=\lim_{y\to\infty}F(x,y)$
+\item $F(\infty,y)=\lim_{x\to\infty}F(x,y)$
+\end{itemize}
+\textbf{Marginal cdf of $(X,Y)$}
+\begin{align*}
+F_X(x)=F(x,\infty)\\
+F_Y(y)=F(\infty,y)
+\end{align*}
+If $X$ and $Y$ are independent then
+\begin{equation}
+F(x,y)=F_X(x)F_X(y)
+\end{equation}
+\textbf{Proposition}\\
+Let $X_1\sim \text{Poi}(\lambda_1)$ and $X_2\sim\text{Poi}(\lambda_2)$. Then
+\begin{equation}
+X_1\text{ and }X_2\text{ are independent } \Leftrightarrow\{X_1+X_2\sim\text{Poi}(\lambda_1+\lambda_2)\text{ and }X_1(X_1+X_2)=n\sim\text{Bin}(n,\frac{\lambda_1}{\lambda_1+\lambda_2})\}
+\end{equation}
+\\\\
+\textbf{Continuouss stochastic vector}\\
+$X$ and $Y$ are continuous random variables with pdf $f_x$ and $f_y$ respectively.\\\\
+\textbf{Definition} $X$ and $Y$ are jointly continuous if there ecists a function $f$ from $\mathrm{R}^2$ into $\mathrm{R}$ such that
+\begin{equation}
+P((X,Y)\in B)=\int\! \int_B\!f(x,y)\,dx\,dy,\text{ for all }B\subset\mathrm{R}^2
+\end{equation}
+\begin{itemize}
+\item $f$ is called the joint pdf og $(X,Y)$
+\item the conditional pdf of $Y$ given $X=x$ is 
+\begin{equation}
+f_y(y/x)=\begin{cases}\frac{f(x,y)}{f_x(x)}\text{ if }f_x(x)>0\\
+0 \text{ if else}\end{cases}
+\end{equation}
+\item the conditional cdf of $Y$ given $X$ is given by 
+\begin{equation}
+F_y(y/x)=\int_{\infty}^y\!f_y(t/x)\,dt
+\end{equation}
+\item the conditional distribution of $Y$ given $X=x$ is
+\end{itemize}
+\textbf{Proposition} Let $(X,Y)$ be jointly continuous
+\begin{enumerate}
+\item If Area$(B)=0$. $(f_x\,a\,line)\,\Rightarrow\,P((X;Y)\in B)=0$
+\item $f$ is positive valued and $\int_{-\infty}^{\infty}\!\int_{-\infty}^{\infty}\!f(x,y)=1$
+\item For all $x,y\in\mathbb{R}$. $F(x,y)=\int_{-\infty}^{\infty}\!\int_{-\infty}^{\infty}\!f(s,t)\,dt\,ds$
+\item $f(x,y)=\frac{d^2}{dxdx}F(x,y)=\frac{\partial^2}{\partial x\partial y}F(x,y)$
+\item $f_x(a)=\int_{-\infty}^{\infty}\!f(x,y)\,dy=\int_{-\infty}^{\infty}f_x(x/y)f_y(y)\,dy$
+\item For $B\subset\mathbb{R}$. $P(Y\in B)=\int_{-\infty}^{\infty}\!P(Y\in B)/X=x)f_x(x)\,dx$
+\item For $B\subset\mathbb{R}$. $P((x,y)\in B)=\int_{-\infty}^{\infty}\!P((x,y)\in B/X=x)f_x(x)\,dx$
+\item $X$ and $Y$ are independent $\Leftrightarrow\,F(x,y)=F_x(x)F_y(y)\,\Leftrightarrow\,f(x,y)=f_x(x)f_y(y)\,\Leftrightarrow\,f_y(y/x)=f_y(y)$
+\end{enumerate}
+
+
+
+\end{document}

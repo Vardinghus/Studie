@@ -1,0 +1,83 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent{\Huge Discrete stochastic variables and distributions}\\\\
+Define
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Discrete RV
+\item Expected value (continuous)
+\item Variance
+\end{itemize}
+Prove
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Linearity of expected value
+\item Nonlinearity of variance
+\end{itemize}
+\textbf{Definition 2.2. (Discrete RV)} If the range of $X$ is countable, then $X$ is called a $discrete$ $random$ $variable$.\\\\
+\textbf{Definition 2.8.(Expected value)} Let $X$ be a discrete random variable with range $\{x_1,x_2,\ldots\}$ (finite or countably infinite) and probability mass function $p$. The $expected$ $value$ of $X$ is defined as
+\begin{equation}
+E[X]=\sum_{k=1}^{\infty}x_kp(x_k)
+\end{equation}
+\textbf{Defintion 2.10. (Variance)} Let $X$ be a random variable with expected value $\mu$. The $variance$ of $X$ is defined as
+\begin{equation}
+\text{Var}[X]=E[(X-\mu)^2]
+\end{equation}
+\textbf{Proposition 2.11. (Linearity of E)} Let $X$ be any random variable, and let $a$ and $b$ be real numbers. Then
+\begin{equation}
+E[aX+b]=aE[X]+b
+\end{equation}
+\textbf{Bevis}\\
+Der haves for $Y=aX+b$, at
+\begin{equation}
+f_Y(y)=\frac{1}{a}f_X\left(\frac{y-b}{a}\right)
+\end{equation}
+Fra definitionen af den forventede værdi fås
+\begin{equation}
+E[Y]=\sum_{k=1}^{\infty}\!y_kp_Y(y_k)=\frac{1}{a}\sum_{k=1}^{\infty}\!y_kp_X\left(\frac{y_k-b}{a}\right)
+\end{equation}
+Lav variabelskifte således $y=ax+b$ hvilket giver $dy=a\,dx$ således
+\begin{align*}
+E[Y]&=\sum_{k=1}^{\infty}\!(ax_k+b)p_X(x_k)\\
+&=a\sum_{k=1}^{\infty}\!x_kp_X(x_k)+b\sum_{k=1}^{\infty}\!p_X(x_k)=aE[X]+b
+\end{align*}
+\textbf{Proposition 2.15. (Nonlinearity of Var)} Let $X$ be any random variable, and let $a$ and $b$ be real numbers. Then
+\begin{equation}
+\text{Var}[aX+b]=a^2\text{Var}[X]
+\end{equation}
+\textbf{Bevis}\\
+Brug definitionen af varians.
+\begin{align*}
+\text{Var}[aX+b]&=E[(aX+b-E[aX+b])^2]\\
+&=E[(aX+b-aE[X]-b)^2]=E[a^2(X-E[X])^2]\\
+&=a^2E[(X-E[X)^2]=a^2\text{Var}[X]
+\end{align*}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

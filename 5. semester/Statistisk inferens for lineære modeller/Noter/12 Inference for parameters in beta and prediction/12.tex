@@ -1,0 +1,95 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent\textbf{Inferens for beta}\\
+Tidligere:
+\begin{equation*}
+\hat{\beta}(Y)\sim\mathcal{N}_k(\beta,\sigma^2(X^TX)^{-1}),\phantom{mm}\text{ukendt }\sigma^2
+\end{equation*}
+Antag:
+\begin{equation*}
+Y\sim\mathcal{N}_n(X\beta,\sigma^2I),\phantom{mm}X\text{ har fuld rang}
+\end{equation*}
+Notation:
+\begin{itemize}
+\item $d_j=(X^TX)^{-1}$
+\item $b_j$ er j'te element af $\hat{\beta}=(X^X)^{-1}X^Ty$
+\item $\hat{\sigma}^2=\Vert y-Hy\Vert^2/(n-k)$
+\end{itemize}
+Betragt hypotesen $H_0:B_j=B_{0_j}$. Så er
+\begin{equation*}
+t_j(Y;B_{0_j}):=\frac{\hat{\beta}_j(Y)-B_{0_j}}{\sqrt{d_j\hat{\sigma}^2(Y)}}\sim t(n-k)
+\end{equation*}
+og $p$-værdien er givet ved
+\begin{equation*}
+P(y;B_{0_j})=P(|t_j(Y;B_{0_j})|)\geq |t_j(y;B_{0_j})|
+\end{equation*}
+Et $1-\alpha$-konfidensinterval for $B_j$ er givet ved 
+\begin{equation*}
+\hat{\beta}_j(y)\pm t_{1-\alpha/2}(n-k)\sqrt{d_j\hat{\sigma}^2(y)}
+\end{equation*}
+\textit{Bevis}\\
+Bemærk:
+\begin{align*}
+&\hat{\beta}(Y)\sim\mathcal{N}_k(\beta,\sigma^2(X^TX)^{-1})&\Rightarrow\\
+&\hat{\beta}_j(Y)\sim\mathcal{N}(\beta_j,\sigma^2d_j)&\Rightarrow\\
+&\frac{\hat{\beta}_j-\beta_j}{\sqrt{\sigma^2d_j}}\sim\mathcal{N}(0,1)
+\end{align*}
+og
+\begin{equation*}
+\hat{\sigma}^2=\frac{\sigma^2}{n-k}\chi^2(n-k)
+\end{equation*}
+Derfor
+\begin{align*}
+t_j(Y;B_{0_j})=\frac{(B_j(Y)-B_{0_j})/\sqrt{\sigma^2d_j}}{\sqrt{d_j\hat{\sigma}^2(Y)/\sqrt{\sigma^2d_j}}}
+\end{align*}
+Tælleren er standardnormalfordelt mens nævneren er $\chi^2$-fordelt. Altså fås en $t$-fordeling:
+\begin{equation*}
+\sim t(n-k)
+\end{equation*}
+\textbf{Prædiktion}\\
+Lad $Y\sim\mathcal{N}_n(X\beta,\sigma^2I)$, og $X$ have fuld rang. Antag, at vi har observeret data $Y=y$ og ud fra det udregnet $\hat{\beta}(y)$ og $\hat{\sigma}^2$. Vi vil prædiktere $Y_{n+1}$ (ukendt) for en kendt $x_{n+1}$. Vi prædikterer via MLE, dvs
+\begin{equation*}
+\hat{Y}_{n+1}(y)=x_{n+1}^T\hat{\beta}(y)
+\end{equation*}
+\textbf{Bemærk:} $\hat{Y}_{n+1}$ kaldes en prædiktor.\\\\
+Da \begin{equation*}
+\hat{\beta}(Y)\sim\mathcal{N}_k(\beta,\sigma^2(X^TX)^{-1})
+\end{equation*}
+så
+\begin{equation*}
+\hat{Y}_{n+1}\sim\mathcal{N}(x_{n+1}^T\beta,\sigma^2x_{n+1}^T(X^TX)^{-1}x_{n+1})
+\end{equation*}
+som er uafhængig af $Y_{n+1}\sim\mathcal{N}(x_{n+1}^T\beta,\sigma^2)$. Derfor
+\begin{equation*}
+Y_{n+1}-\hat{Y}_{n+1}\sim\mathcal{N}(0,\sigma^2(1+x_{n+1}^T(X^TX)^{-1}x_{n+1})
+\end{equation*}
+Da $\hat{\sigma}^2(Y)$ er uafhængig af $\hat{\beta}(Y)$, så er  $\hat{\sigma}^2(Y)$ uafhængig af $Y_{n+1}-\hat{Y}_{n+1}(Y)$. Dvs
+\begin{align*}
+T&=\frac{Y_{n+1}-\hat{Y}_{n+1}}{\sqrt{\hat{\sigma}^2(Y)(1+x_{n+1}^T(X^TX)^{-1}x_{n+1}}}\\
+&=\frac{(Y_{n+1}-\hat{Y}_{n+1}/\sqrt{\sigma^2(1+x_{n+1}(X^TX)^{-1}x_{n+1}}}{\sqrt{\hat{\sigma}^2(Y)/\sigma^2}}\\
+&\sim t(n-k)
+\end{align*}
+Med sandsynlighed $1-\alpha$ ligger $Y_{n+1}$ i intervallet
+\begin{equation*}
+\hat{Y}_{n+1}(Y)\pm t_{1-\alpha}(n-k)\sqrt{\hat{\sigma}^2(Y)(1+x_{n+1}^T(X^TX)^{-1}x_{n+1}}.
+\end{equation*}
+Indsættes $Y=y$ så kaldes dette et $(1-\alpha)$-prædiktionsinterval for $Y_{n+1}$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

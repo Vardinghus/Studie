@@ -1,0 +1,37 @@
+\chapter{Konklusion}
+Følgende afsnit har til formål at konkludere på projektet og de brugte metoder i relation til den opstillede case.
+
+De to billedkomprimeringsteknikker udarbejdet i rapporten bygger på to forskellige matematiske værktøjer - en diskret cosinustransformation og principalkomponentanalyse af et billede beregnet med brug af egenværdier. DCT udtrykker et signal som en sum af cosinusfunktioner og giver dermed et indblik i, hvordan signalet er bygget op. Når der ses på billeder, kan transformationen bruges til at identificere, hvilke informationer om billedet som er (næsten) redundante - disse kan dermed fjernes, og billedet kan komprimeres. PCA beregner egenvektorer for billedet og benytter de mest betydende af disse til at udtrykke billedet - disse hedder principale komponenter.
+
+Det fremkom ved sammenligning af de behandlede Lena, at DCT, ved den samme komprimeringsgrad som PCA, gav et pænere billede, hvilket blev underbygget både objektivt af SNR og subjektivt.
+Der kan desuden konkluderes, at både DCT og PCA bliver påvirket af dimensionerne af et billede - mindre billeder giver ringere resultater for begge metoder, mens større billeder giver bedre resultater. Dette ændrer ikke på, hvordan de komprimerer i forhold til hinanden - DCT er stadig bedre end PCA.
+
+PCA kan opnå langt flere komprimeringsgrader end DCT og er derfor mere fleksibel. Dette skyldes, at PCA oprindeligt er udviklet til at finde en sammenhæng i et datasæt og beskrive det med så få sammenhængende prinicipale komponenter som muligt. Denne egenskab er dog ikke optimal, når et billede skal komprimeres, da hele billedet gerne skal beskrives så nøjagtigt som muligt. Dette gør, at der skal bruges et højere antal principale komponenter, end metoden var tiltænkt, for at billedet stadig kan beskrives, så det ikke er til gene for brugeren. Metoden kan med fordel bruges på billeder, som er meget ensartede, som det kan ses på resultaterne af T2. Men det er DCT, der ved subjektiv vurdering skaber det bedste billede set på resten af testbillederne. 
+DCT er ikke i stand til at opnå samme komprimeringsgrad som PCA, men måden hvorpå den fjerner de høje frekvenser fra billedet, som til en hvis grad er overflødige, betyder at den ofte danner de pæneste billeder, hvis komprimeringsgraden holdes ens med PCA.
+
+Da formålet med rapporten er, at undersøge hvilken af de to komprimeringsalgoritmer, som bedst kunne bruges til komprimering af billeder taget med og lagret på en mobil, er det ønskværdigt at bevare billedkvaliteten i samspil med en høj komprimeringsgrad. Ud af de to metoder, PCA og DCT, viser DCT sig at være den bedste i tilfælde, hvor billedet ikke har mange glatte overgang over det hele - den er langt mere alsidig end PCA, der primært håndterer meget ensformige billeder godt.
+
+Det kan derfor konkluderes, at komprimeringsalgoritmen, som bygger på en diskret cosinustransformation, er den bedste løsning til komprimering af billeder på en mobiltelefon i forhold til PCA.
+
+\section{Perspektivering}
+Dette projekt har været begrænset til billedkomprimering med en diskret cosinustransformation og principale komponenter i et billede. Der findes mange andre komprimeringsmetoder, tabsfri såvel som ikke-tabsfri, som ikke er undersøgt i denne rapport. I dette afsnit overvejes nogle af mulighederne, som kunne have været relevante for projektet, men som ikke er inkluderet.
+
+\textbf{DCT}\\
+Der findes andre transformationer end en diskret cosinustransformation, som kan benyttes i en billedkomprimeringsalgoritme. Blandt disse kan nævnes
+\begin{itemize}
+	\item[]{\textit{Diskret Fouriertransformation} (DFT)\\
+	som allerede er blevet omtalt. Transformationen er DCT underlegen i forbindelse med billedkomprimering.}\\
+	\item[]{\textit{Diskret Sinustransformation} (DST)\\
+	som udtrykker et singal ved sinusfunktioner, men som ikke opnår lige så høj energikomprimering af billeder som DCT.}\\
+	\item[]{\textit{Diskret Wavelettransformation} (DWT)\\
+	som indgår i den nye og forbedrede JPEG-algoritme, JPEG2000. Transformationen er DCT overlegen og kan tilmed udføre tabsfri komprimering.}
+\end{itemize}
+
+\textbf{PCA}\\
+Som tidligere bemærket kan PCA bruges til meget andet end billedkomprimering, hvor det er nyttigt at finde ligheder i store mængder data. En udbredt brug af PCA er inden for ansigtsgenkendelse, hvor ansigter udtrykkes som en sum af egenansigter komponeret af principale komponenter. Der kunne alternativt have været lavet egenansigter med PCA på DCT-komprimerede billeder, for at se hvordan komprimeringen påvirker PCAs funktionsdygtighed.
+
+\textbf{Tabsfri}\\
+I projektet benyttes Huffmankodning, som er en tabsfri komprimeringsmetode. Denne bruges dog ikke alene til billedkomprimering, og i projektet er der ikke undersøgt en, udelukkende, tabsfri billedkomprimeringsmetode. Det kunne være interessant at undersøge eller lave en tabsfri algoritme, for at kunne sammenligne de to typer på billedkvalitet og komprimeringsgrad. Blandt tabsfrie billedformater kan nævnes PNG og TIFF.
+
+\textbf{Farverum}\\
+I projektet undersøges farvebilleder efter RGB-farvemodellen, og komprimeringerne udføres ligeledes i denne opdeling af farverummene. Til billedkomprimering deles billeder ofte op i farverummene YCrCb (se afsnit \vref{sec:teori_intro}), da det med denne opdeling kan lade sig gøre at lave en mere effektiv komprimering grundet farverummenes egenskaber.

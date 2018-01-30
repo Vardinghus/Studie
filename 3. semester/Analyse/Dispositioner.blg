@@ -1,0 +1,10 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: Dispositioner.aux
+The style file: biblatex.bst
+I couldn't open database file bib/mybib.bib
+---line 5 of file Dispositioner.aux
+ : \bibdata{Dispositioner-blx,bib/mybib
+ :                                     }
+I'm skipping whatever remains of this command
+Database file #1: Dispositioner-blx.bib
+Biblatex version: 2.1
+(There was 1 error message)

@@ -1,0 +1,90 @@
+\documentclass[12pt,a4paper,draft]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent \textbf{Opgave 2}\\
+The discrete random variable $X$ has cdf
+\begin{equation}
+F(x)=
+\begin{cases}
+0& \text{for } x<1\\
+1/4& \text{for } 1\leq x<2\\
+3/4& \text{for } 2\leq x<3\\
+1& \text{for } x\geq 3
+\end{cases}
+\end{equation}
+Find \textbf{(a)} $P(X=1)$, \textbf{(b)} $P(X=2)$, \textbf{(c)} $P(X=2.5)$ and \textbf{(d)} $P(X\leq 2.5)$.\\\\
+\textbf{(a)} $F$ bruges til at beregne dette. For at finde den ønskede sandsynlighed bruges den tilsvarende samlede minus den foregående samlede.
+\begin{equation}
+P(X=1)=F(1)-F(0)=\frac{1}{4}
+\end{equation}
+\textbf{(b)} På samme måde som før:
+\begin{equation}
+P(X=2)=F(2)-F(1)=\frac{1}{2}
+\end{equation}
+\textbf{(c)} Da der er tale om en diskret stokastisk variabel kan den ikke være lig $2.5$.
+\begin{equation}
+P(X=2.5)=0
+\end{equation}
+\textbf{(d)} Der er tale om alle muligheder lavere end $2.5$, så der benyttes $F(2)$.
+\begin{equation}
+P(X\leq 2.5)=F(2)=\frac{3}{4}
+\end{equation}
+\textbf{Opgave 4}\\
+The random variable $X$ has pmf $p(k)=ck,k=1,2,3$. Find \textbf{(a)} the constant $c$, \textbf{(b)} the cdf $F$, \textbf{(c)} $P(X\leq 2)$, and \textbf{(d)} $P(X>1)$.\\\\
+\textbf{(a)} Summen af alle $p$ skal være 1.
+\begin{equation}
+\sum_{k=1}^{3}p(k)=\sum_{k=1}^{3}ck=1
+\end{equation}
+Altså er $c=\frac{1}{6}$.\\\\
+\textbf{(b)} Da $p(1)=\frac{1}{6}$, $p(2)=\frac{2}{6}$ og $p(3)=\frac{3}{6}$ fås
+\begin{equation}
+F(x)=
+\begin{cases}
+0&\text{for } x<1\\
+1/6&\text{for } 1\leq x<2\\
+3/6&\text{for } 2\leq x<3\\
+1&\text{for } x\geq 3
+\end{cases}
+\end{equation}
+\textbf{(c)} Det er den samlede sandsynlighed for alle muligheder under 2.5.
+\begin{equation}
+P(X\leq 2)=F(2)=\frac{1}{2}
+\end{equation}
+\textbf{(d)} Den samlede sandsynlighed for alle muligheder større end 1.
+\begin{equation}
+p(X>1)=F(3)-F(1)=\frac{5}{6}
+\end{equation}
+\textbf{Opgave 12}\\
+Let $f$ be the pdf of a continuous random variable $X$. Is it always true that $f(x)\leq 1$ for all $x$ in the range of $X$? Does it have to be true  for some $x$ in the range of $X$?\\\\
+Nej og nej. Hvis intervallet i en $Unif$ er mindre end 1 må der nødvendigvis være $f(x)$ som er større end 1.\\\\
+\textbf{Opgave 13}\\
+The function $f$ is defined as $f(x)=cx^2$, $0\leq x\leq 1$.\textbf{(a)} Determine the constant $c$ så that this becomes a pdf of a random variable of $X$. \textbf{(b)} Find the cdf and compute $P(X>0.5)$.\textbf{(c)} Let $Y=\sqrt{X}$ and find the pdf  of $Y$.\\\\
+\textbf{(a)} Arealet under kurven for $f(x)$ skal være 1. Altså integreres der fra 0 til 1.
+\begin{equation}
+\int_0^1\!f(x)\,dx=\int_0^1\!cx^2\,dx=\frac{1}{3}cx^3
+\end{equation}
+For at ovenstående bliver 1 skal $c=3$.\\\\
+\textbf{(b)} Nedenstående sammenhæng benyttes
+\begin{equation}
+F(x)=\int_{-\infty}^x\!f(t)\,dt
+\end{equation}
+Altså
+\begin{equation}
+F(x)=\int_{0}^x3x^2\,dt=[x^3]_0^x=x^3
+\end{equation}
+Herefter beregnes $P(X>0.5)$ med nedenstående sammenhæng.
+\begin{equation}
+P(x\in B)=\int_B\!f(x)\,dx
+\end{equation}
+Altså
+\begin{equation}
+P(X>0.5)=\int_{0.5}^{1}\!f(x)\,dx=\int_{0.5}^{1}\!3x^2\,dx=[x^3]_{0.5}^1=1-0.5^3=0.875
+\end{equation}
+\textbf{(c)}
+
+
+\end{document}

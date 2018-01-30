@@ -1,0 +1,42 @@
+\BOOKMARK [0][-]{titelblad.0}{Titelblad}{}% 1
+\BOOKMARK [0][-]{indhold.0}{Indholdsfortegnelse}{}% 2
+\BOOKMARK [0][-]{chapter.1}{Projektbeskrivelse}{}% 3
+\BOOKMARK [1][-]{section.1.1}{Problemanalyse}{chapter.1}% 4
+\BOOKMARK [1][-]{section.1.2}{Problemformulering}{chapter.1}% 5
+\BOOKMARK [0][-]{chapter.2}{Digitale billeder}{}% 6
+\BOOKMARK [1][-]{section.2.1}{Billedkomprimering}{chapter.2}% 7
+\BOOKMARK [0][-]{chapter.3}{Billedkomprimering med diskret cosinustransformation}{}% 8
+\BOOKMARK [1][-]{section.3.1}{Diskret Fouriertransformation}{chapter.3}% 9
+\BOOKMARK [2][-]{subsection.3.1.1}{JPEG}{section.3.1}% 10
+\BOOKMARK [2][-]{subsection.3.1.2}{Diskret Cosinustransformation}{section.3.1}% 11
+\BOOKMARK [2][-]{subsection.3.1.3}{Eksempler p\345 brug af den diskrete cosinustransformation}{section.3.1}% 12
+\BOOKMARK [2][-]{subsection.3.1.4}{Forbehandling af billede}{section.3.1}% 13
+\BOOKMARK [2][-]{subsection.3.1.5}{Kvantisering}{section.3.1}% 14
+\BOOKMARK [2][-]{subsection.3.1.6}{Entropikodning - Huffmankodning}{section.3.1}% 15
+\BOOKMARK [1][-]{section.3.2}{DCT anvendelse}{chapter.3}% 16
+\BOOKMARK [0][-]{chapter.4}{Billedkomprimering med Principal Component Analysis}{}% 17
+\BOOKMARK [1][-]{section.4.1}{Statistiske v\346rkt\370jer}{chapter.4}% 18
+\BOOKMARK [2][-]{subsection.4.1.1}{St\370j}{section.4.1}% 19
+\BOOKMARK [2][-]{subsection.4.1.2}{Redundans}{section.4.1}% 20
+\BOOKMARK [1][-]{section.4.2}{Kovariansmatrix}{chapter.4}% 21
+\BOOKMARK [2][-]{subsection.4.2.1}{Gennemsnit}{section.4.2}% 22
+\BOOKMARK [2][-]{subsection.4.2.2}{Varians og kovarians}{section.4.2}% 23
+\BOOKMARK [2][-]{subsection.4.2.3}{Diagonalisering af kovariansmatricen}{section.4.2}% 24
+\BOOKMARK [1][-]{section.4.3}{Udregn PCA}{chapter.4}% 25
+\BOOKMARK [1][-]{section.4.4}{Billedekomprimering med PCA}{chapter.4}% 26
+\BOOKMARK [0][-]{chapter.5}{Resultater}{}% 27
+\BOOKMARK [1][-]{section.5.1}{Komprimeringsgrad}{chapter.5}% 28
+\BOOKMARK [1][-]{section.5.2}{Kvalitet}{chapter.5}% 29
+\BOOKMARK [0][-]{chapter.6}{Vurdering}{}% 30
+\BOOKMARK [1][-]{section.6.1}{Sammenligning - Lena}{chapter.6}% 31
+\BOOKMARK [2][-]{subsection.6.1.1}{Skalering af Lena}{section.6.1}% 32
+\BOOKMARK [1][-]{section.6.2}{Vurdering af mobilbilleder}{chapter.6}% 33
+\BOOKMARK [1][-]{section.6.3}{Fejlkilder}{chapter.6}% 34
+\BOOKMARK [0][-]{chapter.7}{Konklusion}{}% 35
+\BOOKMARK [1][-]{section.7.1}{Perspektivering}{chapter.7}% 36
+\BOOKMARK [0][-]{section*.5}{Litteratur}{}% 37
+\BOOKMARK [0][-]{appendiks.0}{Appendiks}{}% 38
+\BOOKMARK [0][-]{appendix.A}{DCT udledning}{}% 39
+\BOOKMARK [0][-]{appendix.B}{Huffmantr\346}{}% 40
+\BOOKMARK [0][-]{appendix.C}{Bevis for positive egenv\346rdier}{}% 41
+\BOOKMARK [0][-]{appendix.D}{Indhold i bilagsmappe}{}% 42

@@ -1,0 +1,36 @@
+Filnavne navngives:
+"personinitialer"_"lyd".wav eks. fr_a.wav
+
+Vi gemmer med 16 bit, og 8kHz
+Ingen "still lyd"
+
+Ordliste:
+Stemt
+ - a
+ - e
+ - i
+ - o
+ - u
+ - y
+ - oe (ø)
+Ustemt
+ - p
+ - t
+ - k
+ - f
+ - v
+ - h
+ - s
+
+Navneliste
+ - to (tobias)
+ - ma (martin)
+ - jo (jonas)
+ - fr (frederik)
+ - da (danny)
+ - tr (trine)
+
+Bemærkning:
+ - Frederiks k lyder lidt sjovt.
+ - Dannys v indeholder noget stille lyd, da den er underlig :)
+ - Trine u, t og f blev ikke opfanget rigtigt

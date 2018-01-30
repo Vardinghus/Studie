@@ -1,0 +1,176 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent{\Huge Estimation of parameters}\\\\
+\textbf{Fittede værdier/prædiktioner}\\
+$\hat{\mu}$ er projektion af $y$. Hvis $X$ har fuld rang, så
+\begin{align*}
+\hat{\mu}&=X\hat{\beta}\\
+&=X((X^TX)^{-1}X^Ty
+\end{align*}
+hvor $X(X^TX)^{-1}$ er en projektionsmatrix/hatmatrix.\\\\
+\textbf{Projektionsmatrix}\\
+$P$ er en projektionsmatrix på et underrum $\Omega\subseteq\mathbb{R}^n$, hvis
+\begin{itemize}
+\item[(a)] $P^T=P$ (symmetri)
+\item[(b)] $P^2=P$ (idempotent)
+\item[(c)] $Py\in\Omega$, $\forall y\in\mathbb{R}^n$
+\item[(d)] $y-Py\perp\Omega$, $\forall y\in\mathbb{R}^n$
+\end{itemize}
+$H$ er en projektionsmatrix af $y$ på $\Omega_0$.
+\textbf{Residualer}
+\begin{align*}
+r(y)=y-\hat{\mu}(y)=y-X\hat{\beta}=y-Hy=(I-H)y
+\end{align*}
+\textbf{Cochrans sætning (modificeret)}\\
+Antag $Z\sim\mathcal{N}_n(0,I_n)$, $H_1,\ldots,H_m$ er projektionsmatricer, hvor $H_iH_j=0$, når $i\neq j4$ og $d_i=$rang$(H_i>0)$. Så er 
+\begin{align*}
+H_iZ&\sim\mathcal{N}(0,H_i),&i=1,\ldots,m\phantom{mm}\text{ufhængige}\\
+\Vert H_iZ\Vert^2=Z^TH_iZ&\sim\chi^2(d_i)&i=1,\ldots,m\phantom{mm}\text{uafhængige}
+\end{align*}
+For $i\neq j$ er $H_iZ$ og $\Vert H_jZ\Vert^2$ uafhængige.
+\textit{Bevis}\\
+Af spektralsætningen fås
+\begin{itemize}
+\item $H_i=A_iD_iA_i^{-1}$
+\item $A_i$ er ortogonal (pga. $H_i$ symmetrisk), dvs. $A_iA_i^T=A_i^TA_i=I$
+\item $D_i$ er diagonal med $d_i$ 1-taller i diagonalen og 0 ellers (pga. $H_i$ er en projektionsmatrix)
+\end{itemize}
+Antag $D_i$ har 0 på de første $d_1+\ldots d_{i-1}$ pladser, derefter 1 på de næste $d_i$ pladser, og 0 derefter.\\
+Lad
+\begin{align*}
+P=\begin{bmatrix}H_i\\ \vdots\\H_m\end{bmatrix}\in\mathbb{R}^{mn\times n}
+\end{align*}
+\begin{align*}
+PZ\sim\mathcal{N}_{mn}(P0,PI_nP^T)=\mathcal{N}_{mn}(0,PP^T)
+\end{align*}
+hvor
+\begin{align*}
+PP^T&=\begin{bmatrix}H_1H_1&H_1H_2&\hdots&H_1H_m\\H_2H_1& & & \\
+\vdots & &\ddots & \\
+H_mH_1 & & &H_mH_n\end{bmatrix}\\
+&=\begin{bmatrix}H_1& & 0\\&\ddots&\\0& & H_m\end{bmatrix}
+\end{align*}
+Desuden:
+\begin{align*}
+\Vert H_iZ\Vert^2=(H_iZ)^T(H_iZ)=Z^TH_i^TH_iZ=Z^TH_iZ
+\end{align*}
+Da
+\begin{align*}
+Vert H_iZ\Vert&=\Vert A_iD_iA_i^TZ\Vert=\Vert D_iA_i^TZ\Vert\phantom{mm}\text{($A_i$ bevarer længde) og}\\
+D_iA_i^TZ&=\mathcal{N}_n(0,D_iA_i^T(D_iA_i)^T)\\
+&=\mathcal{N}_n(0,D_i)
+\end{align*}
+fordelt som $d_i$ uafhængige normalfordelinger og $n-d_i$ nuller. Dvs.
+\begin{align*}
+\Vert H_iZ\Vert^2=\Vert D_iA_i^TZ\Vert^2\sim\chi^2(d_i)
+\end{align*}
+\textbf{Korrolar}
+\begin{align*}
+\hat{\mu}(Y)&\sim\mathcal{N}(\mu,\sigma^2H)\\
+r(Y)&\sim\mathcal{N}(0,\sigma2(I-H))
+\end{align*}
+Disse er uafhængige.\\\\
+\textit{Bevis}\\
+Lad $H_1=H$ og $H_2=I-H$ og bemærk
+\begin{align*}
+H(I-H)=H-H^2=H-H=0
+\end{align*}
+Desuden er $H\mu=\mu$ (fordi $\mu\in\Omega_O$) og $(I-H)\mu=\mu-H\mu=0$. Så
+\begin{align*}
+\hat{\mu}=HY=H(\sigma Z+\mu)=\sigma HZ+H\mu\sim\mathcal{N}(\mu,\sigma^2H)
+\end{align*}
+og
+\begin{align*}
+r(Y)=(I-H)Y=(I-H)(\sigma Z+\mu)=\sigma(I-H)Z+(I-H)\mu\sim\mathcal{N}(0,(I-H)\sigma^2)
+\end{align*}
+De to fordelinger er uafhængige ifølge Cochrans sætning.\\\\
+\textbf{Bemærk:}
+\begin{itemize}
+\item Normalfordelingen holder for kendt $\sigma^2$.
+\item Residualer har forskellig varians.
+\end{itemize}
+\textbf{Korrolar}
+\begin{align*}
+\underset{\sim\sigma^2\chi^2(n)}{D(Y;X\beta)}=\underset{\text{uafhængige}}{\underset{\sim\sigma^2\chi^2(n-k)}{D(Y;X\hat{\beta}(Y))}+\underset{\sim\sigma^2\chi^2(k)}{D(X\hat{\beta};X\beta)}}
+\end{align*}
+\textit{Bevis}\\
+Lad $H_1=H$ og $H_2=I-H$. Så
+\begin{align*}
+D(Y;X\beta)=\Vert Y-\mu\Vert^2=\underset{H_2y}{\Vert Y-HY}+\underset{H_i((Y-\mu)}{HY-\mu\Vert}^2
+\end{align*}
+Af Pythagoras:
+\begin{align*}
+D(Y,;X\beta)=\Vert H_2Y\Vert^2+\Vert H_1(Y-\mu)\Vert^2
+\end{align*}
+Dermed:
+\begin{align*}
+D(Y;X\hat{\beta}(Y))&=\Vert Y-X\hat{\beta}(Y)\Vert^2=\Vert Y-HY\Vert^2=\Vert H_2Y\Vert^2\\
+&=\sigma^2\Vert H_2Z\Vert^2\sim\sigma^2\chi^2(n-k)& \text{og}\\
+D(X\hat{\beta}(Y);X\beta)&=\Vert X\hat{\beta}(Y)-X\beta\Vert^2=\Vert HY-X\beta\Vert^2=\Vert H_1(Y-\mu)\Vert^2\\
+&\sigma^2\Vert H_1X\Vert^2\sim\sigma^2\chi^2(k)
+\end{align*}
+Summen af to uafhængige $chi^2$-fordelte variable giver en $chi^2$-fordelt variabel med summen af de to fordelingers frihedsgrader.\\\\
+\textbf{Estimation af $\sigma^2$}\\
+Lad $Y\sim\mathcal{N}_n(\mu,\sigma^2I)$ og $X$ have fuld rang. For en observation $Y=y$, så eksisterer MLE for $\sigma^2$ hvis og kun hvis at $y\notin\Omega_0$.
+\begin{align*}
+\hat{\sigma}^2_{MLE}=\frac{D(y;X\hat{\beta}(y))}{n}=\frac{\Vert y-X\hat{\beta}(y)\Vert^2}{n}=\frac{\Vert y-Hy\Vert^2}{n}
+\end{align*}
+Dette er ikke centralt. Der haves dog
+\begin{align*}
+\hat{\sigma}^2=\frac{\Vert Y-X\hat{\beta}(Y)\Vert^2}{n-k}=\frac{\Vert Y-HY\Vert^2}{n-k}
+\end{align*}
+som er centralt estimat for $\sigma^2$ og er uafhængigt af $\hat{\beta}(Y)$. Der gælder desuden
+\begin{align*}
+\hat{\sigma}^2(Y)\sim\frac{\sigma^2}{n-k}\chi^2(n-k)
+\end{align*}
+\textit{Bevis}\\
+Indsæt $\hat{\beta}$ i likelihoodfunktionen for $(\beta,\sigma^2)$:
+\begin{align*}
+L((\hat{\beta}(y),\sigma^2);y)&=\underset{Profillikelihood}{\frac{1}{(\sigma^2)^{n/2}}\exp\left(-\frac{1}{2\sigma^2}D(y;X\hat{\beta}(y))\right)}
+\end{align*}
+Kan vises, at $l((\hat{\beta}(y),\sigma^2);y)$ som funktion af $\sigma^2$
+\begin{itemize}
+\item har entydigt max i $D(y,X\hat{\beta}(y))/n$, hvis $y\notin\Omega_0$
+\item er $\log((\sigma^2)^{-n/2})$, hvis $y\in\Omega_0$ (dvs. intet max)
+\end{itemize}
+Dernæst
+\begin{align*}
+\hat{\sigma}^2(Y)=\frac{\Vert Y-X\hat{\beta}(Y)\Vert^2}{n-k}=\frac{D(Y;X\hat{\beta}(Y)}{n-k}\sim\frac{\sigma^2}{n-k}\chi^2(n-k)
+\end{align*}
+Centralitet:
+\begin{align*}
+E[\hat{\sigma}^2(Y)]=\frac{\sigma^2}{n-k}E[\chi^2]=\sigma^2
+\end{align*}
+Uafhængighed:
+\begin{align*}
+\hat{\sigma}^2(Y)&=\frac{1}{n-k}\Vert H_2Y\Vert^2\\
+\hat{\beta}(Y)&=H_1Y
+\end{align*}
+De er uafhængige pga. Cochrans sætning.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

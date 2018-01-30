@@ -1,0 +1,135 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent\textbf{Constraints}\\
+Let $f(x)=-x_1-x_2$, $x\in\mathbb{R}^2$. min $f(x)$ yields $x_1$ and $x_2$ tending toward infinity. With constraints (subject to)
+\begin{equation}
+x_1^2+x_2^2-1=0
+\end{equation}
+The feasible set is the unit circle.\\\\
+\textbf{Taylor series}\\
+A function can be approximated by
+\begin{equation}
+f(x+\delta)\approx f(x)+\nabla f(x)^T\delta
+\end{equation}
+Use Taylor for the above problem
+\begin{align*}
+g(x)&=x_1^2+x_2^2-1 \\
+g(x^{\star}+\delta)& \approx g(x^{\star})+\nabla g(x^{\star})^T\delta\\
+&=\nabla f(x^{\star})^T\delta
+\end{align*}
+We have that
+\begin{equation}
+\nabla f(x^*)^T\delta=0
+\end{equation}
+Set
+\begin{equation}
+\nabla f(x^*)=\lambda\nabla g(x^*),\phantom{mm}\lambda\in\mathbb{R}
+\end{equation}
+Write a Langrangian
+\begin{align*}
+\mathbf{L}(x,\lambda)&=f(x)+\lambda g(x)\\
+\mathbf{L}(x^*,\lambda^*)&=\nabla f(x^*)-\lambda\nabla g(x^*)=0
+\end{align*}
+\textbf{Multiple equality constraints}\\
+$g_i(x)=0, i=1,\ldots,K$\\
+The Jacobian is given by $D\bar{g}$, $\bar{g}$ being a vector.
+\begin{equation}
+D\bar{g}(x)=\begin{bmatrix}(\nabla g_1(x))^T\\
+\vdots\\
+(\nabla g_K(x))^T\end{bmatrix} \phantom{mm} \in\mathbb{R}^{K\times N}
+\end{equation}
+Assume $D\bar{g}$ has full row rank
+\begin{align*}
+\bar{G}(x+\delta)\approx \bar{g}+D\bar{g}(x)\delta=0
+\end{align*}
+This is because of $g$ being 0 for all $x$.\\\\
+Let $G=\{\nabla g_8x),\ldots,\nabla g_K(x)\}$.\\
+Let the orthogonal projection of $\nabla f(x^*)$ onto $G$ be
+\begin{equation}
+\sum_{i=1}^K\lambda_i\nabla g_i(x^*)
+\end{equation}
+This gives
+\begin{equation}
+\nabla f(x^*)=\sum_{i=1}^K\lambda_i\nabla g_i(x^*)+r
+\end{equation}
+with $r$ being the residual orthogonal to the projection.
+Choose $s=-r$. Is this a feasible step?
+\begin{align*}
+s^T\nabla f(x^*)&=s^T\left(\sum_{i=1}^K\lambda_i\nabla g(_i(x^*)-s\right)=-s^Ts\\
+&=-\Vert S\Vert^2_2
+\end{align*}
+Start at an optimal point and take step $s$
+\begin{equation}
+f(x^*+s)\approx f(x^*)+\nabla f(x^*)^Ts
+\end{equation}
+The right term can not be negative, as the optimal point is not a minimum then. The norm is always positive, and $s$ can therefore not be a feasible step.\\\\\
+\textbf{Necessary condition for optimization}
+\begin{equation}
+\nabla f(x^*)-\sum_{i=1}^K\lambda_i\nabla g_i(X^*)=0
+\end{equation}
+\textbf{Example}\\
+Write the lagrangian
+\begin{equation}
+\mathcal{L}(x,\lambda)=-x_1-x_2+\lambda(x_1^2+x_2^2-1)
+\end{equation}
+Minimize $\mathcal{L}(x,\lambda)$. Take the derivative $\nabla \mathcal{L}(x,\lambda)$.
+\begin{align*}
+\frac{\partial}{\partial x_1}\mathcal{L}(x,\lambda)&=-1+2\lambda x_1=0\\
+\frac{\partial}{\partial x_2}\mathcal{L}(x,\lambda)&=-1+2\lambda x_2=0
+\end{align*}
+This means that $\lambda=\frac{1}{2x_2}$.
+From this we know, that $x_1=x_2$. We know that $g(x)=0$.\\\\
+\textbf{Inequality constraints}\\
+If the constraints are inequalities the following holds
+\begin{equation}
+\nabla f(x^*)=\sum_{i=1}^K\mu_i\nabla h_i(x^*)
+\end{equation}
+where $h(x)\geq0$ and $\mu\geq 0$
+\begin{align*}
+f(x^*+s)&\approx f(x^*)+(\nabla f(x^*))^Ts\\
+&=f(x^*)+((Dh(x^*)^T\mu)^Ts\\
+&=f(x^*)+\mu^T\mathbf{e}\\
+&=f(x^*)+\mu_1
+\end{align*}
+\textbf{KKT}
+\begin{align*}
+D\mathcal{L}(x,\mu)&=0\\
+\nabla f(x^*)&=\sum_{i=1}^P\mu-i\nabla h_i(x^*)\\
+\mu_i&\geq0,\phantom{mm}i=1,\ldots,P\\
+h_i(x^*)&\geq0,\phantom{mm}\forall i\\
+\mu_ih_i(x^*)&=0,\phantom{mm}\forall i
+\end{align*}
+\textbf{Linear Program}\\
+Minimize $f(x)$\\
+s.t. $g(x)\geq0$\\
+Constraints and objectives have to be linear.\\\\
+Minimize $c^Tx+q$ subject to $Ax=b$.\\
+\textbf{Linearizing a Problem}\\
+Minimize $\Vert x\Vert_1$ subject to $Ax=b$. This is equal to minimizing $\sum_{i=1}^Kt_i$ with
+\begin{enumerate}
+\item $x_i\leq t_i$
+\item $-x_i\leq t_i$
+\item $Ax=b$
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

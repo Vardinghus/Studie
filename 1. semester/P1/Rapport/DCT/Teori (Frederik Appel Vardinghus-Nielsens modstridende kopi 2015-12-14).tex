@@ -1,0 +1,595 @@
+\chapter{Billedkomprimering med diskret cosinustransformation} \label{chapter:DCT}
+
+\section{Diskret Fouriertransformation}
+Inden for signalbehandling er den Diskrete Fouriertransformation (DFT) et kendt værktøj. Transformationen er en lineær transformation, som udtrykker et signal på bølgeform ved sinus- og cosinusfunktioner \citep{thefouriertransform}. De fleste signaler er på bølgeform og kan derfor beskrives ved sinus- og cosinusfunktioner gennem DFT.\\
+Signaler kan beskrives i to domæner
+\begin{itemize}
+\item \textit{Tidsdomænet}\\
+		Signalet beskrives ved funktionsværdier til tiden $t$, $f(t)$.
+\item \textit{Frekvensdomænet}\\
+		Signalet beskrives ved amplitude og fase for en frekvensfunktion.
+\end{itemize}
+Regneoperationer i tidsdomænet har tilsvarende regneoperationer i frekvensdomænet, som ofte er beregningsmæssigt simplere \citep{nbtwiki}. Af denne grund bruges den diskrete Fouriertransformation til signalbehandling.\\
+Transformationen har desuden den egenskab, at den energikomprimerer signalet, som behandles. Energikomprimering betegner en transformations evne til at udtrykke mange signalværdier med høje korrelationer i domænet som færre koefficienter med lav korrelation i kodomænet \citep{smcnus_energy}. Koefficienterne i frekvensdomænet er koefficienterne hvorved basisfunktionerne i transformationen optræder i signalet i tidsdomænet \fixme{rodet sætning} - høje koefficienter viser en høj optræden af den tilhørende basisfunktion, mens lave koefficienter viser en lav optræden af den tilhørende basisfunktion.
+
+Når DFT udtrykker korrelerede signalværdier som ukorrelerede koefficienter i frekvensdomænet, betyder det også at transformationen ikke formår at lave energikomprimering i høj grad hvis signalværdierne er ukorrelerede. Dette betyder at, hvis man ønsker høj energikomprimering, skal DFT kun bruges på signaler, som består af korrelerede værdier.
+
+I billedkomprimering er man, som tidligere beskrevet, interesseret i at udtrykke et billede ved færre værdier, da der derfor er færre værdier at gemme. DFT kan være et værktøj til dette. DFT fungerer også bedst på signaler, som består af korrelerede værdier, og det gør netop et billede. DFT kan altså bruges til billedkomprimering.
+
+Det viser sig imidlertid, at der findes et bedre værktøj til tranformation af korrelerede signalværdier til ukorrelerede koefficienter. Transformationen kaldes den diskrete cosinustransformation (DCT), og er udledt fra DFT \citep{dft_argument}. Udledningen ses i appendix \vref{DCT_udledning}.\\
+DCT udmærker sig inden for billedbehandling på flere områder i forhold til DFT:
+\begin{enumerate}
+\item \textit{Energikomprimering}\\
+	DCT opnår højere energikomprimering end DFT \citep{smcnus_energy}. Den formår at udtrykke informationer om signalerværdier i tidsdomænet som færre koefficienter i frekvensdomænet end DFT formår. Dette er ønskværdigt i billedkomprimering, da vi ønsker at udtrykker mange informationer ved få koefficienter.
+\item \textit{Reelle tal}\\
+	DCT benytter sig udelukkende af reelle tal i de transformerede koefficienter, hvorimod DFT benytter sig at både reelle og komplekse koefficienter. Det er ønksværdigt, at arbejde udelukkende med reelle tal, da dette forsimpler den videre behandling af signalet.
+\end{enumerate}
+Der findes desuden en transformation, som bygger på sinusfunktioner - den diskrete Sinustransformation (DST). Denne transformerer også signalværdier om til frekvenskoefficienter, men energikomprimerer ikke godt - den er ringere end både DFT og DCT \citep{smcnus_energy}.
+
+Som følge af ovenstående grunde har man valgt at bruge DCT i den mest udbredte open-source komprimeringsstandard, JPEG.\\
+På baggrund af at DCT
+\begin{itemize}
+\item[-] har bedre energikomprimering end DFT \citep{smcnus_energy}, og dermed skal færre koefficienter end DFT bruges til at danne en god approksimation af et signal \citep{dft_argument}
+\item[-] ofte bruges i billedbehandling \citep{DCTbrugestit}
+\item[-] bruges i JPEG \citep{dft_argument}
+\end{itemize}
+vil der i denne opgave blive taget udgangspunkt i DCT til at udføre billedkomprimeringer.
+
+\subsection{JPEG}
+Joint Photographic Experts Group udgav i 1992 den første JPEG-standard, som komprimerede og dekomprimerede billeder efter en bestemt algoritme. Et program, som kan gøre dette kaldes en codec. Standarden er open source og er siden 1992 blevet forbedret flere gange. Vi vil her beskæftige os med en simpel og tidlig version.\\
+JPEG gør brug af fire skridt i sin algoritme for at komprimere et billede fra dets fulde størrelse til en fil af mindre størrelse. Den inverse algoritme bruges til at dekomprimere en .jpg-fil til et billede. Da JPEG er en ikke-tabsfri komprimeringsalgoritme, vil det dekomprimerede billede kun være en efterligning af det originale. \citep{whydomath_basic}.\\
+De fire skridt, som forklares nærmere i senere afsnit, ser ud som følger
+\begin{enumerate}
+\item \textit{Forbehandling af billede}\\
+	Forbehandlingen indebærer at dele billedet op i kvadratiske blokke af 64 pixels. Dette gøres for at gøre den videre behandling af billedet med den diskrete cosinustransformation mere effektiv.
+\item \textit{Diskret cosinustransformation}\\
+	Den diskrete cosinustransformation energikomprimerer billedet ved at udtrykke korrelerede signalværdier som dekorrelerede koefficienter i frekvensdomænet.
+\item \textit{Kvantisering}\\
+	Kvantiseringen fjerner mindre vigtige informationer om billedet ved at fjerne de dekorrelerede koefficienter som ikke er vigtige i forhold til de korrelerede signalværdier. Dette skridt er hvad der gør algoritmen ikke-tabsfri.
+\item \textit{Entropikodning}\\
+	Entropikodningen opstiller en statistisk model over de kvantiserede koefficienter og koder dem i strenge af 0- og 1-taller, som kan gemmes effektivt i en fil, som er mindre end den oprindelige billedfil.
+\end{enumerate}
+For at forstå hvorfor og hvordan algoritmen virker er det nødvendigt først at forstå den diskrete cosinustransformation. Derfor vil dette skridt blive forklaret først.
+
+\subsection{Diskret Cosinustransformation}\label{sec:DCT}
+En diskret cosinustransformation er en lineær transformation som afbilder en $n$-dimensionel vektor fra domænet $\mathbb{R}^n$ til kodomænet $\mathbb{R}^n$ - altså har transformationen samme kodomæne som domæne. Basisvektorerne i transformationen udledes fra cosinusfunktioner med forskellige frekvenser. Som følge af dette bliver den $n$-dimensionelle vektor afbildet ind i frekvensdomænet - den udtrykkes som en sum af cosinusfunktioner med forskellige frekvenser. Et eksempel på en funktion udtrykt ved bølgefunktioner ses i figur \vref{fig:sumafboelger}.
+
+Som tidligere nævnt er den diskrete cosinustransformation udledt fra den diskrete Fouriertransformation. Udledningen ses i Appendix \vref{DCT_udledning}.
+
+DCT'en bruges i udstrakt grad i signalbehandling på grund af dens høje energikomprimering. DCT'en kan altså komprimere meget signalværdi ned til få værdier i frekvensdomænet og dermed udtrykke signalværdier med stor korrelation som koeffiencienter med lav eller ingen korrelation. Transformationen fungerer dog bedst, når signalværdierne som transformeres har en vis korrelation - hvis dette ikke er tilfældet, vil der ikke blive opnået gode resultater med transformationen \citep{smcnus_energy}.
+
+DCT er imidlertid ikke den eneste transformation, som kan dekorrelere signalværdier. En anden kendt transformation er Karhunen-Loève transformationen. Denne transformation transformerer, som cosinustransformationen, også korrelerede koefficienter til dekorrelerede koefficienter. Karhunen-Loeve udmærker sig ved at tilpasse sig hvordan signalet ser ud, for således at kunne energikomprimere meget effektivt - transformationen afhænger altså af signalet. Dette gør transformationen i stand til at lave den mest effektive energikomprimering \citep{lokminglui_DCT}. Det er imidlertid ikke tidsmæssigt effektivt, at skulle komponere en ny transformation hver gang et nyt signal behandles og derfor bruges den diskrete cosinustransformation i JPEG. Denne har en algoritme, som genererer en generel transformation, der kan bruges på mange datasæt \citep{electronic_engineering}.
+
+Da DCT er en lineær transformation kan den bruges i billedbehandling til at energikomprimere digitale billeder, som er matricer, og som har stor korrelation mellem nærliggende pixels.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{Billeder/frequencydomain.png}
+\caption{Signal (rød) og cosinusbølger (blå kurver) samt amplituden (blå søjler).}
+\label{fig:frequencydomain}
+\end{figure} \fixme{Udskift til repræsentation med både tidsdomænet og frekvensdomænet}
+Den diskrete cosinustransformation, som kan udledes fra den diskrete Fouriertransformation, kan transformere i både én og to dimensioner. I denne opgave benyttes den todimensionelle. I ligning \vref{eq:DCTeq} ses den todimensionelle $n$-punkt diskrete cosinustransformation, hvor $T:\mathbb{R}^n \longrightarrow \mathbb{R}^n$ transformerer til en matrix indeholdende dekorrelerede koeffecienter \citep{guillermo_sapiro}. Matricen, der transformeres, vil fremover kaldes for $A$. 
+\begin{equation}
+T_{(i,j)}=\sum\limits_{x=0}^{n-1} \sum\limits_{y=0}^{n-1} f(x,y) \cdot \alpha(i) \cdot \alpha(j) \cdot \cos\left(\frac{(2x+1) \cdot i \cdot \pi}{2n}\right) \cdot \cos\left(\frac{(2y+1) \cdot j \cdot \pi}{2n}\right)
+\label{eq:DCTeq}
+\end{equation}
+Hvor
+\begin{itemize}
+\item $T_{(i,j)}:$ indgang $(i,j)$ i den transformerede matrix ved DCT
+\item $f(x,y):$ indgang $(x,y)$ i A
+\item $n:$ matricens størrelse $n \times n$
+\item $\alpha(i)=\alpha(j)= \begin{cases}
+					\sqrt{\frac{1}{n}} \ hvis \ i = 0\\
+					\sqrt{\frac{2}{n}} \ hvis \ i \neq 0
+					\end{cases}$
+\end{itemize}
+Det er værd at bemærke at indgangene i matricen går fra $(0,0)$ til $(n-1,n-1)$ i en $n \times n$ matrix. $\alpha(i)$  og $\alpha(j)$ er funktioner, som normaliserer signalet. Transformationen tilpasser sig størrelsen af matricen og producerer derfor normaliserede koefficienter. Dette er vigtigt i data- og signalbehandling, da dette kræver at dataerne er på samme form og enheder \citep{normalization}.
+
+Ligning \ref{eq:DCTeq} bruges i denne opgave ikke til at beregne de transformerede koefficienter, da det beregningsmæssigt ikke er effektivt. Til dette bruges i stedet cosinustransformationen på matrixform, hvilket uddybes senere i dette afsnit. Ligning \ref{eq:DCTeq} er imidlertid god til at illustrere princippet bag transformationen, da det er tydeligt hvordan cosinusfunktioner indgår i transformationen. Dette vil blive undersøgt nu.
+
+Det ses af ligning \vref{eq:DCTeq} at hver transformeret indgang er summen af produktet af de 64 indgange i $A$ og en koefficient fra en cosinusfunktion. For hver række $f(x,y)$ holdes $x$ konstant gennem de 8 søjler hvor $y$ går fra $0-7$. Dette giver koefficienter der alle ligger på en cosinuskurve. Hver gang en ny række $x$ påbegyndes, ændres amplituden af cosinusbølgen, som koefficienterne ligger på.\\
+Når en ny transformeret indgang $T_{(i,j)}$ beregnes, ændres $i$ og/eller $j$ og frekvensen af cosinusfunktionerne i transformen bliver højere. Altså bliver hver transformeret indgang et unikt aftryk af forskelligt svingene cosinusfunktioner og værdierne i billedmatricen $A$.
+
+For at illustrere princippet bag de skiftende amplituder og frekvenser af cosinusbølgerne som koefficienterne ligger på, er to sæt af grafer for cosinustransformationen tegnet i figurerne \ref{fig:frekeksu1v1} og \ref{fig:frekeksu1v2}. Disse er tegnet ved brug af transformationen i ligning \vref{eq:DCTeq} for henholdsvis $T(1,1)$ og $T(1,2)$ og for $n=8$. For hver af funktionerne fremkommer 8 bølger og på hver af disse ligger de 8 koefficienter ligeligt fordelt. På figur \ref{fig:cosko} ses de 8 punkter på én af bølgerne for $T(0,0)$ \citep{whydomath_dct}.
+
+\begin{figure}[!h]
+\begin{minipage}[b]{0.5\linewidth}
+\centering
+\includegraphics[width=0.75\textwidth]{Billeder/Frekvens-eksempelu1v1.png}
+\caption{Bølger for hver række for $T(1,1)$.} %tegnet ved brug af ligning \vref{eq:DCTeq}. På hver af disse bølger ligger 8 ligeligt fordelte koefficienter, som multipliceres med signalværdierne.}
+\label{fig:frekeksu1v1}
+\end{minipage}
+\begin{minipage}[b]{0.5\linewidth}
+\centering
+\includegraphics[width=0.65\textwidth]{Billeder/Frekvens-eksempelu1v2.png}
+\caption{Bølger for hver række for $T(1,2)$.}
+\label{fig:frekeksu1v2}
+\end{minipage}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{Billeder/coskoefficienter.png}
+\caption{Koefficienterne for $T(1,1)$ og $f(0,y)$ afmærket som punkter på en cosinusbølge.}
+\label{fig:cosko}
+\end{figure}
+
+Det ses desuden på figur \vref{fig:cosko} at koefficienterne tilsammen har sum lig 0. Der er altså lige mange positive og negative koefficienter i alle bølgerne med untagelse af den første, som udelukkende består af koefficienten $\frac{\sqrt{2}}{2}$.\\
+At hele den første række kun indeholder positive indgange bidrager til energikomprimeringen. Hvis A indeholder lignende værdier vil indgang $(0,0)$ have stor numerisk værdi. Derfor kan en stor del af informationerne koncentreres i den ene indgang. På samme måde vil resultatet af at prikke en vektor med ens indgange, $\vec{v}={v_1,v_1,…, v_1}$ med en hvilken som helst samling af koefficenter fra en cosinusbølge beregnet ved $i=1,...,7$ blive lig 0. Resultatet af at prikke en vektor, med indgange der næsten er ens, med koefficienterne vil blive tæt på eller lig 0 \citep{whydomath_dct}.
+
+%\begin{figure}
+%\centering
+%$
+%\begin{bmatrix}
+%1\\
+%1\\
+%1\\
+%1\\
+%1\\
+%1\\
+%1\\
+%1
+%\end{bmatrix}
+% \cdot 
+%\begin{bmatrix}
+%\cos{(\frac{\pi}{16})}		&
+%\cos{(\frac{3\pi}{16})}		&
+%\cos{(\frac{5\pi}{16})}		&
+%\cos{(\frac{7\pi}{16})}		&
+%\cos{(\frac{9\pi}{16})}		&
+%\cos{(\frac{11\pi}{16})}	&
+%\cos{(\frac{13\pi}{16})}	&
+%\cos{(\frac{15\pi}{16})}
+%\end{bmatrix}
+% = 0$
+%\end{figure}
+
+
+Koefficienten i indgang $(0,0)$ kaldes for DC koefficienten eller Direct Current. De resterende 63 koefficienter kaldes for AC koefficienter for Alternating Current. Navnene stammer fra transformationens historiske brug i analyse af elektriske kredsløb og refererer til basisfunktionerne i transformationen, som for DC koefficienten er konstant som jævnstrøm, men de oscillerer som vekselstrøm for de resterende koefficienter \citep{lokminglui_DCT}.
+
+De transformerede koefficienter udtrykker bestemte mønstre i signalet. Mønstrene for hver koefficient ses i figur \vref{fig:frekvens_matrix}, hvor bølgetoppene og -dalene i cosinusfuntionerne (og dermed negative og positive koefficienter) er henholdsvis sorte og hvide. Denne figur illustrerer hvordan transformationen behandler forskellige slags mønstre i signalet - mønstre som ligner signalet vil have høje koefficienter. Bemærk at DC koefficienten er koefficient for et ensfarvet mønster eller signal.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{billeder/frekvensmatrix.png}
+\caption{Repræsentation af de 64 forskellige basisfunktioner i cosinus transformationen af længde $n$. Mønstrene hører til koefficienterne, som fås ved transformation af et signal. Koefficienternes størrelse fortæller hvor meget det tilhørende mønster optræder i signalet.}
+\label{fig:frekvens_matrix}
+\end{figure}
+
+Indgangene i den transformerede matrix er koefficienterne hvorved disse mønstre er repræsenteret i signalet. Altså kan signalet genskabes ved en lineær kombination af disse mønstre.
+
+I dette projekt udføres beregninger og dermed også transformationen i Python. Til dette er det beregningsmæssigt nemmere og hurtigere at regne med DCT'en på matrixform.
+
+I udledningen af DCT i Appendiks \vref{DCT_udledning} ses formlen for den todimensionelle DCT, hvor ligning \vref{eq:soejlevektor} viser, hvordan hver enkelt søjle i en matrix for en n-punkts DCT beregnes. Da vi i denne opgave regner med matricer af størrelsen $8\times8$, vises der i ligning \ref{eq:DCTmatrix} en matrix beregnet ved $n=8$ - altså en $8\times8$-matrix.
+%\begin{align}
+%	y_{(i,j)} = C(i) \sqrt{\frac{2}{n}} \cos\left(\frac{(2 \cdot j-1) \cdot (i-1)\pi}{2n}\right)
+%\label{eq:DCTmatrixform}
+%\end{align}
+%Hvor
+%\begin{itemize}
+%		\item{$C(i)= \begin{cases}
+%			\frac{1}{\sqrt{2}} \ hvis \ i = 1\\
+%			1\ \ \ hvis \ i \neq 1
+%		\end{cases}
+%		$}
+%		\item{$y_{(i,j)}=$ indgang $(i,j)$}
+%		\item{$n =$ matricens dimensioner n$\times$n}
+%\end{itemize}
+%Matricen beregnet ved formel \vref{eq:DCTmatrixform} hvor $n=8$ ses i ligning \ref{eq:DCTmatrix}.
+\begin{equation}
+U=\frac{1}{2}
+\begin{bsmallmatrix}
+	\frac{\sqrt{2}}{2}	& \frac{\sqrt{2}}{2}		& \frac{\sqrt{2}}{2}		& \frac{\sqrt{2}}{2}		& \frac{\sqrt{2}}{2}		& \frac{\sqrt{2}}{2}		& \frac{\sqrt{2}}{2}		& \frac{\sqrt{2}}{2}		\\
+	\cos(\frac{\pi}{16})		& \cos(\frac{3\pi}{16})	& \cos(\frac{5\pi}{16})	& \cos(\frac{7\pi}{16})	& \cos(\frac{9\pi}{16})	& \cos(\frac{11\pi}{16})	& \cos(\frac{13\pi}{16})	& \cos(\frac{15\pi}{16})		\\
+	\cos(\frac{2\pi}{16})	& \cos(\frac{6\pi}{16})	& \cos(\frac{10\pi}{16})	& \cos(\frac{14\pi}{16})	& \cos(\frac{18\pi}{16})	& \cos(\frac{22\pi}{16})	& \cos(\frac{26\pi}{16})	& \cos(\frac{30\pi}{16})		\\
+	\cos(\frac{3\pi}{16})	& \cos(\frac{9\pi}{16})	& \cos(\frac{15\pi}{16})	& \cos(\frac{21\pi}{16})	& \cos(\frac{27\pi}{16})	& \cos(\frac{33\pi}{16})	& \cos(\frac{39\pi}{16})	& \cos(\frac{45\pi}{16})		\\
+	\cos(\frac{4\pi}{16})	& \cos(\frac{12\pi}{16})	& \cos(\frac{20\pi}{16})	& \cos(\frac{28\pi}{16})	& \cos(\frac{36\pi}{16})	& \cos(\frac{44\pi}{16})	& \cos(\frac{52\pi}{16})	& \cos(\frac{60\pi}{16})		\\
+	\cos(\frac{5\pi}{16})	& \cos(\frac{15\pi}{16})	& \cos(\frac{25\pi}{16})	& \cos(\frac{35\pi}{16})	& \cos(\frac{45\pi}{16})	& \cos(\frac{55\pi}{16})	& \cos(\frac{65\pi}{16})	& \cos(\frac{75\pi}{16})		\\
+	\cos(\frac{6\pi}{16})	& \cos(\frac{18\pi}{16})	& \cos(\frac{30\pi}{16})	& \cos(\frac{42\pi}{16})	& \cos(\frac{54\pi}{16})	& \cos(\frac{66\pi}{16})	& \cos(\frac{78\pi}{16})	& \cos(\frac{90\pi}{16})		\\
+	\cos(\frac{7\pi}{16})	& \cos(\frac{21\pi}{16})	& \cos(\frac{35\pi}{16})	& \cos(\frac{49\pi}{16})	& \cos(\frac{63\pi}{16})	& \cos(\frac{77\pi}{16})	& \cos(\frac{91\pi}{16})	& \cos(\frac{105\pi}{16})	\\
+\end{bsmallmatrix}
+\label{eq:DCTmatrix}
+\end{equation}
+Magen til ligning \vref{eq:DCTeq} kan $U$ bruges til at opnå DCT transformationen, blot hvor en stor del af udregningerne er udført på forhånd. På matrixform prikkes $U$ med $A$ og derefter prikkes dette resultat med $U^T$. Transformationen ses i ligning \vref{eq:DCTtrans}. %I beregningerne bruges den transponerede matrix, som ses i ligning \Vref{eq:DCTmatrixT}.
+%\begin{equation}
+%U^T = \frac{1}{2}
+%\begin{bmatrix}
+%\frac{2}{\sqrt{2}} & \cos(\frac{\pi}{16}) & \cos(\frac{2 \cdot \pi}{16}) & \cos(\frac{3 \cdot \pi}{16}) & \cos(\frac{4 \cdot \pi}{16}) & \cos(\frac{5 \cdot \pi}{16}) & \cos(\frac{6 \cdot \pi}{16}) & \cos(\frac{7 \cdot \pi}{16}) \\
+%\frac{2}{\sqrt{2}} & \cos(\frac{3 \cdot \pi}{16}) & \cos(\frac{6 \cdot \pi}{16}) & \cos(\frac{9 \cdot \pi}{16}) & \cos(\frac{12 \cdot \pi}{16}) & \cos(\frac{15 \cdot \pi}{16}) & \cos(\frac{18 \cdot \pi}{16}) & \cos(\frac{21 \cdot \pi}{16}) \\
+%\frac{2}{\sqrt{2}} & \cos(\frac{5 \cdot \pi}{16}) & \cos(\frac{10 \cdot \pi}{16}) & \cos(\frac{15 \cdot \pi}{16}) & \cos(\frac{20 \cdot \pi}{16}) & \cos(\frac{25\cdot \pi}{16}) & \cos(\frac{30 \cdot \pi}{16}) & \cos(\frac{35 \cdot \pi}{16}) \\
+%\frac{2}{\sqrt{2}} & \cos(\frac{7 \cdot \pi}{16}) & \cos(\frac{14 \cdot \pi}{16}) & \cos(\frac{21 \cdot \pi}{16}) & \cos(\frac{28 \cdot \pi}{16}) & \cos(\frac{35 \cdot \pi}{16}) & \cos(\frac{42 \cdot \pi}{16}) & \cos(\frac{49 \cdot \pi}{16}) \\
+%\frac{2}{\sqrt{2}} & \cos(\frac{9 \cdot \pi}{16}) & \cos(\frac{18 \cdot \pi}{16}) & \cos(\frac{27 \cdot \pi}{16}) & \cos(\frac{36 \cdot \pi}{16}) & \cos(\frac{45 \cdot \pi}{16}) & \cos(\frac{54 \cdot \pi}{16}) & \cos(\frac{63 \cdot \pi}{16}) \\
+%\frac{2}{\sqrt{2}} & \cos(\frac{11 \cdot \pi}{16}) & \cos(\frac{22 \cdot \pi}{16}) & \cos(\frac{33 \cdot \pi}{16}) & \cos(\frac{44 \cdot \pi}{16}) & \cos(\frac{55 \cdot \pi}{16}) & \cos(\frac{66 \cdot \pi}{16}) & \cos(\frac{77 \cdot \pi}{16}) \\
+%\frac{2}{\sqrt{2}} & \cos(\frac{13 \cdot \pi}{16}) & \cos(\frac{26 \cdot \pi}{16}) & \cos(\frac{39 \cdot \pi}{16}) & \cos(\frac{52 \cdot \pi}{16}) & \cos(\frac{65 \cdot \pi}{16}) & \cos(\frac{78 \cdot \pi}{16}) & \cos(\frac{91 \cdot \pi}{16}) \\
+%\frac{2}{\sqrt{2}} & \cos(\frac{15 \cdot \pi}{16}) & \cos(\frac{30 \cdot \pi}{16}) & \cos(\frac{45 \cdot \pi}{16}) & \cos(\frac{60 \cdot \pi}{16}) & \cos(\frac{75 \cdot \pi}{16}) & \cos(\frac{90 \cdot \pi}{16}) & \cos(\frac{105 \cdot \pi}{16})
+%\end{bmatrix}
+%\label{eq:DCTmatrixT}
+%\end{equation}
+\begin{align}
+B=U \cdot A \cdot U^T
+\label{eq:DCTtrans}
+\end{align} \fxfatal{Dette er en similær transformation og hvilke egenskaber har similære transformationer?}
+Hvor
+\begin{itemize}
+	\item $B$: den transformerede matrix
+	\item $U$: DCT-matricen
+	\item $A$: $8\times8$ matrix af pixelværdier
+\end{itemize}
+Denne transformation vil have samme effekt på $8\times8$-blokken af pixels, som ligning \vref{eq:DCTeq}. Ligning \ref{eq:DCTtrans} kan skrives som en sammensat transformation bestående af to transformationer, med henholdsvis $U$ og $U^T$ som stardmatricer. De to transformationer ses i ligning \ref{eq:trans1} og \ref{eq:trans2}.
+\begin{align}
+T(A)=U \cdot A
+\label{eq:trans1}
+\end{align}
+\begin{align}
+Q(A)=A \cdot U^T
+\label{eq:trans2}
+\end{align}
+Den sammensatte transformation ser altså ud som i ligning \ref{sammensat_transformation}.
+\begin{align}
+Q(T(A))=U \cdot A \cdot U^T=B
+\label{sammensat_transformation}
+\end{align}
+Fremover vil vi kalde den transformerede matrix for $B$.
+
+Det viser sig, at $U$ er en orthonormal matrix.\fxfatal{Hvor/hvordan? det står vel i udledningen? Reference hertil} For orthogonale matricer gælder følgende udsagn
+\begin{itemize}
+	\item[]Alle orthogonale sæt af vektorer som ikke er nul er linært uafhængige.
+	\item[]Vektorerne er orthogonale på hinanden.
+	\item[]Alle underrum i $\mathbb{R}^n$ indeholder en orthogonal basis.
+	\item[]$Z^{-1} = Z^T$ \citep{linalg}.
+\end{itemize}
+Orthonormale matricer er specialtilfælde af orthogonale matricer, som, ud over at være orthogonale, tilmed består af vektorer, som alle har længden 1.
+\begin{itemize}
+\item[] En orthonormal basis er en orthogonal basis, der består udelukkede af vektorer med længden 1 \citep{linalg}.
+\end{itemize}
+Det gælder derfor:
+\begin{align}
+U \cdot U^T = U^T \cdot U = I_n
+\label{eq:ortho}
+\end{align}
+Hvor $I$ er den $n$'te identitetsmatrice. $U$ er derfor invertibel og lig den transponerede.
+\begin{align}
+U^T=U^{-1}
+\end{align}
+Der kan derfor siges om $A$ og $B$, at de er similære og derfor gælder ligningerne \ref{eq:similaere1} og \ref{eq:similaere2}.
+\begin{align}
+B = U \cdot A \cdot U^{-1} = U \cdot A \cdot U^T
+\label{eq:similaere1}
+\end{align}
+\begin{align}
+A = U^{-1} \cdot A \cdot U = U^T \cdot B \cdot U
+\label{eq:similaere2}
+\end{align}
+Transformationen er altså en similærtransformation \citep{similar_wolfram}.\fxfatal{Dette er en similær transformation og hvilke egenskaber har similære transformationer?}\\
+Det ses af ligning \ref{eq:similaere2}, at den diskrete cosinustransformation er invertibel og at transformationen i ligning \vref{eq:DCTtrans} inverteres ved ligning \ref{eq:similaere2}.
+Som følge af, at $A$ og $B$ er similære, kan vi også sige at der sker et basisskift, da følgende ligning gælder.
+\begin{align}
+B=P^{-1} \cdot A \cdot P
+\end{align}
+Hvor
+\begin{itemize}
+	\item{$A$: $n \times n$-matrix}
+	\item{$B$: $n \times n$-matrix}
+	\item{$P$: $U^T$}
+\end{itemize}
+$B$ er altså $A$ udtrykt i basen $U^T$. Basisskiftet gør det nemmere at foretage den tidligere omtalte udvælgelse af vigtige informationer
+
+Hermed er der redegjort for DCT og dens egenskaber og der vil i næste sektion blive vist eksempler på transformation af diverse $8\times8$-matricer, før den videre algoritme forklares.
+%Den diskrete cosinus transformation er ydermere invertibel, og den inverse transformation kan let udledes fra transformationen i ligning \vref{eq:DCTtrans} \citep{whydomath_dct}. For at nå frem til den inverse transform benyttes den associative lov om matrixmultiplikation \citep{linalg}.
+%\begin{align}
+%A \cdot (C \cdot P)=(A \cdot C) \cdot P
+%\end{align}
+%for matrixdimensioner
+%\begin{itemize}
+%	\item{$A=k \times m$}
+%	\item{$C=m \times n$}
+%	\item{$P=n \times p$}
+%\end{itemize}
+%Med denne regneregel kan den inverse transformation udledes.
+%\begin{align}
+%A
+%\ =I_n \cdot A \cdot I_n
+%\ = (U^T \cdot U) \cdot A \cdot (U^T \cdot U)
+%\end{align}
+%Den associative lov om matrixmultiplikation benyttes.
+%\begin{align}
+%A=U^T \cdot (U \cdot A \cdot U^T) \cdot U
+%\end{align}
+%Det ses at udtrykket i parentesen er magen til udtrykket i ligning \vref{eq:DCTtrans}.
+%\begin{align}
+%A=U^T \cdot B \cdot U
+%\label{eq:DCTinvers}
+%\end{align}
+%Det ses altså at transformationen i ligning \ref{eq:DCTtrans} kan inverteres ved ligning \ref{eq:DCTinvers}.
+
+\subsection{Eksempler på brug af den diskrete cosinustransformation}
+For at illustrere hvordan den diskrete cosinustransformation fungerer vises her eksempler på $8\times8$ matricer transformeret ved den diskrete cosinustransformation. Da der i dette projekt arbejdes med billeder vises de respektive $8\times8$ billeder tilhørende matricerne også. Der er trukket 128 fra alle indgange inden transformationen, hvilket blandt andet forsimpler processen med kvantisering - dette uddybes i afsnit \ref{sec:preprocessing}. Alle koefficienter er desuden afrundet til nærmeste heltal efter transformationen, for at gøre matricerne læselige. Der gøres opmærksom på at der kan være koefficienter, som bliver afrundet til 0. Alle koeffiecienter, som er 0, repræsenteres af '.'.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.25\textwidth]{Billeder/8x8_eks1.png}
+\caption{$8\times8$ billede som består udelukkende af pixels med intensitet = 100.\label{fig:8x8graa}}
+\end{figure}
+
+\begin{figure}[htbp]
+\begin{minipage}[b]{0.5\linewidth}
+\centering
+$\begin{bmatrix}
+100	&	100	&	100	&	100	&	100	&	100	&	100	&	100\\
+100	&	100	&	100	&	100	&	100	&	100	&	100	&	100\\
+100	&	100	&	100	&	100	&	100	&	100	&	100	&	100\\
+100	&	100	&	100	&	100	&	100	&	100	&	100	&	100\\
+100	&	100	&	100	&	100	&	100	&	100	&	100	&	100\\
+100	&	100	&	100	&	100	&	100	&	100	&	100	&	100\\
+100	&	100	&	100	&	100	&	100	&	100	&	100	&	100\\
+100	&	100	&	100	&	100	&	100	&	100	&	100	&	100
+\end{bmatrix}$
+
+\caption{Pixelværdier for figur \ref{fig:8x8graa}.\label{fig:graamatrix}}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{0.5\linewidth}
+\centering
+$\begin{bmatrix}
+-224		&	.	&	.	&	.	&	.	&	.	&	.	&	.\\
+.		&	.	&	.	&	.	&	.	&	.	&	.	&	.\\
+.		&	.	&	.	&	.	&	.	&	.	&	.	&	.\\
+.		&	.	&	.	&	.	&	.	&	.	&	.	&	.\\
+.		&	.	&	.	&	.	&	.	&	.	&	.	&	.\\
+.		&	.	&	.	&	.	&	.	&	.	&	.	&	.\\
+.		&	.	&	.	&	.	&	.	&	.	&	.	&	.\\
+.		&	.	&	.	&	.	&	.	&	.	&	.	&	.\\
+\end{bmatrix}
+$
+\caption{Figur \ref{fig:graamatrix} transformeret.\label{fig:trans_matrix1}}
+\end{minipage}
+\end{figure}
+I figur \ref{fig:graamatrix} har alle indgange en værdi på 100, hvilket svarer til et billede bestående af 64 pixels i samme gråtone med farveintensitet på 100. I figur \ref{fig:8x8graa} ses matricen repræsenteret ved et billede og i figur \ref{fig:trans_matrix1} ses den transformerede matrix. Det ses at alle koefficienter med undtagelse af DC koefficienten, som er -224, er lig 0. Altså kan hele det behandlede signal udtrykkes ved indgang $(0,0)$, da det kun er den første besisfunktion, som bruges til at repræsentere billedet.
+
+I figur \ref{fig:tern_matrix} udtrykkes matricen for et billede, som består af 64 pixels, hvoraf halvdelen er i gråtoner med farveintensitet = 100 og den anden halvdel er hvide med farveintensitet = 255. Det ses i \ref{fig:trans_matrix2} at koefficienterne er anderledes end i \ref{fig:gråmatrix} og udtrykker signalet ved andre koefficienter. Denne gang benyttes flere AC koefficienter for at udtrykke signalet, da der mere variation i signalet.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.25\textwidth]{Billeder/8x8_eks3.png}
+\caption{$8\times8$ billede bestående af grå og hvide pixels med farveintensiteter på henholdsvis 100 og 255.}
+\label{fig:8x8halvgraa}
+\end{figure}
+
+\begin{figure}[htbp]
+\begin{minipage}[b]{0.5\linewidth}
+\centering
+$\begin{bmatrix}
+100	&	100	&	100	&	100	&	255	&	255	&	255	&	255\\
+100	&	100	&	100	&	100	&	255	&	255	&	255	&	255\\
+100	&	100	&	100	&	100	&	255	&	255	&	255	&	255\\
+100	&	100	&	100	&	100	&	255	&	255	&	255	&	255\\
+255	&	255	&	255	&	255	&	100	&	100	&	100	&	100\\
+255	&	255 &	255	&	255	&	100	&	100	&	100	&	100\\
+255	&	255	&	255	&	255	&	100	&	100	&	100	&	100\\
+255	&	255	&	255	&	255	&	100	&	100	&	100	&	100
+\end{bmatrix}$
+\caption{Pixelværdier for figur \ref{fig:8x8halvgraa}.\label{fig:tern_matrix}}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{0.5\linewidth}
+\centering
+$\begin{bmatrix}
+396	&	.		&	.	&	.	&	.	&	.	&	.	&	.	\\
+.	&	-509		&	.	&	179	&	.	&	119	&	.	&	101	\\
+.	&	.		&	.	&	.	&	.	&	.	&	.	&	.	\\
+.	&	179		&	.	&	-63	&	.	&	42	&	.	&	-36	\\
+.	&	.		&	.	&	.	&	.	&	.	&	.	&	.	\\
+.	&	-119		&	.	&	42	&	.	&	-28	&	.	&	24	\\
+.	&	.		&	.	&	.	&	.	&	.	&	.	&	.	\\
+.	&	101		&	.	&	-36	&	.	&	24	&	.	&	-20
+\end{bmatrix}
+$
+\caption{Figur \ref{fig:8x8halvgraa} transformeret.\label{fig:trans_matrix2}}
+\end{minipage}
+\end{figure}
+Matricen i figur \ref{fig:trans_matrix2} viser, at når et billede har store og bratte kontraster mellem farveintensiteter, skal der bruges mange cosinusfunktioner til at udtrykke det hurtige skift i farveintensitet. Dette er de tilfælde, som cosinusfunktionen ikke behandler godt - der opnås ikke god energikomprimering.
+
+I figur \ref{fig:gradient_matrix} ses en matrix, som laver en glatte overgang fra hvid til sort i samme mønster som den i figur \ref{fig:tern_matrix}. Denne glatte overgang skulle gerne være lettere for cosinusfunktionen af energikomprimere, da der ikke sker bratte skift i farveintensitet. Det tilsvarende billede ses i figur \ref{fig:gradient} og den transformerede matrix ses i figur \ref{fig:trans_matrix3}. Af den transformerede matrix ses det, at cosinustransformationen har haft lettere ved at energikomprimere denne matrix end den i figur \ref{fig:tern_matrix}. Det antages at billeder primært har overgange mellem farveintensiteter, som ligner den i figur \ref{fig:gradient}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.25\textwidth]{Billeder/8x8_eks6.png}
+\caption{$8\times8$ billede bestående af pixels med gradvis overgang fra hvid til sort.}
+\label{fig:gradient}
+\end{figure}
+
+\begin{figure}[htbp]
+\begin{minipage}[b]{0.5\linewidth}
+\centering
+$\begin{bmatrix}
+255	&	236	&	200	&	153	&	102	&	55	&	19	&	0\\
+236	&	236	&	200	&	153	&	102	&	55	&	19	&	19\\
+200	&	200	&	200	&	153	&	102	&	55	&	55	&	55\\
+153	&	153	&	153	&	153	&	102	&	102	&	102	&	102\\
+102	&	102	&	102	&	102	&	153	&	153	&	153	&	153\\
+55	&	55	&	55	&	102	&	153	&	200	&	200	&	200\\
+19	&	19	&	55	&	102	&	153	&	200	&	236	&	236\\
+0	&	19	&	55	&	102	&	153	&	200	&	236	&	255
+\end{bmatrix}$
+\caption{Pixelværdier til figur \ref{fig:gradient}.\label{fig:gradient_matrix}}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{0.5\linewidth}
+\centering
+$\begin{bmatrix}
+-4	&	.	&	.	&	.	&	.	&	.	&	.	&	.	\\
+.	&	568	&	.	&	-40	&	.	&	-4	&	.	&	-1	\\
+.	&	.	&	.	&	.	&	.	&	.	&	.	&	.	\\
+.	&	-40	&	.	&	54	&	.	&	-11	&	.	&	-1	\\
+.	&	.	&	.	&	.	&	.	&	.	&	.	&	.	\\
+.	&	-4	&	.	&	-11	&	.	&	24	&	.	&	-5	\\
+.	&	.	&	.	&	.	&	.	&	.	&	.	&	.	\\
+.	&	-1	&	.	&	-1	&	.	&	-5	&	.	&	22
+\end{bmatrix}$
+\caption{Figur \ref{fig:gradient_matrix} transformeret.\label{fig:trans_matrix3}}
+\end{minipage}
+\end{figure}
+
+Den inverse transformation producerer de to originale matricer uden afvigelser. Skridtet er inverterbart og uden tab af informationer.
+
+Opsummeres ovenstående afsnit om DCT er de vigtigste pointer at
+\begin{itemize}
+\item[...] DCT transformerer fra tidsdomænet til frekvensdomænet
+\item[...] DCT på matrixform er udtrykt ved ligningen $B=U \cdot A \cdot U^T$, hvor
+%\subitem[-] $B \in \mathbb{R}^8$
+\subitem - $U$ er udtrykt ved ligning \vref{eq:DCTtrans}
+\item[...] den inverse DCT er udtrykt som $A = U^T \cdot B \cdot U$ 
+\end{itemize}
+
+Med DCT-transformationens egenskaber i mente, ses der nu på de resterende elementer i JPEG-komprimeringen. 
+
+\subsection{Forbehandling af billede} \label{sec:preprocessing}
+Før billedet transformeres med den diskrete cosinustransformation skal det forbehandles. Dette indebærer at dele billedet op i "blokke" af $8\times8$ pixels - kvadratiske matricer med 64 indgange. Størrelsen af disse blokke af pixels er ikke tilfældig, og har udgangspunkt i egenskaberne ved den diskrete cosinustransformation. Som forklaret i afsnit \vref{sec:DCT} antages det at nærliggende pixels i et billede er korrelerede og at ikke-nærliggende pixels ikke er korrelerede. Dermed er det formålsløst at forsøge at transformerede et helt billede i håb om at kunne energikomprimere dette. Derfor deles billedet op i mindre blokke, og disse transformeres enkeltvis. Den optimale størrelse af disse blokke er $8 \times 8$ pixels, hvilket der er flere grunde til.
+
+Blokke af $2\times2$ pixels indeholder ikke nok data for DCT at arbejde med og når transformationen skal udtrykke matricen som funktioner af cosinusbølger, er der ikke nok cosinusbølger til at kunne udtrykke billedmatricen præcist - kun 4. Resultatet er at en masse data bliver smidt væk og at billedet mister for meget kvalitet - det kan ses med det menneskelige øje. Dette skyldes trasnformationens høje energikomprimering \citep{guillermo_sapiro}. Blokke af $4\times4$ lider under tilsvarende problem som $2\times2$ dog i mindre grad.\\
+Blokke af $8\times8$ pixels har en størrelse der gør cosinustransformationen effektiv. Der er nok indgange og dermed cosinusfunktioner til at kunne udtrykke matricen præcist. Desuden kræver energikomprimeringen at flere pixels kan repræsenteres af enkelte værdier og det er derfor vigtigt at de nærliggende pixels ligner hinanden. Hvis dette er tilfældet, kan blokken komprimeres. Altså er der nok cosinusfunktioner og nok korrelation mellem de enkelte pixels til at $8 \times 8$ er en fornuftig størrelse \citep{guillermo_sapiro}.
+
+Årsagerne til ikke at bruge større end $8 \times 8$, som f.eks. $16\times16$ er flere; det er beregningsmæssigt langt mere effektivt at udføre komprimeringen på mindre blokke - en computer skal bruge færre beregninger, komprimeringsalgoritmen arbejder ud fra princippet om at nærliggende pixels ligner hinanden, hvilket er mere usandsynligt ved $16 \times 16$ end $8 \times 8$. Cosinustransformationens energikomprimering fungerer bedst, når der er korrelation mellem de pixels som transformeres - så kan flere pixels udtrykkes ved få værdier i frekvensdomænet. Problemet med at bruge større blokke end $8\times8$ er at der ikke nødvendigvis er nogen korrelation mellem de enkelte pixels i en stor blok. Det bliver meget mere sandsynligt at billedet tydeligt skifter farve over et stort område og det giver derfor ikke mening at prøve at sammenligne disse pixels, da der sandsyndligvis ikke er nogen korrelation mellem dem \citep{guillermo_sapiro}.\\
+Altså transformeres kun matricer af størrelse $8\times8$ af gangen. Disse matricer, som er kvadratiske blokke af billedet, vil fremover blive kaldet $A$. Figur \vref{fig:pixelblok} viser et eksempel på en $8 \times 8$ pixelmatrix. Bemærk at denne blok kun består af pixels i gråtoner.
+
+Billeder i gråtoner kan deles op som i figur \vref{fig:pixelblok} og billeder i RGB-farveformatet beskrives med én værdi for hver farve i hver pixel - altså tre værdier. Billeder i farver deles op i de tre farverum og de enekelte farverum bearbejdes på samme måde som ved gråtoner. Efterfølgende sammensættes de tre farverum igen for at danne billedet.
+Hvert farverum opdeles i $A$-matricer og der subtraheres 128 fra samtlige indgange. Dette gøres for at ændre værdierne fra beliggende i intervallet $[0;255]$ til $[-128;127]$ og dermed centrere dem omkring nul. Dette er ønskværdigt for komprimeringen, da kvantiseringsskridtet dermed efter cosinustransformationen formår at skabe flere ens koefficienter, hvilket gør komprimeringen mere effektiv, men dette uddybes senere.
+
+Såfremt billedets dimensioner (både højde og bredde) ikke går op i otte fyldes de ufuldendte $8 \times 8$ matricer ud med nuller. Dette kaldes nulfyldning \citep{zero_padding}. Nulfyldning er nødvendigt, da vi bruger DCT på matricer af størrelse $8\times8$ og billedet vil ikke altid have dimensioner, som passer perfekt til disse matricer. Dette resulterer dog i at der indsættes en grå kant på billedet, som kan give en kontrast til det originale billede, hvilket betyder at der formentlig opstår større unøjagtigheder i kanten af billedet. Dette har indflydelse på transformationen og dermed hele komprimeringsalgoritmen. Det nøjes dog med at påpege problemet, men ikke lave en bedre løsning end nulfyldning. Det er i det hele taget et grundlæggende problem ved DCT, at transformationen ikke behandler store skift i farveintensitet godt, da den forsøger at udtrykke glatte overgange. Hvis der ikke er glatte overgange, fungerer energikomprimeringen ringe.
+
+Efter forbehandlingen har man en samling af blokke bestående af 64 pixels hver og som tilsammen udgør det komplette billede. Dermed er billedet klar til cosinustransformationen fra forrige sektion.
+
+Ønskes det at invertere forbehandlingsskridtet skal der indgangsvist adderes med 128 på alle indgange og det opsplittede billede skal samles fra $8 \times 8$ matricerne til det samlede billede igen. Forbehandlingsskridtet er herved inverteret, hvilket gøres uden tab eller forandringer i dataene.
+
+\subsection{Kvantisering}\label{sec:kvantisering}
+Tredje skridt i komprimeringsalgoritmen omhandler kvantisering af de transformerede værdier. Kvantiseringen har til formål at smide de overflødige data væk og desuden gøre billedet klar til fjerde og sidste skridt. Med overflødig data menes der informationer om billedet som ikke har nogen (eller lille) synlig indflydelse på billedkvaliteten. Da DCT-transformationen har energikomprimeret $A$, repræsenterer de mindste koefficienter de data, der fremkommer mindst i matricen. Da det menneskelige øje har svært ved at se meget hurtige ændringer i farveintensitet over små afstande, er høje frekvensændringer ikke tydelige for det menneskelige øje. Altså er koefficienterne i nedre højre hjørne af $B$ ikke betydningsfulde for vores indtryk af billedet som helhed.
+
+Kvantiseringen gør brug af indgangsvis division med en $8 \times 8$ matrix (indgang $B_{1,1}$ divideres med indgang $Q_{1,1}$ osv.). Denne matrix består af heltal som man har bestemt rent empirisk ved eksperimenter omhandlende det menneskelige syn. Tallene i matricen er tilpasset således at den synlige billedkvalitet er høj, mens billedet komprimeres mest muligt \citep{lokminglui}. Der findes flere forskellige kvantiseringsmatricer, og den der bruges i dette projekt er den som bruges i JPEG-standarden \citep{lokminglui}. Kvantiseringsmatricen, som fremover kaldes $Q$, ses i figur \ref{eq:Q50teori}.
+\begin{equation}
+Q50 =
+\begin{bmatrix}
+	16	&	11	& 10		& 16		& 	24	&	40	& 51		& 61		\\
+	12	&	12	& 14		& 19		& 	26	& 	58	& 60		& 50		\\
+	14	&	13	& 16		& 24		& 	40	& 	57	& 69		& 56		\\
+	14	&	17	& 22		& 29		& 	51	& 	87	& 80		& 62		\\
+	18	&	22	& 37		& 56		& 	68	& 	109	& 103	& 77		\\
+	24	&	35	& 55		& 64		& 	81	& 	104	& 113	& 92		\\
+	49	&	64	& 78		& 87		& 	103	& 	121	& 120	& 101	\\
+	72	&	92	& 95		& 98		& 	112	& 	100	& 103	& 99		\\
+\end{bmatrix}
+\label{eq:Q50teori}
+\end{equation}
+Matricen i figur \vref{eq:Q50teori} hedder $Q50$ fordi den er kvantiseringsmatricen for en komprimering med kvalitet 50 (fremover benævnes Q-værdien blot som fx $Q50$ eller $Q10$ ved de respektive kvaliteter). I JPEG kan komprimeringsgraden justeres og det er med denne matrix dette gøres. Matricen kan have en kvalitet mellem 1 og 100, hvor 100 resulterer i laveste komprimering og højeste billedkvalitet, mens 1 omvendt resulterer i højeste komprimering og laveste billedkvalitet. Det er værd at bemærke at $Q50$ ikke komprimerer billede med 50\% eller 50 gange - værdien er blot et udtryk for en position på en skala fra 1 til 100.\\
+For at opnå en anden kvalitet end 50, ændres Q med en bestemt formel. Alt efter den ønskede kvalitet gælder to formler, som begge multiplicerer hver enkelt indgang med en konstant, der beregnes på baggrund af den ønskede kvalitet.
+\begin{align}
+Q_n=\begin{cases}
+	\frac{100-n}{50} \cdot Q50 \ hvis \ n > 50\\
+	\frac{50}{n} \cdot Q50 \ \ \ \ \ hvis \ n < 50
+\end{cases}
+\end{align}
+Herunder ses en kvantiseringsmatrix til en kvalitet på 25.
+\begin{equation}
+Q25 =
+\begin{bmatrix}
+	32	&	22	& 20		& 32		& 	48	&	80	& 102	& 122	\\
+	24	&	24	& 28		& 38		& 	52	& 	116	& 120	& 100	\\
+	28	&	26	& 32		& 48		& 	80	& 	114	& 138	& 112	\\
+	28	&	34	& 44		& 58		& 	102	& 	174	& 160	& 124	\\
+	36	&	44	& 74		& 112	& 	136	& 	218	& 206	& 134	\\
+	48	&	70	& 110	& 128	& 	162	& 	208	& 226	& 184	\\
+	98	&	128	& 156	& 174	& 	206	& 	242	& 240	& 202	\\
+	144	&	184	& 190	& 196	& 	224	& 	200	& 206	& 198	\\
+\end{bmatrix}
+\label{eq:Q25teori}
+\end{equation}
+Matricen B kvantiseres ved indgangsvis division med Q.
+\begin{align}
+C_{(i,j)}=\frac{B_{(i,j)}}{Q50_(i,j)}
+\end{align}
+Ingangene i $B$ afrundes til nærmeste heltal og matricen er dermed kvantiseret. Vi kalder den kvantiserede matrix for $C$. Afrundingen gør at komprimeringen mister data, hvilket er et uigenkaldeligt tab af data og kan altså ikke gøres om. Når den komprimerede fil dekomprimeres til et billede, kan det originale billede ikke genskabes, da det inverterede kvantiseringsskridt vil resultere i andre værdier end det originale input, da afrundingen "sletter"\ dataene. Brugen af en ikke-tabsfri komprimering retfærdiggøres ved at de data, som smides væk, ikke har stor betydning for billedets generelle udseende - det menneskelige øje opfatter ikke tydeligt de manglende værdier, når billedet igen pakkes ud. Desuden gør dette skridt den senere tabsfri komprimering med Huffman væsentligt mere effektiv.
+
+Det ses på $Q$, at indgangene i nederste højre hjørne er væsentligt højere end indgangene i øverste venstre hjørne. Dette resulterer i at værdier i nederste højre hjørne af $B$ bliver divideret med større tal end i øvre venstre hjørne. Dette betyder imidlertid at der er større chance for at tal i nedre højre hjørne bliver afrundet til heltal tæt på eller lig nul og at værdier i øverste venstre hjørne vil forblive høje i forhold til de øvrige værdier. De mange værdier tæt på eller lig nul skyldes den tidligere centrering omkring nul, da der blev trukket 128 fra alle indgange i $A$. Altså vil $C$ hovedsageligt bestå af nuller og nogle få indgange i øverste venstre hjørne, som ikke er nul.
+					
+Det ses også, at en højere komprimeringsgrad resulterer i højere heltal i $Q$. Dette gør at $C$ vil bestå af endnu lavere værdier og flere vil blive afrundet til nul. Altså vil en endnu større mængde data gå tabt, og billedkvaliteten vil tilsvarende falde. Modsat vil en lavere komprimering resultere i lavere heltal i $Q$ og højere tal i $C$ med færre værdier afrundet til nul. Filen vil i dette tilfælde ende med at fylde mere, men med højere billedkvalitet.
+
+Når dette skridt skal inverteres, ganges $C$ indgangsvis med $Q$-matricen, som blev brugt under komprimeringen.
+\begin{align}
+B_{(i,j)}=C_{(i,j)} \cdot Q_{(i,j)}
+\end{align}
+Det er nødvendigt at matricen $Q$, som bruges til inverteringen af skridtet, er magen til den, som blev brugt under kvantiseringen. Hvis dette ikke er gøres korrekt, vil det lede til værdier i $B$, som ikke ligner de originale, da der ganges med andre tal end der oprindeligt blev divideret med.
+
+På figur \ref{fig:kvantiseret} ses et eksempel på en kvantiseret matrix. Matricen som kvantiseres er den fra figur \vref{fig:graamatrix} og den kvantiseres med $Q50$.
+\begin{equation}
+	C=
+\begin{bmatrix}
+	2	&	.	& .		& .		& 	.	&	.	& .		& .	\\
+	.	&	4	& .		& .		& 	.	& 	.	& .		& .	\\
+	.	&	.	& .		& .		& 	.	& 	.	& .		& .	\\
+	.	&	1	& .		& .		& 	.	& 	.	& .		& .	\\
+	.	&	.	& .		& .		& 	.	& 	.	& .		& .	\\
+	.	&	.	& .		& .		& 	.	& 	.	& .		& .	\\
+	.	&	.	& .		& .		& 	.	& 	.	& .		& .	\\
+	.	&	.	& .		& .		& 	.	& 	.	& .		& .	\\
+\end{bmatrix}
+\label{fig:kvantiseret}
+\end{equation}
+Her ses det at mange af koefficienterne er blevet afrundet til nul og de, som ikke er afrundet til nul, er blevet små tal, hvorved matricen er blevet kvantiseret.
+
+\subsection{Entropikodning - Huffmankodning}
+\label{sec:Huffman}
+Entropikodning som emne vil ikke blive uddybet her, men blot anses som en metode til at definere sandsynligheden af et givent datasæts udkom og repræsentere dette på bedste vis. Der findes flere forskellige entropikodnings-metoder, blandt andet Zigzag- og Huffmankodning. Der undersøges i denne rapport Huffmankodning. Enkelte grundelementer i grafteori vil dog blive præsenteret, da disse er nødvendige for at forstå Huffmankodning.
+
+Huffmankodning fungerer via grafteori, og de nødvendige begreber er \citep{grafteori}:
+\begin{itemize}
+\item Et \emph{blad} er et punkt med valens 1
+\item \emph{Valens} er antallet af kanter, der støder op til bladet
+\item En \emph{kant} er en forbindelse mellem blade
+\item En \emph{graf} består af blade og kanter
+\item Et \emph{træ} er en sammenhængende graf
+\item Et \emph{undertræ} er et afsnit af træet
+\item \emph{Sti} er en forbindelse mellem to blade, hvor alle blade på stien er forskellige
+\end{itemize}
+
+Huffmankodning er en slags entropikodning og er en tabsfri komprimeringsmetode, hvorpå en stor mængde data kan repræsenteres ved hjælp af de enkelte symbolers (i vores tilfælde tallene $0-255$) sandsynlighed for at fremkomme. Komprimering med Huffmankodning tildeler alle symboler, der fremkommer i datastrengen, en bitrepræsentation af variabel længde, der afhænger af symbolets sandsynlighed. Dette betyder at et symbol, der fremkommer mange gange vil være tildelt et kortere kodeord end et symbol, der fremkommer få gange. Herved vil mængden af bits brugt til at repræsentere en datastreng blive nedbragt, da symboler der fremkommer mange gange fylder mindre, end dem der fremkommer få gange. Et kodeord er en binær repræsentation af symbolet og kunne fx være
+\begin{align}
+"A: 0, B: 10, C: 110, D: 111"
+\label{fx:huffman prefix}
+\end{align}
+Vigtigt at nævne er at Huffmankodning er en præfix-fri kode, hvilket betyder at symboler ikke kan beskrives som sammensætning af andre symboler. Havde eksempel \vref{fx:huffman prefix} været $"A: 0, B: 1, C: 10, D: 11"$ ville en streng af $0$ og $1$ ikke kunne afkodes uden at kodeordene var synligt adskilt, da det ikke vil være muligt at se om $10$ betyder BA eller C. Det er derfor vigtigt i Huffmankodning, at der ikke er nogle præfix for symbolerne, men at koden kan interpreteres entydigt.
+
+\subsubsection{Huffmantræ} \label{sec:huffmanteori}
+Huffmankodning foregår via skabelsen af et Huffmantræ, som er et overblik over sandsynligheden for at de enkelte symboler fremkommer og hvilket kodeord de skal tildeles. Kodeordet er stien til ned til bladet. For at forklare skabelsen af et Huffmantræ laves et eksempel bestående af fire symboler, der viser principperne i skabelsen af træet.
+Lad os antage at datastrengen lyder $$ abbacdababaccaddabbbacaadabaaddaaccaaaadaadaabaadacaadabaaadacaaadabaa $$ så kan sandsynligheden for at de enkelte symboler fremkomst i datastrengen beregnes. Disse er angivet i tabel \ref{tb:huffman_sandsynlighed}.
+\begin{table}[!h]
+\centering
+\begin{tabular}{|c|c|c|} 
+\hline
+\textbf{Symbol}	&	\textbf{Antal}	&	\textbf{Sandsynlighed}			\\ \hline
+a				&	39				&	$\approx  0,56$					\\ \hline
+b				&	11				&	$\approx  0,16$					\\ \hline
+c				&	8				&	$\approx  0,11$					\\ \hline
+d				&	12				&	$\approx  0,17$					\\ \hline
+\textbf{Total}	&	\textbf{70}		&	\textbf{$\approx 1$}			\\ \hline
+\end{tabular}
+\caption{Sandsynligheder for de enkelte symboler}
+\label{tb:huffman_sandsynlighed}
+\end{table}
+
+Ud fra tabel \vref{tb:huffman_sandsynlighed} opstilles der fire blade, med hvert deres symbol som indgang, se figur \vref{fig:huffmantrae_ex1}. Herefter opstilles de to blade med den mindste sandsynlighed i et undertræ, med bladene som indgange, se figur \vref{fig:huffmantrae_ex2}. I dette eksempel vil det være bladene for b og c, hvor bladet med mindst sandsynlighed placeres yderst til højre. Hyppigheden af dette undertræ er summen af de to blades sandsynlighed og giver her $0,11+0,16=0,27$. Derudover tildeles kanterne hhv. et $0$- og $1$-tal, som senere bruges til definering af symbolets kodeord. Herefter kigges der på de to blade/undertræer, der har den mindste sandsynlighed, hvilket er undertræet for b,c (samlet sandsynlighed: $0,27$) og d (sandsynlighed: $0,17$). Disse samles i et undertræ, hvor mindste sandsynlighed igen placeres yderst til højre og undertræets samlede sandsynlighed er summen af bladenes sandsynlighed ($0,27+0,17=0,44$), se figur \vref{fig:huffmantrae_ex3}. Samme fremgangsmåde gentages for de sidste to undertræer/blade og derved skabes det totale og færdige Huffmantræ, se figur \vref{fig:huffmantrae_ex4}.
+
+På baggrund af træet på figur \vref{fig:huffmantrae_ex4} kan symbolernes kodeord defineres som værende stien til de respektive blade, se tabel \vref{tb:huffman_ex}.
+\begin{table}[!h]
+\centering
+\begin{tabular}{|c|c|} 
+\hline
+\textbf{Symbol}	&	\textbf{Kodeord}	\\ \hline
+a		&	0	\\ \hline
+b		&	100	\\ \hline
+c		&	101	\\ \hline
+d		&	11	\\ \hline
+\end{tabular}
+\caption{Symbolernes kodeord}
+\label{tb:huffman_ex}
+\end{table}
+Det er her tydeligt at symbolerne med størst frekvens er tildelt de korteste binære repræsentationer, hvorved at de pr. symbol vil fylde mindre. Dette er ønskværdigt når formålet er at bringe filstørrelsen ned.
+
+Hele denne proces kan på samme vis benyttes til at komprimere de kvantiserede værdier i $C$-matricerne fra afsnit \ref{sec:kvantisering}. I disse transformerede og kvantiserede matricer ligger energikomprimerede informationer om det originale billede, således at mange indgange er lig nul. Altså er der mange fremkomster af nul og disse kan udtrykkes ved en kort binær repræsentation.\\
+Når alle værdier er parret med en kodestreng, gemmes disse parringer sammen med en "ordbog" (hvilke symboler og kodeord hører sammen) og $Q$. Dermed kan en codec, ved åbning af den komprimerede fil, udpakke og dekomprimere filen til et dekomprimeret billede, som er en efterligning af det origninale billede.
+
+Altså er Huffmankodning det mest komprimerende skridt i DCT-algoritmen - de tidligere skridt gør det muligt ved at sørge for at billedet beskrives med få værdier og at de resterende værdier er ens. Dette gør Huffmankodningen langt mere effektiv.

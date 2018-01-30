@@ -1,0 +1,56 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent\textbf{Conditional PMF}\\
+For two jointly discrete variables $X$ and $Y$ the conditional PMF is defined as
+\begin{equation}
+p_{Y|X}[y_j|x_i]=\frac{p_{X,Y}[x_i,y_i]}{p_X[x_i]}
+\end{equation}
+\textbf{Marginal PDF}\\
+The marginal PDF $p_X(x)$ of jointly distributed random variables $X$ and $Y$ is defined as
+\begin{align*}
+p_X(x)=\int_{-\infty}^{\infty}\!p_{X,Y}(x,y)\,dy
+\end{align*}
+\textbf{Properties}
+\begin{enumerate}
+\item Joint PDF yields conditional PDFs
+\begin{align*}
+p_{Y|X}(y|x)=\frac{p_{X,Y}(x,y)}{\int_{-\infty}^{\infty}\!p_{X,Y}(x,y)\,dy}\\
+p_{X|Y}(x|y)=\frac{p_{X,Y}(x,y)}{\int_{-\infty}^{\infty}\!p_{X,Y}(x,y)\,dx}
+\end{align*}
+\item Conditional PDFs are related
+\begin{align*}
+p_{X|Y}(x|y)=\frac{p_{Y|X}(y|x)p_X(x)}{p_Y(y)}
+\end{align*}
+\item Conditional PDF is expressible using Bayes' rule
+\begin{align*}	
+p_{Y|X}(y|x)=\frac{p_{X|Y}(x|y)p_Y(y)}{\int_{-\infty}^{\infty}\!p_{X|Y}(x|y)p_Y(y)\,dy}
+\end{align*}
+\item Conditional PDF and its corresponding margianl PDF yields the joint PDF
+\begin{align*}
+p_{X,Y}(x,y)=p_{Y|X}(y|x)p_X(x)=p_{X|Y}(x|y)p_Y(y)
+\end{align*}
+\item Conditional PDF and its corresponding marginal PDF yields the other marginal PDF
+\begin{align*}
+p_Y(y)=\int_{-\infty}^{\infty}\!p_{Y|X}(y|x)p_X(x)\,dx
+\end{align*}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{enumerate}
+\end{document}

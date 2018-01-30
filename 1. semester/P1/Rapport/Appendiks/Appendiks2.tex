@@ -1,0 +1,33 @@
+\chapter{Bevis for positive egenværdier}\label{app:eigenvalues}
+Lad $A$ være en $m \times n$ matrix i $\mathbb{R}^n$. Det gælder, at $A^T$ er den transponerede af A.
+Det ønskes i dette afsnit at vise, at matricerne $AA^T$ og $A^TA$ har samme positive eigenværdier. Matricerne undersøges først for at bevise, at de har samme ikke-nul eigenværdi.
+
+%\subsection*{Matricerne $AA^T$ og $A^TA$ har samme ikke-nul eigenværdier}
+%Lad A være en symmetrisk $n \times n$ matrix i $\mathbb{R}^n$, og dermed også at $A = A^T$. Det betyder at matricen er ortogonal diagonaliserbar og dermed kun har eigenværdier i $\mathbb{R}^n$ \citep{eigen_ortogonal}. Dette kan også udtrykkes ved at der eksisterer eigenværdier $\lambda_1,…,\lambda_n$ i $\mathbb{R}^n$ således at der findes ikke-nul vektorer $\vec{v_1},…,\vec{v_n}$ for $i=1,2,…,n$:
+%\begin{equation}
+%A\vec{v_i}=\lambda\vec{v_i}
+%\label{eq:spectral}
+%\end{equation}
+%Ovenstående kaldes for \emph{Spectralteoremet\footnote{bemærk at dette teorem ikke uddybes yderligere i denne rapport}}, men er dog kun brugbart på symmetriske matricer, hviket ikke altid er tilfældet for virkelige data \citep{spectralteorem}. Det kan derfor være brugbart at kigge på, hvordan spectral teoremet kan anvendes på data i andre formater.
+%Fra lineær algebra \fixme{kilde til lærebogen} ses det, at hvis $A$ er en $m \times n$ matrix i $\mathbb{R}^n$ så er $AA^T$ matricen en $n \times n$ matrix i $\mathbb{R}^n$ (ligeledes er $A^TA$). Dette betyder imidlertid at dataene kan omdannes til symmetriske matricer, hvorved at \emph{Spectralteoremet} kan anvendes på hhv. $AA^T$ og $A^TA$.
+%For at tjekke hvorvidt eigenværdierne og eigenvektorerne for $AA^T$ og $A^TA$ også er ens bruges \emph{Spectralteoremet} på matricerne. Lad derfor $\vec{v} \neq \vec{0}$ og eigenvektor til $A^TA$ og dertilhørende $\lambda \neq 0$, hvilket betyder at $$(A^TA)\vec{v}=\lambda\vec{v}$$
+%Multiplicerer begge sider med A og får $$A(A^TA)\vec{v}=\lambda\vec{v}A$$  hvilket, qua basale regneregler fra lineær algebra\fixme{evt. skriv regnereglerne ind her}, kan omskrives til 
+%\begin{equation}
+%AA^T(A\vec{v})=\lambda(A\vec{v})
+%\label{eq:sym_eigen}
+%\end{equation}
+%
+%Undersøges ovenstående ses det tydeligt at dette udtryk står på samme form som \emph{Spectralteoremet}, blot hvor $A\vec{v}$ er eigenvektoren. Dette betyder imidlertid at $AA^t$ har eigenvektoren $A\vec{v}$, med tilhørende eigenværdi $\lambda$. Det er dog defineret at eigenværdien og eigenvektoren skal være ikke-nul, og det tjekkes derfor om disse værdier i \vref{eq:sym_eigen} er ikke-nul. Fra \ref{eq:spectral} ses det at hvis $A\vec{v}=0$ så må det også gælde at $\lambda\vec{v}=0$. Dette er dog ikke muligt da det eksplicit er udtrykt i ovenstående udledning at $\vec{v} \neq \vec{0}$ og $\lambda \neq 0$, hvorved det kan konkluderes at ikke-nul eigenværdien til $AA^T$ er magen til eigenværdien for $A^TA$. Det fremkommer dog også at for at gå fra en eigenvektor $\vec{v}$ til $AA^T$ til en eigenvektor $\vec{u}$ til $A^TA$ multipliceres $\vec{v}$ blot med $A$. Det samme princip gælder for den anden vej rundt, hvor $\vec{u}$ ganges med $A^T$ for at blive eigenvektor til $AA^T$ fremfor $A^TA$ (dette er vist i \ref{app:eigenvektor}\fixme{lav udregning i appendiks}).
+%
+%Ovenstående udledning betyder, at hvis et givent datasæt ikke er symmetrisk, så kan det stadig bearbejdes vha. \emph{Spectralteoremet}, men også at hvis der er stor forskel på dimensionerne af $m$ og $n$, så vil eigenværdierne af matricen hurtigt kunne findes; fx hvis $A$ er en $500 \times 2$ matrix, så vil eigenværdierne til $500 \times 500$ $AA^T$ matricen kunne findes som værende eigenværdierne til $2 \times 2$ $A^TA$ matricen, hvilket kræver meget færre beregninger.
+%
+%Det er bevist at $A^TA$ og $AA^T$ har samme eigenvektorer og eigenværdier, men endnu ikke bevist, hvorvidt eigenværdierne kun er positive - dette bevises i følgende afsnit.
+
+\subsection*{Eigenværdierne til $AA^T$ er positive tal} \label{subsec:pos_eigenvalue}
+Det ønskes at bevise, at eigenværdierne til hhv. $AA^T$ og $A^TA$ er positive tal. Kvadratet af længden  af en vektor $\vec{w}$ er givet ved $\Vert \vec{w} \Vert^2= \vec{w} \cdot \vec{w} = \vec{w}^T\vec{w}$. Lad $\vec{v}$ være eigenvektor til $A^TA$ med eigenværdien $\lambda$. Kvadratet af længden af $A\vec{v}$ udregnes som værende
+\begin{align}
+\Vert A^T\vec{v} \Vert^2 & = (A^T\vec{v})^T (A^T\vec{v}) \\
+	& = \vec{v}^T(AA^T ) \vec{v} \\	
+	& = \lambda \vec{v}^T \vec{v}
+\end{align}
+Da længder kun kan være positive, gælder der også ifølge ovenstående udledning, at $\lambda$ er positiv. Altså er det hermed bevist, at egenværdierne $\lambda$ til $AA^T$ er positive [\citet{PCA_jeff}, s. 3].

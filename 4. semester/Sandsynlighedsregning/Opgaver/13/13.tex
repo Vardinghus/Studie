@@ -1,0 +1,41 @@
+\documentclass[12pt,a4paper,draft]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent\textbf{Opgave 132}\\
+Describe the random variables that have the following pgfs: \textbf{(a)} $G(s)=1$, \textbf{(b)} $G(s)=s$, and \textbf{(c)} $G(s)=\frac{1}{2}(s+s^2)$.\\\\
+\textbf{(a)} Lav en fordeling, som har middelværdi 0.\\\\
+\textbf{(b)} Lav en fordeling, som har middelværdi 1.\\\
+\textbf{(c)} Brug den anden definition af $G_X(s)$
+\begin{equation}
+G_X(s)=\sum_{k=0}^{\infty}s^kp_X(k)
+\end{equation}
+Sæt $k=2$ og $p_X(k)=\frac{1}{2}$.
+\begin{equation}
+G_X(s)=\sum_{k=0}^2s^kp_X(k)=\frac{1}{2}s+\frac{1}{2}s^2
+\end{equation}
+\textbf{Opgave 133}\\
+Let $G$ be the pgf of a random variable $X$. Show that $G$ is increasing and convex. When is it strictly increasing? Strictly convex?\\\\
+$G$ er voksende og konveks
+\begin{equation}
+G_X'(s)=p_X(1)+\sum_{k=2}^{\infty}ks^{k-1}p_X(k)
+\end{equation}
+er positiv og voksende.\\\\
+$G_X(s)$ er strengt voksende, når $p_X(k)$ er strengt voksende for alle $k$.\\\\
+$G_X(s)$ er strengt konveks, når den er strengt voksende.\\\\
+\textbf{Opgave 135}\\
+\textbf{(a)} Let $X\sim geom(p)$. Find the pgf 
+
+
+
+
+
+
+
+
+
+
+\end{document}

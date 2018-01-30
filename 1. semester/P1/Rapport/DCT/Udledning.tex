@@ -1,0 +1,211 @@
+\chapter{DCT udledning}
+\label{DCT_udledning}
+I dette afsnit beskrives udledningen af DCT fra den diskrete Fouriertransformation med udgangspunkt i [\citet{applied_mathematics}, s. 179-183].
+
+Lad $\vec{x}=[x_0,\ldots,x_{n-1}]^T \in \mathbb{R}^n$ og $\tilde{\vec{x}}=[\tilde{x}_0,\ldots,\tilde{x}_{2n-1}]^T \in \mathbb{R}^{2n}$ således at $\tilde{\vec{x}}$ er den forlængede $\vec{x}$, sådan at de er symmetrisk omkring $n-\frac{1}{2}$.
+
+Definitionsmængden for $\tilde{x_l}$ er givet som
+\begin{equation}
+\tilde{x}_l = 
+\begin{cases}
+			x_l, \phantom{mmm} for \ l = 0,\ldots,n - 1 \\
+			x_{2n-l-1},\ for \ l = n,\ldots,2n - 1
+\end{cases}
+\label{eq:x_tilde}
+\end{equation}
+Qua [\citet{applied_mathematics}, s. 174] er Fourier transformationen for en vektor $\vec{x} \in \mathbb{C}^n$ givet som
+\begin{align}
+\hat{\vec{x}}=F_n\vec{x}
+\end{align}
+og den $j$'te indgang af $\hat{\tilde{x}}$ er givet som
+\begin{align}
+\Big(\hat{\tilde{\vec{x}}}\Big)_j = \sum_{l=0}^{2n - 1} \tilde{x}_l \textit{e}^{-i \frac{2l \pi j}{2n}}
+\end{align}
+$\tilde{x}_l$ bliver delt op i to summationer for at undersøge $x_l$ i stedet for $\tilde{x}_l$
+\begin{align}
+\Big(\hat{\tilde{\vec{x}}}\Big)_j = \sum_{l=0}^{n - 1} x_l \textit{e}^{-i\frac{lj\pi}{n}} + \sum_{l=n}^{2n - 1} x_{2n - l - 1} \textit{e}^{-i \frac{lj \pi}{n}}
+\label{DCT Udledning 1}
+\end{align}
+Derefter er det interessant at sikre sig, at de to summationer har samme begræsninger. Qua \ref{eq:x_tilde} ændres variablen ved ændring af summationstegnets begrænsninger. Da $j$ er et heltal, kan Eulers identitet $e^-ix = cos(x)-i sin(x)$ benyttes til at forkorte udtrykket
+\begin{align*}
+\sum_{l=n}^{2n - 1} x_{2n - l - 1} \textit{e}^{-i \frac{lj \pi}{n}} & = \sum_{l=0}^{n - 1} x_l \textit{e}^{-i \frac{(2n -l -1)j \pi}{n}}\\
+&= \sum_{l=0}^{n - 1} x_l\textit{e}^{-i \frac{2nj \pi}{n}} \textit{e}^{-i \frac{(-l -1)j \pi}{n}}\\
+&= \sum_{l=0}^{n - 1} x_l \cdot 1 \cdot \textit{e}^{-i \frac{(-l -1)j \pi}{n}}\\
+&= \sum_{l=0}^{n - 1} x_l \textit{e}^{i \frac{(l+1)j\pi}{n}} 
+\end{align*}
+Nu skrives de to summationstegn i \ref{DCT Udledning 1} sammen i henhold til ovenstående omskrivning, og $x_l$ sættes udenfor en parentes
+\begin{align*}
+\Big(\hat{\tilde{\vec{x}}}\Big)_j = \sum_{l=0}^{n - 1} x_l(\textit{e}^{-i \frac{jl\pi}{n}} + e^{i\frac{(l+1)j\pi}{n}})
+\end{align*}
+Brøkerne i potensen forlænges med $\frac{2}{2}$, og leddene ganges med $e^{i\frac{j(1-1)\pi}{2n}}=1$ for at isolere $ e^{i \frac{j\pi}{2n}}$, som derefter sættes udenfor en parentes
+\begin{equation*}
+\begin{split}
+\Big(\hat{\tilde{\vec{x}}}\Big)_j& = \sum_{l=0}^{n - 1} x_l(\textit{e}^{-i \frac{jl\pi}{n}} + e^{i\frac{(l+1)j\pi}{n}}) \\
+ & = \sum_{l=0}^{n - 1} x_l(e^{-i \frac{j2l\pi}{2n}} + e^{i\frac{(2l+2)j\pi}{2n}}) \\ 
+ & = \sum_{l=0}^{n - 1} x_l(e^{-i \frac{j2l\pi}{2n}} \cdot e^{i\frac{j(1-1)\pi}{2n}} + e^{i\frac{(2l+2)j\pi}{2n}} \cdot e^{i\frac{j(1-1)\pi}{2n}}) \\
+ & = \sum_{l=0}^{n - 1} x_l(e^{i \frac{j(1-1-2l)\pi}{2n}} + e^{i\frac{(2l+2)j\pi}{2n}} \cdot 1) \\
+ & = \sum_{l=0}^{n - 1} x_l(e^{i \frac{j(-1-2l)\pi}{2n}} \cdot e^{i\frac{j\pi}{2n}} + e^{i\frac{(2l+1)j\pi}{2n}} \cdot e^{i\frac{j\pi}{2n}}) \\
+ & = e^{i \frac{j\pi}{2n}} \sum_{l=0}^{n - 1} x_l(e^{-i \frac{j(2l+1)\pi}{2n}} + e^{i \frac{j(2l+1)\pi}{2n}})
+\end{split}
+\end{equation*}
+Ved hjælp af Eulers identitet, givet ved $\cos(x) = \frac{e^{-ix}+e^{ix}}{2}$, forsimples udtrykket til $2 \cos(x) = e^{-ix}+e^{ix}$, hvorefter de variabler, der er uafhængige af de komplekse tal, skrives i en forskrift som navngives $d_j$.
+\begin{align}
+\Big(\hat{\tilde{\vec{{x}}}}\Big)_j = 2e^{i \frac{j\pi}{2n}} \sum_{l=0}^{n - 1} x_l \cos \bigg( \frac{j(2l+1)\pi}{2n} \bigg) = e^{i\frac{j\pi}{2n}} \cdot d_j
+\label{DCT Udledning 2}
+\end{align}
+hvor
+\begin{align}
+d_j = 2 \sum_{l=0}^{n - 1} x_l \cos \bigg( \frac{j(l+\frac{1}{2})\pi}{n} \bigg)
+\label{DCT Udledning 3}
+\end{align}
+Da $\hat{\tilde{x}}$ er symmetrisk omkring $n-\frac{1}{2}$, kan den $2n-j$'te indgang defineres som den kompleks konjugerede $j$'te indgang [\citet{konjugeret}, afsnit 1].
+\let\conjugatet\overline
+\begin{align*}
+\Big(\hat{\tilde{\vec{{x}}}}\Big)_{2n-j} = \conjugatet{\Big{(\hat{\tilde{\vec{x}}}}\Big)}_j
+\end{align*}
+Dette kan qua \ref{DCT Udledning 2} udtrykkes som
+\begin{align*}
+\Big(\hat{\tilde{\vec{x}}}\Big)_{2n-j} = d_j e^{-i\frac{j\pi}{2n}}
+\end{align*}
+$j$ erstattes med $2n - j$, som indsættes i $d_j$ for at finde $d_{2n-j}$ :
+\begin{align*}
+d_{2n-j} = e^{-i\frac{(2n-j)\pi}{2n}} \big(\hat{\tilde{x}}\big)_{2n-j}
+\end{align*}
+Så bliver $\Big(\hat{\tilde{\vec{x}}}\Big)_{2n-j}$ erstattet med dens $d_j$ værdi:
+\begin{equation*}
+\begin{split}
+d_{2n-j}& = e^{-i(2n-j)\frac{\pi}{2n}} d_j e^{\frac{-ij\pi}{2n}} \\
+  & = e^{\frac{-i(2n-j)\pi-ij\pi}{2n}} \cdot d_j \\
+  & = e^{\frac{-i2n\pi+ij\pi-ij\pi}{2n}} \cdot d_j \\
+  & = e^{-i\pi} d_j \\
+\end{split}
+\end{equation*}
+På grund af Eulers formel $e^{-ix} = cos(x)-isin(x)$ fås følgende:
+\begin{align}
+d_{2n-j} = -d_j
+\label{DCT Udledning 4}
+\end{align}
+Og når $j = n$ i \ref{DCT Udledning 4} fremkommer
+\begin{align}
+d_n& = -d_n \\ 
+d_n& = 0
+\label{DCT Udledning 5}
+\end{align}
+Den inverse af DFT er givet som
+\begin{align}
+\tilde{F}_n = \frac{1}{n} F^{*}_{n}
+\label{eq:inverseDFT}
+\end{align}
+hvor $F^{*}_{n}$ er den transponerede og kompleks konjugerede $F_n$. \\
+For at finde $l$'te indgang af  $\tilde{x}$ bruges ligning \ref{eq:inverseDFT} på $j$'te af $\hat{\tilde{\vec{x}}}$ i den $2n$ lange DFT
+\begin{align*}
+\Big(\tilde{\vec{x}}\Big)_l = \frac{1}{2n} \sum^{2n-1}_{j=0} \Big(\hat{\tilde{x}}\Big)_j e^{\frac{ij2l\pi}{2n}} 
+\end{align*}
+$\Big(\hat{\tilde{\vec{x}}}\Big)_j$ fra \ref{DCT Udledning 2} indsættes
+\begin{equation}
+\begin{split}
+\Big(\tilde{\vec{x}}\Big)_l& = \frac{1}{2n} \sum^{2n-1}_{j=0} d_j e^{\frac{ij\pi}{2n}} e^{\frac{ij2l\pi}{2n}} \\
+  & =\frac{1}{2n} \sum^{2n-1}_{j=0} d_j e^{\frac{ij(2l+1)\pi}{2n}} \\
+  & =\frac{1}{2n} \sum^{2n-1}_{j=0} d_j e^{\frac{ij(l+\frac{1}{2})\pi}{n}}
+\end{split}
+\label{DCT Udledning 6}
+\end{equation}
+Summen i \ref{DCT Udledning 6} opdeles i to summationer
+\begin{align*}
+\sum^{2n-1}_{j=0} =\sum^{n-1}_{j=0} + \sum^{2n-1}_{j=n}
+\end{align*}
+Der ses nærmere på den sidste summation for at kunne omskrive denne til samme begrænsninger som første summation
+\begin{align*}
+\sum^{2n-1}_{j=n} =  \sum^{2n-1}_{j=n} d_j e^{\frac{ij(l+\frac{1}{2})\pi}{n}}
+\end{align*}
+Når $d_n = 0$ og når $j=n$ kan dette led udelades fra summationen og summationens begrænsninger omskrives til
+\begin{align*}
+=  \sum^{2n-1}_{j=n+1} d_j e^{\frac{ij(l+\frac{1}{2})\pi}{n}}
+\end{align*}
+For at samle summationstegnene skal begræsningerne være de samme. Derfor sættes $k = 2n - j$, og benytter det til at udskifte alle $j$-variablerne. Dermed kommer begrænsningen af summationen til at være:
+\begin{align*}
+=\sum^{2n-k = 2n-1}_{2n-k = n+1} =\sum^{k=1}_{k = n-1}
+\end{align*}
+Nu tæller summationen oppe fra og ned. Det ændres ved at vende begrænsningerne.
+\begin{align*}
+= \sum^{n-1}_{k=1} d_{2n-k} e^{\frac{i(2n-k)(l+\frac{1}{2})\pi}{n}}
+\end{align*}
+Der ses nu nærmere på potensen, som splittes i to led ved at gange ind i parentesen med $(2n-k)$. Da $l = 0$ kan den første potens, beskrives som Eulers identitet ($e^{ix}=\cos(x)+i\sin(x)$) i det sidste trin 
+\begin{equation*}
+e^{\frac{i(2n-k)(l+\frac{1}{2})\pi}{n}} = e^{i2(l+\frac{1}{2})\pi} e^{\frac{-ik(l+\frac{1}{2})\pi}{n}} = -e^{\frac{-ik(l+\frac{1}{2})\pi}{n}}
+\end{equation*}
+Qua \ref{DCT Udledning 4} og ovenstående fremkommer
+\begin{align}
+&= \sum^{n-1}_{k=1} d_{2n-k}(-e^{\frac{-ik(l+\frac{1}{2})\pi}{n}}) \\
+&= \sum_{k=1}^{n-1} (-d_k)(-e^{\frac{-ik(l+\frac{1}{2}\pi}{n}})
+\end{align}
+Summationstegnene sættes ind i \ref{DCT Udledning 6}, hvor begrænsningerne der går fra $j=1$ til $n-1$. $d_{0}$, beskriver det punkt, som de to summationer ikke beskriver. Altså er det nødvendigt at have med.
+\begin{align*} 
+\Big(\tilde{\vec{x}}\Big)_l = \frac{1}{2n}d_0 + \frac{1}{2n} \sum_{j=1}^{n-1} d_j e^{\frac{ij(l+\frac{1}{2})\pi}{n}} + \frac{1}{2n} \sum_{k=1}^{n-1} (-d_k)(-e^{\frac{-ik(l+\frac{1}{2}\pi}{n}})
+\end{align*}
+Herefter sættes $\frac{1}{2n}$ uden for parentesen, og de to summationstegn lægges sammen ved hjælp af regnereglen $\sum\limits^n_{k = K} a_k = \sum\limits^n_{j=K} a_j$ :
+\begin{align*}
+\frac{1}{2n}(d_0+\sum^{n-1}_{j=1} d_j(e^{\frac{ij(l+\frac{1}{2})\pi}{n}} + e^{\frac{-ij(l+\frac{1}{2})\pi}{n}}) 
+\end{align*}
+Derefter ganges $d_0$ med $\frac{2}{2}$ og Eulers formel benyttes:
+\begin{align}
+= \frac{1}{n}(\frac{d_0}{2}\sum^{n-1}_{j=1} d_j \cos(\frac{j(l+\frac{1}{2})\pi}{n})
+\end{align}
+Så sættes $d_j$ og $ d_0$ definitionerne ind i ligningen igen:
+\begin{align*}
+\sum^{n-1}_{k=0}x_k \delta_{k-l} = \frac{1}{n} \Bigg( \sum^{n-1}_{k=0}x_k+2\sum^{n-1}_{j=1}\bigg( \sum^{n-1}_{k=0}x_k \cos(\frac{j(k+\frac{1}{2})\pi}{n})\bigg) \cos(\frac{j(l+\frac{1}{2})\pi}{n})\Bigg)
+\end{align*}
+$x_k$ ganges udenfor parentesen, og $\sum\limits^{n-1}_{k=0}$ sættes udenfor parentesen ved hjælp af regnereglen 
+$\sum\limits^{n}_{k=0} (a_k + b_k) = \sum\limits^{n}_{k=0} a_k + \sum\limits^{n}_{k=0} b_k$ :
+\begin{align*}
+= \frac{1}{n}\sum^{n-1}_{k=0} \Bigg(1+2\sum^{n-1}_{j=1} \cos(\frac{j(k+\frac{1}{2})\pi}{n}) \cos(\frac{j(l+\frac{1}{2})\pi}{n}) \Bigg) x_k   
+\end{align*}
+$\sum\limits^{n-1}_{k=0} x_k$ isoleres, hvilket medfører at $\delta_{k-l}$ kan beskrives som:
+\begin{align*}
+\delta_{k-l} = \frac{1}{n} \Bigg(1+2\sum^{n-1}_{j=1} \cos(\frac{j(k+\frac{1}{2})\pi}{n}) \cos(\frac{j(l+\frac{1}{2})\pi}{n}) \Bigg) 
+\end{align*}
+Efter at have isoleret $\delta_{k-l}$ difineres dens egneskaber som:
+\begin{align}
+\delta_{k-l} = 
+\begin{cases}
+			1\ \text{hvis}\ k-l = 0 \\
+			0\ \text{ellers}
+\end{cases}
+\label{eq:diff_delta}
+\end{align}
+Dette sikrer, at DCT er ortnormal når den skrives som en matrix.
+Efter at have defineret $\delta_{k-l}$ kan DCT'en omskrives til  vektorform for $k,l = 0, ... ,n-1$ hvor $n$ er vektor $a_0, ... , a_{n-1}$. Dette medfører at:
+\begin{align}
+\delta_{k-l}= \vec{a}_k^{T} \cdot \vec{a}_l
+\end{align}
+Hvor at $\vec{a}_k$ og $\vec{a}_l$ er defineret som
+\begin{align}
+\vec{a}_k = \Bigg[\frac{1}{\sqrt{n}}\ , \sqrt{\frac{2}{n}} \cos(\frac{k+\frac{1}{2}\pi}{n}),\ ... \ ,\sqrt{\frac{2}{n}} \cos(\frac{(n-1)(k+\frac{1}{2}\pi)}{n})\Bigg]^T \\
+\label{eq:soejlevektor}
+\vec{a}_l = \Bigg[\frac{1}{\sqrt{n}}\ , \sqrt{\frac{2}{n}} \cos(\frac{l+\frac{1}{2}\pi}{n}),\ ... \ ,\sqrt{\frac{2}{n}} \cos(\frac{(n-1)(l+\frac{1}{2}\pi)}{n})\Bigg]^T
+\end{align}
+Herefter kan den diskrete cosinustransformation defineres som
+\begin{align}
+DCT=[\textbf{a}_0,...,\textbf{a}_{n-1}]
+\end{align}
+hvor $n \geq 2$ og $k=0,...,n-1$. Den diskrete cosinustransformation er altså en $n \times n$-matrix, som består af $n$ søjlevektorer beskrevet ved \vref{eq:soejlevektor} hvor $k=0,...,n-1$.
+Men da der bruges en $8 \times 8$ matrix, bliver $n = 8$,
+\begin{equation}
+U= \frac{1}{2}
+\begin{bmatrix}
+	\frac{1}{\sqrt{2}}		& \frac{1}{\sqrt{2}}		& \frac{1}{\sqrt{2}}			& \frac{1}{\sqrt{2}}		& \frac{1}{\sqrt{2}}			& \frac{1}{\sqrt{2}}		& \frac{1}{\sqrt{2}} 			&\frac{1}{\sqrt{2}}			\\
+	\cos(\frac{\pi}{16})		& \cos(\frac{3\pi}{16})	& \cos(\frac{5\pi}{16})	& \cos(\frac{7\pi}{16})	
+& \cos(\frac{9\pi}{16})	& \cos(\frac{11\pi}{16})
+& \cos(\frac{13\pi}{16})	& \cos(\frac{15\pi}{16})		\\
+	\cos(\frac{2\pi}{16})	& \cos(\frac{6\pi}{16})	& \cos(\frac{10\pi}{16})	& \cos(\frac{14\pi}{16})	& \cos(\frac{18\pi}{16})	& \cos(\frac{22\pi}{16})	& \cos(\frac{26\pi}{16})	& \cos(\frac{30\pi}{16})		\\
+	\cos(\frac{3\pi}{16})	& \cos(\frac{9\pi}{16})	& \cos(\frac{15\pi}{16})	& \cos(\frac{21\pi}{16})	& \cos(\frac{27\pi}{16})	& \cos(\frac{33\pi}{16})	& \cos(\frac{39\pi}{16})	& \cos(\frac{45\pi}{16})		\\
+	\cos(\frac{4\pi}{16})	& \cos(\frac{12\pi}{16})	& \cos(\frac{20\pi}{16})	& \cos(\frac{28\pi}{16})	& \cos(\frac{36\pi}{16})	& \cos(\frac{44\pi}{16})	& \cos(\frac{52\pi}{16})	& \cos(\frac{60\pi}{16})		\\
+	\cos(\frac{5\pi}{16})	& \cos(\frac{15\pi}{16})	& \cos(\frac{25\pi}{16})	& \cos(\frac{35\pi}{16})	& \cos(\frac{45\pi}{16})	& \cos(\frac{55\pi}{16})	& \cos(\frac{65\pi}{16})	& \cos(\frac{75\pi}{16})		\\
+	\cos(\frac{6\pi}{16})	& \cos(\frac{18\pi}{16})	& \cos(\frac{30\pi}{16})	& \cos(\frac{42\pi}{16})	& \cos(\frac{54\pi}{16})	& \cos(\frac{66\pi}{16})	& \cos(\frac{78\pi}{16})	& \cos(\frac{90\pi}{16})		\\
+	\cos(\frac{7\pi}{16})	& \cos(\frac{21\pi}{16})	& \cos(\frac{35\pi}{16})	& \cos(\frac{49\pi}{16})	& \cos(\frac{63\pi}{16})	& \cos(\frac{77\pi}{16})	& \cos(\frac{91\pi}{16})	& \cos(\frac{105\pi}{16})	\\
+\end{bmatrix}
+\label{eq:standardDCTmatrice}
+\end{equation}
+\begin{flushright}
+$\blacksquare$
+\end{flushright}

@@ -1,0 +1,56 @@
+\documentclass[12pt,a4paper,draft]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent\textbf{Opgave 1, s. 212}\\
+Which of the following functions are in $\mathcal{L}^1$? in $\mathcal{L}^2$?\\\\
+\textbf{(a)}
+\begin{equation}
+\int_{-\infty}^{\infty}\!\left|\frac{\sin x}{|x|^{3/2}}\right|\,dx
+\end{equation}
+Da $\sin x$ er begrænset af 1, og $\sin x\approx x$ for $0\leq x\leq1$ kan integralet deles op i disse dele.
+\begin{align}
+\int_{-\infty}^{\infty}\!\left|\frac{\sin x}{|x|^{3/2}}\right|\,dx&\leq2\int_0^1\!\frac{x}{|x|^{3/2}}\,dx+\int_1^{\infty}\!\frac{1}{|x|^{3/2}}\,dx\\
+&=2\left[2x^{1/2}\right]_0^1+\left[-2x^{-1/2}\right]_1^{\infty}
+\end{align}
+Ovenstående konvergerer og udtrykket ligger derfor i $\mathcal{L}^1$. Udtrykket ligger ikke i $\mathcal{L}^2$.\\\\
+\textbf{(b)}
+\begin{equation}
+(1+x^2)^{-1/2}
+\end{equation}
+Sæt $u=(1+x^2)^{-1/2}$ og udregn integralet.
+\begin{equation}
+\int_{-\infty}^{\infty}\!\frac{1}{u}\,du=\left[\ln(1+x^2)^{1/2}\right]_{-\infty}^{\infty}=\infty
+\end{equation}
+Den ligger altså ikke i $\mathcal{L}^1$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+

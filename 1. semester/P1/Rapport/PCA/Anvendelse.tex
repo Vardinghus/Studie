@@ -1,0 +1,326 @@
+\section{Billedekomprimering med PCA}
+PCA-metoden kan anvendes på mange forskellige former for data med forskellige formål, men jævnfør rapportens formål undersøges PCA i forhold til komprimering af et billede. Billedet angives som tre $m \times n$ matrix indeholdende pixelintensiteten i de forskellige indgange, der repræsenterer en pixel i billedet.
+
+For overskuelighedens skyld undersøges her et gråtone-billede med $10 \times 8$ pixels. Billedet betegnes ved matricen $X$. Udgangspunktet for de følgende regneoperationer er udtrykket $Y = PX$, hvor $Y$ er den transformerede matrix, og $P$ udgør en matrix med egenvektorerne til $C_X$ som rækker, hvilket reelt set benævnes principale komponenter til $X$ (fremover vil principale komponenter forkortes med PC). Det skal nævnes, at efter eksemplet udføres udregningerne på Lena, dog vil kun resultaterne af Lena fremgå. Dette gøres for at danne grundlag for sammenligning i forhold til DCT-billedkomprimeringen.
+\begin{figure}[!h]
+\begin{minipage}[b]{0.27\linewidth}
+\centering
+\includegraphics[width=\textwidth]{Billeder/LenaAnvendelse/testBillede/testBillede1.png}
+\caption{Oprindelig - Visuel.}
+\label{fig:X_anvendelse-tal-start}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{0.45\linewidth}
+\centering
+\[X = \begin{bmatrix}
+187 & 207 & 213 & 217 & 213 & 194 & 172 & 160 \\
+210 & 236 & 236 & 219 & 202 & 170 & 147 & 148 \\
+173 & 210 & 230 & 212 & 171 & 135 & 126 & 138 \\
+167 & 190 & 203 & 171 & 123 & 106 & 119 & 125 \\
+204 & 217 & 207 & 167 & 127 & 107 & 99 & 81 \\
+249 & 255 & 231 & 197 & 169 & 132 & 91 & 55 \\
+255 & 254 & 234 & 214 & 193 & 163 & 117 & 66 \\
+253 & 244 & 234 & 224 & 201 & 177 & 142 & 89 \\
+251 & 237 & 235 & 229 & 209 & 193 & 161 & 105 \\
+242 & 230 & 232 & 235 & 225 & 214 & 180 & 118
+\end{bmatrix}\]
+\caption{Oprindelig - Tal.}
+\label{fig:X_anvendelse-tal-start1}
+\end{minipage}
+\end{figure}
+
+For at skabe et overblik over billedkomprimeringen med PCA ses algoritmen herunder med uddybbelse og anvendelse på $X$ af alle skridt efterfølgende.
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{lll}
+\hline
+\multicolumn{3}{l}{\textbf{Algoritme: Komprimering vha. PCA}}\\                                                             \hline
+\\
+\multicolumn{1}{|l}{1.}        & Input:                     & Billede, $X$: $m \times n$ pixels                                   \\
+\multicolumn{1}{|l}{2.}        & Output:                    & Komprimeret fil                                           \\
+                               &                            &                                                                   \\
+\multicolumn{2}{|l}{\textit{Komprimering}}                 &                                                                   \\
+\multicolumn{1}{|l}{3.}        & Gennemsnit:                  & $\mu_{x} = \frac{1}{n}(x_1+ ... + x_n)$           \\
+\multicolumn{1}{|l}{4.}        & Standardiserer:			 & 
+$\tilde{\vec{x_i}} = \begin{bmatrix} (x_1 - \mu_{x}) & \hdots & (x_n - \mu_{x}) \end{bmatrix}$          \\
+\multicolumn{1}{|l}{5.}        & Kovarians matrix:              & 
+$C_{\tilde{X}}=\frac{1}{n-1} \tilde{X}\tilde{X}^T , \phantom{mmm} hvor \tilde{X}= \begin{bmatrix} \tilde{\vec{x_1}} &		\hdots & \tilde{\vec{x_m}}  \end{bmatrix}^T$           \\
+\multicolumn{1}{|l}{6.}        & Sortering:              & Egenvektorer, $P$, sorteres vha. egenværdier \\
+\multicolumn{1}{|l}{7.}        & PC vælges:    			& 
+Antal bibeholdte principale komponenter afgør kvalitet  \\
+\multicolumn{1}{|l}{8.}        & Transformerer matrix          & 
+$Y = PX$            \\
+\multicolumn{1}{|l}{9.}        & Entropikodning:        & $Y$, $P$ og $\mu_{\vec{x}}$ gemmes i en fil vha. Huffman     \\
+\end{tabular}
+\label{tb:Algoritme-Komprimering-PCA}
+\end{table}
+
+Med udgangpunkt i $X$ findes gennemsnittene for de enkelte rækkevektorer $\vec{x_i}$ og trækkes derefter fra de respektive rækkevektorer. Jævnfør vektoren \vref{eq:X_anvendelse} ses det, at gennemsnittet for første rækkevektor er $\frac{1}{8} (187 + 207 + 213 + 217 + 213 + 194 + 172 + 160) = 195,38$.
+
+For at skabe indblik i følgende regnemetode stilles resultatet for samtlige gennemsnit op i en såkaldt gennemsnitsvektor, der indeholder alle gennemsnittene for de enkelte rækker
+\begin{equation}
+\mu_{\vec{x}} = \begin{bmatrix}
+195,38 & 196 & 174,375 & 150,5 & 151,125 & 172,375 & 187 & 195,5 & 202,5 & 209,5 
+\end{bmatrix}^T
+\label{eq:X_anvendelse}
+\end{equation}
+Herefter trækkes gennemsnittet fra de respektive rækker i $X$ - dvs. $X$ standardiseres og resulterer i følgende matrix:
+\begin{equation}
+\tilde{X}=\begin{bmatrix}
+-8,375 & 11,625 & 17,625 & 21,625 & 17,625 & -1,375 & -23,375 & -35,375 \\
+14 & 40 & 40 & 23 & 6 & -26 & -49 & -48 \\
+-1,375 & 35,625 & 55,625 & 37,625 & -3,375 & -39,375 & -48,375 & -36,375 \\
+16,5 & 39,5 & 52,5 & 20,5 & -27,5 & -44,5 & -31,5 & -25,5 \\
+52,875 & 65,875 & 55,875 & 15,875 & -24,125 & -44,125 & -52,125 & -70,125 \\
+76,625 & 82,625 & 58,625 & 24,625 & -3,375 & -40,375 & -81,375 & -117,375 \\
+68 & 67 & 47 & 27 & 6 & -24 & -70 & -121 \\
+57,5 & 48,5 & 38,5 & 28,5 & 5,5 & -18,5 & -53,5 & -106,5 \\
+48,5 & 34,5 & 32,5 & 26,5 & 6,5 & -9,5 & -41,5 & -97 \\
+32,5 & 20,5 & 22,5 & 25,5 & 15,5 & 4,5 & -29,5 & -91,5 \\
+\end{bmatrix}
+\label{eq:X_tilde}
+\end{equation}
+Den nye matrix $\tilde{X}$ består af \emph{rækkervektorerne} $\vec{\tilde{x_i}}$, der nu er centreret omkring nul. Kovariansmatricen $C_{X}$ findes vha. ligning \ref{eq:matrix covarians} med dimensionerne $m \times m$, hvor $m = 10$, hvilket ses ved, at dimensionerne er $(10 \times 8) \cdot (8 \times 10) = 10 \times 10$.
+\begin{equation}
+C_X = \begin{bmatrix}
+449 & 654 & 667 & 419 & 720 & 1156 & 1116 & 944 & 826 & 742\\
+654 & 1336 & 1375 & 1164 & 1839 & 2563 & 2288 & 1881 & 1565 & 1226\\
+667 & 1375 & 1568 & 1336 & 1832 & 2405 & 2091 & 1716 & 1410 & 1062\\
+419 & 1164 & 1336 & 1339 & 1820 & 2214 & 1846 & 1499 & 1199 & 808\\
+720 & 1839 & 1832 & 1820 & 2943 & 3916 & 3430 & 2817 & 2322 & 1728\\
+1156 & 2563 & 2405 & 2214 & 3916 & 5533 & 4992 & 4132 & 3465 & 2728\\
+1116 & 2288 & 2091 & 1846 & 3430 & 4992 & 4586 & 3824 & 3247 &   2637\\
+944 & 1881 & 1716 & 1499 & 2817 & 4132 & 3824 & 3211 & 2744 & 2257\\
+826 & 1565 & 1410 & 1199 & 2322 & 3465 & 3247 & 2744 & 2367 & 1985\\
+742 & 1226 & 1062 & 808 & 1728 & 2728 & 2637 & 2257 & 198 & 1746\\
+\end{bmatrix}
+\end{equation}
+
+Da det gælder at $S=\tilde{X}\tilde{X}^T$, og endvidere som tidligere nævnt $S = EDE^T$, findes egenværdierne og egenvektorerne vha. det karakteristiske polynomiuml til kovariansmatricen hvor $\lambda_1 \geq \lambda_2 \geq \ldots \geq \lambda_m \geq 0$. Egenvektorerne sorteres ikke, men tilrettes samme ordning som egenværdierne, da egenværdierne og egenvektorerne hænger sammen i par. Metoden til at finde $S$, $E$ og $D$ såvel som egenværdier og egenvektorer ses i afsnit \ref{sec:UdregnPCA}. For forståelsens skyld kan egenværdierne opstilles som en diagonal matrix, $D$, med tilhørende egenvektorer som matricerne $E$ og $E^T$ og dermed udregne $S$. Dette ville resultere i kovariansmatricen.
+Sorterede egenværdier findes, og egenvektorer opstilles som søjler:
+\begin{align*}
+\lambda_1 = 2,3 \cdot 10^4,\phantom{m}\lambda_2 = 1,43 \cdot 10^3 ,\phantom{m}\lambda_3 = 530,\phantom{m}\lambda_4 = 10,\phantom{m}\lambda_5 = 7,35,\phantom{m}\lambda_6 = 2,22,\\
+\phantom{m}\lambda_7 = 0,6,\phantom{m}\lambda_8 = 5 \cdot 10^{-14},\phantom{m}\lambda_9 = -3,8 \cdot 10^{-13},\phantom{m}\lambda_{10} = -8,7 \cdot 10^{-14}
+\end{align*}
+\begin{align}
+E = 
+\left\{
+\begin{bsmallmatrix}
+0,11  \\
+0,07  \\
+0,55  \\
+0,16  \\
+-0,52 \\
+-0,36 \\
+-0,23 \\
+-0,30 \\
+0,28  \\
+0,06  \\
+\end{bsmallmatrix},
+\begin{bsmallmatrix}
+0,23  \\
+-0,19 \\
+0,30  \\
+0,40  \\
+0,03  \\
+0,25  \\
+0,73  \\
+-0.02 \\
+-0,03 \\
+0,12  \\
+\end{bsmallmatrix},
+\begin{bsmallmatrix}
+0,22  \\
+-0,45 \\
+0,54  \\
+-0,06 \\
+0,34  \\
+0,15  \\
+-0,37 \\
+0,006 \\
+0,03  \\
+-0,33 \\
+\end{bsmallmatrix},
+\begin{bsmallmatrix}
+0,20  \\
+-0,54 \\
+-0,06 \\
+-0,49 \\
+-0,07 \\
+-0.30 \\
+0,17  \\
+0,36  \\
+-0,35 \\
+0,50  \\
+\end{bsmallmatrix},
+\begin{bsmallmatrix}
+0,34  \\
+-0,32 \\
+-0,39 \\
+-0,15 \\
+-0,45 \\
+0,16  \\
+-0.07 \\
+-0,46 \\
+0,41  \\
+-0,44 \\
+\end{bsmallmatrix}\right., \nonumber \\ 
+\left.
+\begin{bsmallmatrix}
+0,49   \\
+-0,02  \\
+-0,28  \\
+0,41   \\
+0,04   \\
+0,30   \\
+-0,29  \\
+0,08   \\
+-0,004 \\
+0,20   \\
+\end{bsmallmatrix},
+\begin{bsmallmatrix}
+0,44   \\
+0,20   \\
+-0,094 \\
+0.25   \\
+-0,09  \\
+-0.54  \\
+0,05   \\
+0,42   \\
+-0,40  \\
+-0,08  \\
+\end{bsmallmatrix},
+\begin{bsmallmatrix}
+0,37   \\
+0,23   \\
+-0,024 \\
+-0,14  \\
+0,45   \\
+-0.08  \\
+-0,21  \\
+-0,12  \\
+-0,03  \\
+0,34   \\
+\end{bsmallmatrix},
+\begin{bsmallmatrix}
+0,31  \\
+0,29  \\
+0,06  \\
+-0,34 \\
+0,27  \\
+-0,17 \\
+0,34  \\
+-0,48 \\
+0,57  \\
+-0,49 \\
+\end{bsmallmatrix},
+\begin{bsmallmatrix}
+0,25  \\
+0,43  \\
+0,26  \\
+-0,42 \\
+-0,35 \\
+-0,50 \\
+0,01  \\
+0,37  \\
+-0,36 \\
+0,20  \\
+\end{bsmallmatrix}
+\right\}
+\end{align}
+
+Som forklaret tidligere i afsnit \vref{sec:UdregnPCA}, kan $P$ udtrykkes som $P = E^T$. Hermed kan $Y$ udregnes. På dette tidspunkt i processen kan principale komponenter fjernes, hvor der typisk bibeholder de komponenter, som udtrykker en stor andel af billedet - i praksis reducereres $m$-dimensionenen af $P$ til $k$, hvorved dimensionen for $P$ bliver $k \times m$. Det er dette trin, der komprimerer billedet, da der nu skal gemmes færre værdier for at gengive det tilnærmelsesvist samme billede. Der kan beregnes, hvor meget en enkelt principal komponent udgør af billedet ud fra den tilhørende egenværdi og summen af alle egenværdier. Eksempelvis udgør den første principal komponent i dette tilfælde $\frac{1,61\cdot10^5}{1,76\cdot10^5} \approx 91,7\%$, den anden $\frac{10^4}{1,76\cdot10^5} \approx 5,7\%$ etc.
+
+Ved dette regneeksempel vælges to principal komponenter til videre udregning. Typisk vælges antallet alt efter hvornår flere principale komponenter ikke ændrer billedet drastisk. Det er det essentielle ved metoden, da det ofte muliggør en fjernelse af $n$-dimensioner dvs. en høj data reduktion. \\
+Videre i udregningen stilles de to valgte principale komponenter op som en $2 \times 10$ matrix. Dimensionerne for transformationen kan opskrives som $(k \times n) = (k \times m) \cdot (m \times n)$.
+Den transformerede matrix findes vha. ligning \ref{eq:linear transformation}, $Y = P \cdot \tilde{X}$ med dimensionerne $k \times n$, ($2 \times 10) \cdot (10 \times 8) = 2 \times 8$.
+\begin{equation}
+Y = \begin{bmatrix}
+135.42 & 152.50 & 132.28 & 74.51 & 2.25 & -77.74 & -159.33 & -255.39 \\
+23.95 & -24.89 & -42.85 & -6.82 & 35.03 & 52.36 & 15.42 &  -52.21
+\end{bmatrix}
+\end{equation}
+
+Jævnfør algoritmen på side \pageref{tb:Algoritme-Komprimering-PCA}, gemmes $Y$, $P$ og gennemsnitsvektoren i en komprimeret fil. Filen er komprimeret, da den mængde, der skal gemmes, er mindre efter transformationen end før. Fra 80 datapunkter, $10 \times 8$ - til 46 datapunkter, $Y: 2 \times 8$, $P: 2 \times 10$ og $\mu_{\vec{x}}: 10 \times 1$. Grundet reduceringen af dimensionerne komprimeres billedet med tab. For at komprimere filen yderligere entropikodes den vha. Huffman.
+
+\subsection*{Huffman}
+Det komprimerede billede, repræsenteret ved matricerne $Y$ og $P$ samt gennemsnitsvektoren $\vec{\mu}_X$, entropikodes vha. Huffman, for at udtrykke disse tre ved en binærstreng, som der blev gjort ved billedet komprimeret ved DCT i afsnit \vref{sec:huffmanteori}.
+
+Det bemærkes, at der ikke nødvendigvis opnås en yderligere komprimering af billedet ved entropikodning vha. Huffman. Dette skyldes, at $Y$, $P$ og $\vec{\mu}_X$ ikke nødvendigvis indeholder lignende værdier, som er tilfældet med billeder behandlet med DCT. Det kan derimod lade sig gøre, at en entropikodet fil vha. Huffman fylder mere, end filen der komprimeres. Der benyttes derfor udelukkende entropikodning vha. Huffman til PCA for at kunne sammenligne de to datasæt fra DCT og PCA.
+
+\subsection*{Dekomprimering}
+\label{PCA_dekomprimering}
+Dekomprimeringen udføres herefter jævnfør oversigten herunder.
+\begin{table}[!h]
+\centering
+\begin{tabular}{lll}
+\hline
+\multicolumn{2}{l}{\textbf{Algoritme: Dekomprimering vha. PCA}}    &                                                                   \\ \hline
+\\
+\multicolumn{1}{|l}{1.}        & Input:                     & Komprimeret fil \\
+\multicolumn{1}{|l}{2.}        & Output:                    & Dekomprimeret billede, $\hat{X}$ \\
+                               &                            &                                                                   \\
+\multicolumn{2}{|l}{\textit{Dekomprimering}}                 &                                                                   \\
+\multicolumn{1}{|l}{3.}        & Dekodning:        		 & Filen aflæses til $Y$, $P$ og $\mu_{\vec{x}}$           \\
+\multicolumn{1}{|l}{4.}        & Tilbage transformerer matrix & $\hat{\tilde{X}} = P^T Y$           \\
+\multicolumn{1}{|l}{5.}        & Destandardiserer:			 & 
+$\hat{X} = \hat{\tilde{X}} + \mu_{\vec{x}}$          \\
+\end{tabular}
+\label{tb:Algoritme-Dekomprimering-PCA}
+\end{table}
+Det ses at efter dekodningen tilbage transformeres matricen vha.
+\begin{align}
+\hat{\tilde{X}} = P^T Y
+\label{eq:PCAinvers}
+\end{align}
+Dette kan lade sig gøre, grundet $P$'s egenskaber som en højreinvertibel matrix.
+\begin{itemize}
+\item[]{En $m \times n$ matrix $A$, hvor $Rank(A)=m$, er højreinvertibel og har en højreinvers matrix $A^{-1}$ defineret ved [\citet{leftinverse}, s. 1]
+\begin{align}
+A^{-1}=A^T(AA^T)^{-1}
+\label{eq:hoejreinvers}
+\end{align} 
+}
+\end{itemize}
+$P$ har ortonormale rækker, og derfor gælder der, at
+\begin{align}
+PP^T=I
+\end{align}
+Hvor $I$ er identitetsmatricen.\\
+Derfor fremkommer, jævnfør ligning \ref{eq:hoejreinvers}, at
+\begin{align}
+P^T(PP^T)^{-1}=P^T
+\end{align}
+Det ses, at for den ikke-kvadratiske ortnormale matrix $P$, er den transponerede lig den inverse. Altså kan $\hat{\tilde{X}}$ beregnes ved ligning \ref{eq:PCAinvers}.
+
+Efter dette skridt standardiseres den, dvs. den centreres tilbage omkring gennemsnittet, ved at addere alle søjler med $\mu_{\vec{x}}$. Resultatet af matricen ses herunder.
+
+\begin{figure}[!h]
+\begin{minipage}[b]{0.27\linewidth}
+\centering
+\includegraphics[width=\textwidth]{Billeder/LenaAnvendelse/testBillede/testBillede2.png}
+\caption{Dekomprimeret - Visuel.}
+\label{fig:X_anvendelse-tal-slut}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{0.45\linewidth}
+\centering
+\[\hat{X} = \begin{bmatrix}
+212 & 210 & 207 & 203 & 197 & 190 & 179 & 164 \\
+223 & 236 & 235 & 214 & 189 & 168 & 156 & 147 \\
+193 & 219 & 223 & 194 & 158 & 133 & 132 & 142 \\
+164 & 194 & 200 & 169 & 131 & 107 & 111 & 128 \\
+190 & 211 & 210 & 179 & 139 & 108 &  91 &  80 \\
+238 & 247 & 238 & 209 & 170 & 133 &  94 &  49 \\
+252 & 250 & 237 & 219 & 193 & 163 & 119 &  63 \\
+251 & 246 & 235 & 221 & 203 & 179 & 140 &  89 \\
+252 & 243 & 231 & 224 & 212 & 193 & 157 & 108 \\
+253 & 237 & 224 & 225 & 224 & 212 & 176 & 124 \\
+\end{bmatrix}\]
+\caption{Dekomprimeret - Tal.}
+\label{fig:X_anvendelse-tal-slut1}
+\end{minipage}
+\end{figure}
+
+Regneeksemplet er lavet for at give et indblik i algoritmen for billedkomprimering med PCA. Ved metodens anvendelse på et farvebillede, gentages processen for hver farvekanal, hvilket er tilfældet ved Lena-billedet. Metoden anvendes derfor nu på dette, og den følgende repræsentationer af Lena ses med antal valgte principale komponenter, og hvor stor en del af datasættet, der udgøres ved dette antal principale komponenter ift. til det oprindelige billede.

@@ -1,0 +1,1 @@
+void addThousand(int *i);

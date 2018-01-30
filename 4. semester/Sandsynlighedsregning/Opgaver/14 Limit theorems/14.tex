@@ -1,0 +1,40 @@
+\documentclass[12pt,a4paper,draft]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent\textbf{Opgave 1}\\
+Let $X_1,X_2,\ldots$ be a sequence of random variables with the same mean $\mu$ and variance $\sigma^2$, which are such that Cov$[X_j,X_k]<0$ for all $j\neq k$. Show that $\overline{X}\overset{P}\to\mu$ as $n\to\infty$.\\\\
+Brug korollar 3.24 til at beregne variansen, da variablene ikke er uafhængige.
+\begin{align*}
+\text{Var}[\overline{X}]=\text{Var}\left[\sum_{k=1}^na_kX_k\right]&=\sum_{k=1}^na_k^2\text{Var}[X_k]+\sum_{i\neq k}\text{Cov}[X_i,X_j]\\
+&=\text{Var}\left[\sum_{k=1}^n\frac{1}{n}X_k\right]+\sum_{i\neq j}[X_i,X-j]\\
+&=\frac{1}{n^2}\text{Var}\left[\sum_{k=1}^nX_k\right]+\sum_{i\neq j}[X_i,X_j]\\
+&=\frac{1}{n^2}n\sigma^2+\sum_{i\neq j}[X_i,X_j]\\
+&\leq\frac{\sigma^2}{n}
+\end{align*}
+Nu kan Chebychevs ulighed bruges - sæt $c=\varepsilon\frac{\sqrt{n}}{\sigma}$:
+\begin{align*}
+P\left(|\overline{X}-\mu|\geq c\sqrt{\text{Var}[\overline{X}]}\right)\leq\frac{1}{c^2}\\
+P\left(|\overline{X}-\mu|\geq \varepsilon\frac{\sqrt{n}}{\sigma}\sqrt{\text{Var}[\overline{X}]}\leq \varepsilon)\right)\leq\frac{\sigma^2}{n\varepsilon^2}\to 0\text{ for }n\to\infty
+\end{align*}
+\textbf{Opgave 3}\\
+Let $X_1,X_2,\ldots$ be iid unif$[0,1]$ and let $g:[0,1]\to\mathbb{R}$ be a funtion. What is the limit of $\sum_{k=1}^ng(X_k)/n$ as $n\to\infty$? How can this result be used?\\\\
+\textbf{Opgave 8}\\
+Use the central limit theorem to argue that the following random variables are approximately normal; also give the parameters: \textbf{(a)} $X\sim\Gamma(n,\lambda)$ for large $n$ and \textbf{(b)} $X\sim\text{Poi}(\lambda)$ for large $\lambda$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

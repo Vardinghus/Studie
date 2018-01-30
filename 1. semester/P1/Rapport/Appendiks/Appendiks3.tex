@@ -1,0 +1,207 @@
+\chapter{Indhold i bilagsmappe}\label{dropbox}
+\textbf{Billeder}
+\begin{itemize}
+\item Originalt Lenabillede
+\item DCT-mappe
+	\begin{itemize}
+	\item Fejlbilleder for DCT \\
+	Fejlbilleder over forskelle mellem originalt og komprimeret billede ved Q10, Q25, Q50, Q75, Q90.
+	
+	\item Lena med forskelige Q \\
+	DCT-komprimerede billeder med Q-værdierne: Q10, Q25, Q50, Q75, Q90.
+	
+	\item Skalering \\
+	Originalt Lenabillede skaleret ned til 256x256 pixels og DCT-komprimerede billeder ved hhv. Q10, Q25, Q50, Q75, Q90.
+	\end{itemize}
+\item Mobilbilleder
+	\begin{itemize}
+	\item T1 (T2-T6 tilsvarende T1)
+		\begin{itemize}
+		\item DCT \\
+		T1 DCT-komprimeret ved Q10, Q50, Q90.
+		\item PCA \\
+		T1 PCA-komprimeret ved PC120, PC360, PC720.
+		\item Originalt T1 - mobilbillede
+		\end{itemize}
+	\end{itemize}
+\item PCA
+	\begin{itemize}
+	\item Fejlbilleder for PCA \\
+	Fejlbilleder over forskelle mellem originalt og komprimeret billede ved PC25, PC50, PC75.
+
+	\item Lena med forskellige PC \\
+	PCA-komprimerede billeder med antal PC: PC1, PC5, PC10, PC15, PC20, PC25, PC50, PC75, PC100, PC150, PC200, PC512.
+	
+	\item Skalering \\
+	Originalt Lenabillede skaleret ned til 256x256 pixels og PCA-komprimerede billeder ved hhv. PC13, PC25, PC38, PC50, PC75.
+	\end{itemize}
+\end{itemize}
+\textbf{Program}
+\begin{itemize}
+\item DCT (PCA har samme struktur som DCT)
+	\begin{itemize}
+	\item README (indeholder oversigt over mappen)
+	\item Encode.py \\
+	Input: \textit{Billede}. Output: \textit{Huffmankodet fil}.
+	
+	\item Decode.py	 \\
+	Input: \textit{Huffmankodet fil}. Output: \textit{Dekomprimeret billede}.
+	
+	\item Variation for DCT.py\\
+	Input: \textit{Originalt billede}. Output: \textit{Data om forskelle}.
+	\end{itemize}
+\item PCA
+%	\begin{itemize}
+%	\item README
+%	\item Encode.py \\
+%	Input: \textit{Billede}. Output: \textit{Huffmankodet fil}.
+%	
+%	\item Decode.py \\
+%	Input: \textit{Huffmankodet fil}. Output: \textit{Dekomprimeret billede}.
+%	 \end{itemize}
+\end{itemize}
+
+
+%\section{DCT-billeder}
+%\begin{figure}[!h]
+%\begin{minipage}[b]{0.3\linewidth}
+%\centering
+%\includegraphics[width=\textwidth]{Billeder/lena.png}
+%\caption{\href{https://www.dropbox.com/sh/7nl8vq5qa93gcop/AADb-aOMXp_T7cUPslGH2NrVa/Billeder?dl=0&preview=lena-org.tiff}{Original}}
+%\label{fig:lena-org}
+%\end{minipage}
+%\hspace{0.5cm}
+%\begin{minipage}[b]{0.3\linewidth}
+%\centering
+%\includegraphics[width=\textwidth]{Billeder/LenaAnvendelse/LenaDCT/LenaQ10.png}
+%\caption{\href{https://www.dropbox.com/home/P1\%20-\%20B205/vejleder/billeder/DCT/Lena\%20ved\%20forskelige\%20Q?preview=lenaQ10.png}{Q10 - 1:7.31}}
+%\label{fig:LenaDCTQ10}
+%\end{minipage}
+%\hspace{0.5cm}
+%\begin{minipage}[b]{0.3\linewidth}
+%\centering
+%\includegraphics[width=\textwidth]{Billeder/LenaAnvendelse/LenaDCT/LenaQ25.png}
+%\caption{\href{https://www.dropbox.com/home/P1\%20-\%20B205/vejleder/billeder/DCT/Lena\%20ved\%20forskelige\%20Q?preview=lenaQ25.png}{Q25 - 1:6.67}}
+%\label{fig:LenaDCTQ25}
+%\end{minipage}
+%\end{figure}
+%
+%\begin{figure}[!h]
+%\begin{minipage}[b]{0.3\linewidth}
+%\centering
+%\includegraphics[width=\textwidth]{Billeder/LenaAnvendelse/LenaDCT/LenaQ50.png}
+%\caption{\href{https://www.dropbox.com/home/P1\%20-\%20B205/vejleder/billeder/DCT/Lena\%20ved\%20forskelige\%20Q?preview=lenaQ50.png}{Q50 - 1:5.98}}
+%\label{fig:LenaDCTQ50}
+%\end{minipage}
+%\hspace{0.5cm}
+%\begin{minipage}[b]{0.3\linewidth}
+%\centering
+%\includegraphics[width=\textwidth]{Billeder/LenaAnvendelse/LenaDCT/LenaQ75.png}
+%\caption{\href{https://www.dropbox.com/home/P1\%20-\%20B205/vejleder/billeder/DCT/Lena\%20ved\%20forskelige\%20Q?preview=lenaQ75.png}{Q75 - 1:5.12}}
+%\label{fig:LenaDCTQ75}
+%\end{minipage}
+%\hspace{0.5cm}
+%\begin{minipage}[b]{0.3\linewidth}
+%\centering
+%\includegraphics[width=\textwidth]{Billeder/LenaAnvendelse/LenaDCT/LenaQ90.png}
+%\caption{\href{https://www.dropbox.com/home/P1\%20-\%20B205/vejleder/billeder/DCT/Lena\%20ved\%20forskelige\%20Q?preview=lenaQ90.png}{Q90 - 1:3.79}}
+%\label{fig:LenaDCTQ90}
+%\end{minipage}
+%\end{figure}
+%
+%
+%
+%\section{PCA-billeder}
+%\begin{figure}[!h]
+%\begin{minipage}[b]{0.3\linewidth}
+%\centering
+%\includegraphics[width=\textwidth]{Billeder/LenaAnvendelse/LenaPCA/LenaPCA1.png}
+%\caption{\href{https://www.dropbox.com/home/P1\%20-\%20B205/vejleder/billeder/PCA/Lena?preview=LenaPCA1.png}{1PC - 1:170.67}}
+%\label{fig:Lena1PCA}
+%\end{minipage}
+%\hspace{0.5cm}
+%\begin{minipage}[b]{0.3\linewidth}
+%\centering
+%\includegraphics[width=\textwidth]{Billeder/LenaAnvendelse/LenaPCA/LenaPCA5.png}
+%\caption{\href{https://www.dropbox.com/home/P1\%20-\%20B205/vejleder/billeder/PCA/Lena?preview=LenaPCA5.png}{5PC - 1:46.55}}
+%\label{fig:Lena5PCA}
+%\end{minipage}
+%\hspace{0.5cm}
+%\begin{minipage}[b]{0.3\linewidth}
+%\centering
+%\includegraphics[width=\textwidth]{Billeder/LenaAnvendelse/LenaPCA/LenaPCA10.png}
+%\caption{\href{https://www.dropbox.com/home/P1\%20-\%20B205/vejleder/billeder/PCA/Lena?preview=LenaPCA10.png}{10PC - 1:24.38}}
+%\label{fig:Lena10PCA}
+%\end{minipage}
+%\end{figure}
+%
+%
+%\begin{figure}[!h]
+%\begin{minipage}[b]{0.3\linewidth}
+%\centering
+%\includegraphics[width=\textwidth]{Billeder/LenaAnvendelse/LenaPCA/LenaPCA15.png}
+%\caption{\href{https://www.dropbox.com/home/P1\%20-\%20B205/vejleder/billeder/PCA/Lena?preview=LenaPCA15.png}{15PC - 1:16.52}}
+%\label{fig:Lena15PCA}
+%\end{minipage}
+%\hspace{0.5cm}
+%\begin{minipage}[b]{0.3\linewidth}
+%\centering
+%\includegraphics[width=\textwidth]{Billeder/LenaAnvendelse/LenaPCA/LenaPCA20.png}
+%\caption{\href{https://www.dropbox.com/home/P1\%20-\%20B205/vejleder/billeder/PCA/Lena?preview=LenaPCA20.png}{20PC - 1:12.49}}
+%\label{fig:Lena20PCA}
+%\end{minipage}
+%\hspace{0.5cm}
+%\begin{minipage}[b]{0.3\linewidth}
+%\centering
+%\includegraphics[width=\textwidth]{Billeder/LenaAnvendelse/LenaPCA/LenaPCA25.png}
+%\caption{\href{https://www.dropbox.com/home/P1\%20-\%20B205/vejleder/billeder/PCA/Lena?preview=LenaPCA25.png}{25PC - 1:10.04}}
+%\label{fig:Lena25PCA}
+%\end{minipage}
+%\end{figure}
+%
+%
+%\begin{figure}[!h]
+%\begin{minipage}[b]{0.3\linewidth}
+%\centering
+%\includegraphics[width=\textwidth]{Billeder/LenaAnvendelse/LenaPCA/LenaPCA50.png}
+%\caption{\href{https://www.dropbox.com/home/P1\%20-\%20B205/vejleder/billeder/PCA/Lena?preview=LenaPCA50.png}{50PC - 1:5.07}}
+%\label{fig:Lena50PCA}
+%\end{minipage}
+%\hspace{0.5cm}
+%\begin{minipage}[b]{0.3\linewidth}
+%\centering
+%\includegraphics[width=\textwidth]{Billeder/LenaAnvendelse/LenaPCA/LenaPCA75.png}
+%\caption{\href{https://www.dropbox.com/home/P1\%20-\%20B205/vejleder/billeder/PCA/Lena?preview=LenaPCA75.png}{75PC - 1:5.07}}
+%\label{fig:Lena75PCA}
+%\end{minipage}
+%\hspace{0.5cm}
+%\begin{minipage}[b]{0.3\linewidth}
+%\centering
+%\includegraphics[width=\textwidth]{Billeder/LenaAnvendelse/LenaPCA/LenaPCA100.png}
+%\caption{\href{https://www.dropbox.com/home/P1\%20-\%20B205/vejleder/billeder/PCA/Lena?preview=LenaPCA100.png}{100PC - 1:3.39}}
+%\label{fig:Lena100PCA}
+%\end{minipage}
+%\end{figure}
+%
+%\begin{figure}
+%\begin{minipage}[b]{0.3\linewidth}
+%\centering
+%\includegraphics[width=\textwidth]{Billeder/LenaAnvendelse/LenaPCA/LenaPCA150.png}
+%\caption{\href{https://www.dropbox.com/home/P1\%20-\%20B205/vejleder/billeder/PCA/Lena?preview=LenaPCA150.png}{150PC - 1:2.55}}
+%\label{fig:Lena150PCA}
+%\end{minipage}
+%\hspace{0.5cm}
+%\begin{minipage}[b]{0.3\linewidth}
+%\centering
+%\includegraphics[width=\textwidth]{Billeder/LenaAnvendelse/LenaPCA/LenaPCA200.png}
+%\caption{\href{https://www.dropbox.com/home/P1\%20-\%20B205/vejleder/billeder/PCA/Lena?preview=LenaPCA200.png}{200PC - 1:1.28}}
+%\label{fig:Lena200PCA}
+%\end{minipage}
+%\hspace{0.5cm}
+%\begin{minipage}[b]{0.3\linewidth}
+%\centering
+%\includegraphics[width=\textwidth]{Billeder/LenaAnvendelse/LenaPCA/LenaPCA512.png}
+%\caption{\href{https://www.dropbox.com/home/P1\%20-\%20B205/vejleder/billeder/PCA/Lena?preview=LenaPCA512.png}{512PC - 1:0.50}}
+%\label{fig:Lena512PCA}
+%\end{minipage}
+%\end{figure}

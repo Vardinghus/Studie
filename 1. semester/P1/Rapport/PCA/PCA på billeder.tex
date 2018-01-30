@@ -1,0 +1,35 @@
+\subsection{PCA på billeder}
+\begin{document}
+dette afsnit omhandler hvordan man bruge PCA (principle component analysis) på et digitalt billede.
+for at kunne anvende PCA på et billede skal man først bruge billede matricen, et billede kan ses som et 2 dimensionelt funktion af $f(x,y)$ hvor $x$ og $y$ er koordianter i rummet.for alle værdierne i billedet matricen skal man sætte dem efter hinanden så de danne en række og derefter transponer den så det bliver til en vektor. 
+først starter vi med at opstille vores billede matrice hvor, for hver farve i billede (rød,blå,grøn) opstillers som vektorer. 
+\begin{align*}
+A = 
+\begin{bmatrix}
+v_[rød1] & v_[blå1] & v_[grøn1] \\
+\vdots & \vdots & \vdots \\
+v_[rødn] & v_[blån] & v_[grøn n] \\
+\end{bmatrix}
+\end{align*}
+for at kunne anvende PCA på den skal man først finde finde dens gemmensnits vektor, dette gøres ved at tag gemmensnitet for hver kolonne for at danne en ny vektor
+\begin{align*}
+\overline{\underline{m}}_x = \frac{1}{q}
+\begin{bmatrix}
+\sum^Q_k=1 x_{1K} \\
+\sum^Q_k=1 x_{1K} \\ 
+\vdots \\
+\sum^Q_k=1 x_{MK}  \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+m_1 \\
+m_2 \\
+\vdots \\
+m_M
+\end{bmatrix}
+\end{align*}
+$\tilde{M_x}$ kan så beskrives som, værdierne fra $\overline{\underline{m}}_x$ samt $M$ tid og kan skrives som
+\begin{align*}
+\tilde{M}_x = [\overline{\underline{m}}_x,\overline{\underline{m}}_x,\cdots,\overline{\underline{m}}_x]
+\end{align*} 
+\end{document}

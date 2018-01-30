@@ -1,0 +1,82 @@
+\documentclass[12pt,a4paper,draft]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent\textbf{Opgave 9}\\
+Markov chains are named for Russian mathematician A. A. Markov, who in the early twentieth century examined the sequence of vowels and consonants in the 1833 poem \textit{Eugene Onegin} by Alexander Pushkin. He empirically verified the Markov property and found that a vowel was followed by a consonant 87\% of the time and a consonant was followed by a vowel 66\% of the time. \textbf{(a)} Give the transition graph and the transition matrix. \textbf{(b)} If the first letter is a vowel, what is the probability that the third is also a vowel? \textbf{(c)} What are the proportions of vowels and consonants in the text?\\\\
+\textbf{(a)} Transitionsmatricen ser således ud
+\begin{equation}
+P=\begin{bmatrix}
+0.34 & 0.66\\
+0.87 & 0.13
+\end{bmatrix}
+\end{equation}
+\textbf{(b)} Hvis det første bogstav er en vokal, så aflæses sandsynligheden for at tredje bogstav er en vokal fra $P^2$:
+\begin{equation}
+P^2=\begin{bmatrix}
+0.6898 & 0.3102\\
+0.4089 & 0.5911
+\end{bmatrix}
+\end{equation}
+Sandsyndligheden for at tredje bogstav er en vokal er 0.5911.
+\textbf{(c)} Mængden af vokaler og konsonanter findes ved
+\begin{equation}
+\frac{1}{q+p}\begin{bmatrix}
+q & p\\
+q & p
+\end{bmatrix}=\begin{bmatrix}
+0.57 & 0.43\\
+0.57 & 0.43
+\end{bmatrix}
+\end{equation}
+\textbf{Opgave 15}\\
+Consider the success run chain in Example 8.16. Suppose that the chain has been running for a while and is in state 10. \textbf{(a)} What is the expected number
+of steps until the chain is back at state 10? \textbf{(b)} What is the expected number of times the chain visits state 9 before it is back at 10?\\\\
+\textbf{(a)} Brug proposition 8.5, som siger
+\begin{equation}
+E_i[\tau_i]=\frac{1}{\pi_i}
+\end{equation}
+Fra eksempel 8.16 haves
+\begin{equation}
+\pi_i=\begin{bmatrix}
+1/2 & 1/2	& 0		& 0		& \cdots\\
+1/2 & 0		& 1/2	& 0		& \cdots\\
+\vdots & \vdots & \vdots & \ddots &\ddots
+\end{bmatrix}=\frac{1}{2^{i+1}}
+\end{equation}
+Altså
+\begin{equation}
+E_{10}[\tau_{10}]=2^{10+1}=2048
+\end{equation}
+\textbf{(b)} Brug samme proposition 8.5. Der haves, at
+\begin{equation}
+E_{10}[N_9]=\frac{\pi_9}{\pi_{10}}=\frac{2^{11}}{2^{10}}=2
+\end{equation}
+\textbf{Opgave 16}\\
+Let $g:[0,1]\to R$ be a function whose integral $I=\int^1_0\!g(x)\,dx$ is impossible to compute explicitly. How can you approximate $I$ by simulation of standard uniforms $U_1,U_2,\ldots$?\\\\
+Brug opgave 3 fra kursusgang 14, hvor en function approksimeres ved en sum af uniforme distributioner.
+\begin{equation}
+I=\int_0^1\!g(x)\,dx\approx \lim_{n\to\infty}\sum_{k=1}^ng(U_k)/n
+\end{equation}
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

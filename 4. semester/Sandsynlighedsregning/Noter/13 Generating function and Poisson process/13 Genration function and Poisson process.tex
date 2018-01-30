@@ -1,0 +1,96 @@
+\documentclass[12pt,a4paper,draft]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent \textbf{Definition 3.23: The probability generating function}\\
+Let $X$ be nonnegative and integer valued (\{0,1,2,\ldots\}). The function
+\begin{equation}
+G_X(s)=E[s^X],\,0\leq s\leq 1
+\end{equation}
+is called the \textit{probability generating function} (pgf) of $X$.\\\\
+\textbf{Remark:} $G_X(s)=\sum_{k=0}^{\infty}s^kP(X=k)$.\\\\
+\textbf{Properties}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item[a)] $G_X(0)=P(X=0)$
+\item[b)] $P(X=k)=\frac{G_X^{(k)}(0)}{k!},\,k=0,1,\ldots$
+\item[c)] $E[X]=G_X'(1),\phantom{mm}$Var$[X]=G_X''(1)+G_X'(1)-[G_X'(1)]^2$
+\item[d)] If $X_1,\ldots,X_n$ are independent with pgf $G_1,\ldots,G_2$, then the pgf of $S_n=X_1+X_2+\ldots+X_n$ is
+\begin{equation}
+G_{S_n}(s)=G_{X_1}(s)G_{X_2}(s)\ldots G_{X_n}(s).
+\end{equation}
+In particular, if $X_1,\ldots,X_n$ are iid:
+\begin{equation}
+G_{S_n}(s)=[G_{X_1}(s)]^n
+\end{equation}
+\item[e)] Let $X_1,X_2\ldots$ be iid random variables with values $\in\{0,1,\ldots\}$ and pgf $G_X$. If $N$ is a random variable independent of $X_1,X_2,\ldots$ then the pgf of $S_N=X_1+\ldots0X_N$ is
+\begin{equation}
+G_{S_n}(s)=G_N(G_X(s))
+\end{equation}
+It follow that
+\begin{equation}
+E[S_N]=E[N]E[X_1];\phantom{mm}\text{Var}[S_N]=E[N]\text{Var}[X_1]+\text{Var}\text{???}
+\end{equation}
+\end{itemize}
+\textbf{Definition 3.24: The moment generating function}\\
+Let $X$ be a random variable. The function
+\begin{equation}
+M_X(t)=E[\mathrm{e}^{tX},\,t\in\mathbb{R}
+\end{equation}
+is called the \textit{moment generating funtion} (mgf) of $X$.\\
+\begin{itemize}
+\setlength\itemsep{0em}
+\item[a)] $M_X(0)=1$
+\item[b)] $M_X(t)$ can be infinite, we say that $M_X$ exists if $M_X(t)<\infty$, for all $t$.
+\item[c)] If $X$ is continuous
+\begin{equation}
+M_X(t)=\int_{-\infty}^{\infty}\!\mathrm{e}^{tx}f_X(x)\,dx
+\end{equation}
+\item[d)] If $X$ is discrete with values $\in\{0,1,\ldots\}$
+\begin{equation}
+M_X(t)=G_X(\mathrm{e}^t)
+\end{equation}
+\end{itemize}
+\textbf{Properties}\\
+\begin{itemize}
+\setlength\itemsep{0em}
+\item[a)] $M_{aX+b}(t)=\mathrm{e}^{bt}M_X(at)$
+\item[b)] $E[X^n]=M_X^{(n)}(0),\phantom{mm}n=0,1,\ldots$ and assume that $M_X$ is differentiable in a neighbourhood of 0.
+\item[c)] Let $X_1,X_2,\ldots X_n$ be independent random variables with mgf $M_1,M_2,\ldots$ then $M_{S_m}(t)=M_{X_1}(t)M_{X_2}(t)\ldots M_{X_n}(t)$
+\end{itemize}
+\textbf{Definition 3.25: The Poisson process}\\
+A Poisson process with rate $\lambda>0$ is a point process in the line where the time between teo consecutive points are iid random variables$\sim$Exp$(\lambda)$.\\\\
+The Poisson process consists of the points $\{T_1,T_1+T_2,T_1+T_2+T_3,\ldots\}$.\\\\
+\textbf{Example:} It is used to model the time of appearance of an accident e.g. earthquakes.\\\\
+\textbf{Notation:} Let $X(t)=\{$number of points in $[0,t]\}$.\\\\
+The process is called Poisson because
+\begin{equation}
+X(t)\sim\text{Poi}(\lambda t)
+\end{equation}
+Calcultation of point in an interval:
+\begin{equation}
+P(X(t)=k)=\mathrm{e}^{-\lambda t}\frac{(\lambda t)^k}{k!}
+\end{equation}
+\textbf{Proposition 3.43} Given $X(I)=n$ the joint distribution of the $n$ points is the same as the distribution of $n$ iid $unif(I)$.\\\\
+\textbf{Thinning}\\
+Thinning is removing points from a Poisson process; a Poisson process $X$ is thinned with probability $p\in(0,1)$. We call $X_p$ the \textit{thinned process}.\\\\
+The thinned process $X_p$ is still a Poisson process and has rate $\lambda p$.\\\\
+\textbf{Proposition}\\
+The superposition of two independent Poisson processes is a Poisson process
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

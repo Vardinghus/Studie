@@ -1,0 +1,138 @@
+\section{Billedekomprimering med PCA}
+PCA-metoden kan anvendes på mange forskellige former for data, med forskellige formål, men qua rapportens formål undersøges PCA i forhold til komprimering af et billede. Billedet angives som en $m \times n$ matrix indeholdende pixelintensiteten i de forskellige indgange, der repræsenterer en pixel i billedet.
+
+For overskuelighedens skyld undersøges her et billede med $10 \times 8$ pixels. I regneeksemplerne vises udregningerne for den røde farvekanal. Billedet betegnes ved $10 \times 8$ matricen $X$. Udgangspunktet for de følgende regneoperationer er udtrykket $Y = PX$, hvor $Y$ er den transformerede matrix og $P$ udgør en matrix med egenvektorerne som søjler. Det skal nævnes at, udregningerne udføres på Lena efter eksemplet, dog vil kun resultaterne fremgå. Dette gøres for at danne grundlag for sammenligning i forhold til DCT-billedkomprimeringen.
+\begin{align}
+X= \begin{bmatrix}
+187 & 207 & 213 & 217 & 213 & 194 & 172 & 160 \\
+210 & 236 & 236 & 219 & 202 & 170 & 147 & 148 \\
+173 & 210 & 230 & 212 & 171 & 135 & 126 & 138 \\
+167 & 190 & 203 & 171 & 123 & 106 & 119 & 125 \\
+204 & 217 & 207 & 167 & 127 & 107 & 99 & 81 \\
+249 & 255  & 231 & 197 & 169 & 132 & 91 & 55 \\
+255 & 254 & 234 & 214 & 193 & 163 & 117 & 66 \\
+253 & 244 & 234 & 224 & 201 & 177 & 142 & 89 \\
+251 & 237 & 235 & 229 & 209 & 193 & 161 & 105 \\
+242 & 230 & 232 & 235 & 225 & 214 & 180 & 118
+\end{bmatrix}
+\label{eq:X_anvendelse}
+\end{align}
+
+For at skabe et overblik over billedkomprimeringen med PCA, ses algoritmen herunder, med uddybbelse og anvendelse på $X$ af alle skridt efterfølgende.
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{lll}
+\hline
+\multicolumn{2}{l}{\textbf{Algoritme: Komprimering via PCA}}    &                                                                   \\ \hline
+\\
+\multicolumn{1}{|l}{1.}        & Input:                     & Billede, $X$: $m \times n$ pixels                                   \\
+\multicolumn{1}{|l}{2.}        & Output:                    & Komprimeret fil                                           \\
+                               &                            &                                                                   \\
+\multicolumn{2}{|l}{\textit{Komprimering}}                 &                                                                   \\
+\multicolumn{1}{|l}{3.}        & Gennemsnit:                  & $\mu_{x} = \frac{1}{n}(x_1+ ... + x_n)$           \\
+\multicolumn{1}{|l}{4.}        & Standardiserer:			 & 
+$\tilde{\vec{x}} = [(x_1 - \mu_{x}),…,(x_n - \mu_{x})]$          \\
+\multicolumn{1}{|l}{5.}        & Kovarians matrix:              & 
+$C_X=\frac{1}{n-1} \tilde{X}\tilde{X}^T , \phantom{mmm} hvor \tilde{X}= \begin{bmatrix} \tilde{\vec{x_1}} \\		\vdots	\\ \tilde{\vec{x_m}}  \end{bmatrix}$           \\
+\multicolumn{1}{|l}{6.}        & Sortering:              & Egenvektorer, $P$, sorteres via egenværdier \\
+\multicolumn{1}{|l}{7.}        & Principal Components fravælges:    			& 
+Antal bibeholdte PC'er afgør kvalitet  \\
+\multicolumn{1}{|l}{8.}        & Transformeret matrix          & 
+$Y = PX$            \\
+\multicolumn{1}{|l}{9.}        & Entropi kodning:                & $Y$ komprimeres via Huffman til en fil            \\
+\end{tabular}
+\label{tb:Algoritme-Komprimering-PCA}
+\end{table}
+
+\fxnote{Algoritme punkt 4: Metoden er også kaldet singular value decomposition (SVD) - uddybes?} 
+
+
+
+Med udgangpunkt i $X$, findes gennemsnittene for de enkelte \emph{rækkevektorerne} $\vec{x_i}$ og subtraheres fra de respektive rækkevektorer. Den nye matrix $\vec{\tilde{X}}$ består af \emph{rækkervektorerne} $\vec{\tilde{x_i}}$, der er centreret omkring gennemsnittet. Jævnfør matricen \vref{eq:X_anvendelse} ses det at gennemsnittet for første søjlevektor \fxnote{Udregnes som søjlevektorer i Python - anderledes lyder det i teori afsnittet, tjek op på} er $\frac{1}{m}187+210+173+167+204+249+255+253+251+242 = 219.1$ o.s.fr.
+
+Resultatet fra 
+\begin{align}
+mean_X = \begin{bmatrix}
+219.1 & 228 & 225.5 & 208.5 & 183.3 & 159.1 & 135.4 & 108.5 \\
+219.1 & 228 & 225.5 & 208.5 & 183.3 & 159.1 & 135.4 & 108.5 \\
+219.1 & 228 & 225.5 & 208.5 & 183.3 & 159.1 & 135.4 & 108.5 \\
+219.1 & 228 & 225.5 & 208.5 & 183.3 & 159.1 & 135.4 & 108.5 \\
+219.1 & 228 & 225.5 & 208.5 & 183.3 & 159.1 & 135.4 & 108.5 \\
+219.1 & 228 & 225.5 & 208.5 & 183.3 & 159.1 & 135.4 & 108.5 \\
+219.1 & 228 & 225.5 & 208.5 & 183.3 & 159.1 & 135.4 & 108.5 \\
+219.1 & 228 & 225.5 & 208.5 & 183.3 & 159.1 & 135.4 & 108.5 \\
+219.1 & 228 & 225.5 & 208.5 & 183.3 & 159.1 & 135.4 & 108.5 \\
+219.1 & 228 & 225.5 & 208.5 & 183.3 & 159.1 & 135.4 & 108.5 \\
+\end{bmatrix}
+\label{eq:X_anvendelse}
+\end{align}
+Herefter trækkes gennemsnitsmatricen fra $X$ - dvs. $X$ standardiseres og resulterer i følgende matrix: \fxnote{Nok ikke nødvendigt med gennemsnit matrix, men hvis ikke det kan vises bedre, burde det fremgå tydeligt at det er regnemetoden ved dette skridt - skal rettes til elementvis.}
+\begin{align}
+\tilde{X}=\begin{bmatrix}
+-32.1 & -21 & -12.5 & 8.5 & 29.7 & 34.9 & 36.6 & 51.5 \\
+-9.1 & 8 & 10.5 & 10.5 & 18.7 & 10.9 & 11.6 & 39.5 \\
+-46.1 & -18 & 4.5 & 3.5 & -12.3 & -24.1 & -9.4 & 29.5 \\
+-52.1 & -38 & -22.5 & -37.5 & -60.3 & -53.1 & -16.4 & 16.5 \\
+-15.1 & -11 & -18.5 & -41.5 & -56.3 & -52.1 & -36.4 & -27.5 \\
+29.9 & 27 & 5.5 &  -11.5 & -14.3 & -27.1 & -44.4 & -53.5 \\
+35.9 & 26 & 8.5 & 5.5 & 9.7 & 3.9 & -18.4 & -42.5 \\
+33.9 & 16 & 8.5 & 15.5 & 17.7 & 17.9 & 6.6 & -19.5 \\
+31.9 & 9 & 9.5 & 20.5 & 25.7 & 33.9 & 25.6 & -3.5 \\
+22.9 & 2 & 6.5 & 26.5 & 41.7 & 54.9 & 44.6 & 9.5 \\
+\end{bmatrix}
+\label{eq:X_tilde}
+\end{align}
+Kovariansmatricen $C_{X}$ findes via $C_{X} = \tilde{X}\tilde{X}^T$:
+\begin{equation}
+\tilde{C_X}=\begin{bmatrix}
+7792 & 3477 & 1800 & -962 & -5645 & -7444 & -4196 & -1011 & 1546 & 4643 \\
+3477 & 2531 & 923 & -1705 & -3710 & -3310 & -1640 & -96 & 1106 & 2425 \\
+1800 & 923 & 4172 & 5516 & 2145 & -2212 & -3360 & -3045 & -2995 & -2945 \\
+-962 & -1705 & 5516 & 13068 & 9482 & -130 & -4447 & -5594 & 6814 & -8413 \\
+-5645 & -3710 & 2145 & 9482 & 10379 & 4931 & -124 & -3121 & -5656 & -8680 \\
+-7444 & -3310 & -2211 & -130 & 4931 & 7556 & 4605 & 1326 & -1222 & -4103 \\
+-4196 & -1640 & -3360 & -4447 & -124 & 4605 & 4321 & 2739 & 1632 & 469 \\
+-1011 & -96 & -3045 & -5594 & -3121 & 1326 & 2739 & 2775 & 2923 & 3104 \\
+1546 & 1106 & -2995 & -6814 & -5656 & -1222 & 1632 & 2923 & 4086 & 5395 \\
+4643 & 2425 & -2945 & -8413 & -8680 & -4103 & 469 & 3104 & 5395 & 8105 \\
+\end{bmatrix}
+\end{equation}
+
+
+%defineres $S=\tilde{X}\tilde{X}^T$.
+%\begin{align}
+%S=\begin{bmatrix}
+%
+%\end{bmatrix}
+%\end{align}
+Da følgende gælder $S=\tilde{X}\tilde{X}^T$, og endvidere som tidligere nævnt $S = EDE^T$, findes egenværdierne og egenvektorerne til kovariansmatricen hvor $\lambda_1 \geq \lambda_2 \geq … \geq \lambda_m > 0$. Det medfører at egenvektorerne også sorteres fra høj til lav. Regneoperationerne ses i afsnit %\ref{egenværdier}
+Egenværdier med tilhørende egenvektorer ses her:
+
+
+
+%\begin{align}
+%D = \begin{bmatrix}
+%
+%\end{bmatrix}
+%\end{align}
+De tilhørende egenvektorer findes og $E$ opstilles med disse som \emph{søjlevektorer} og med samme sortering som egenværdierne.
+
+Som forklaret tidligere i afsnit \vref{sec:UdregnPCA}, kan $P$ udtrykkes som $P = E^T$. Hermed kan $Y$ udregnes. På dette tidspunkt i processen kan principal components fjernes, hvor man typisk bibeholder de components som udtrykker en stor andel af billedet - i praksis reducerer man $n$-dimensionerne af $P$. Til sidst opnås et reelt billede igen, ved at benytte $\hat{X} = P^T Y + \mu_{x}$
+\fxnote{Matrix blandet sammen med vektor - gennemsnit matrix evt?}
+\\
+\\
+
+
+
+
+
+
+
+
+
+
+
+
+% Lena komprimering igen? --- Overordnet set ønskes det at udtrykke billedet, som tages udgangspunkt i, ved at finde en ny basis, som udtrykker billedet optimalt. Alt efter hvor mange principal components man benytter sig af, vil kvaliteten variere – jo flere desto bedre. Lena-billedet, allerede beskrevet jævnfør \vref{DCT anvendelse}, er udgangspunktet for dette eksempel. Modsat DCT-algoritmen, deles billedet ikke op i mindre stykker ved PCA-algoritmen. I stedet udføres hele processen i én omgang, om man vil. Det er dog vigtigt at nævne, at PCA udføres på alle tre farvekanaler adskilt. Da udregningerne vil udgøre, i dette tilfælde en $512 \times 512$ matrix, ville det være uoverskueligt at opstille den for hver udregning. Derfor%
+ 

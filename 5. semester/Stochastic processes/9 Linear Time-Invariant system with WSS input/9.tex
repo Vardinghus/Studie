@@ -1,0 +1,19 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent\textbf{Expected value of WSS signal through LTI system}
+\begin{align*}
+\mu_Y=E[Y(n)]&=E[h(n)*X(n)]\\
+&=E\left[\sum_{j=-\infty}^{\infty}h(j)X(n-j)\right]\\
+&=\sum_jh(j)E[X(n-j)]\\
+&=\mu_X\sum_jh(j)
+\end{align*}
+\textbf{Autocorrelation function of WSS signal through LTI system}
+\begin{align*}
+R_Y(k)=h(k)*h(-k)*R_X(k)
+\end{align*}
+\end{document}

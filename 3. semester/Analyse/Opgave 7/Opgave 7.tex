@@ -1,0 +1,103 @@
+\title{Opgave 7 \\ \small Gruppe 7}
+\date{\today}
+\documentclass[12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[
+%  disable, %turn off todonotes
+ colorinlistoftodos, %enable a coloured square in the list of todos
+ textwidth=\marginparwidth, %set the width of the todonotes
+ textsize=scriptsize, %size of the text in the todonotes
+ ]{todonotes}
+
+
+
+
+\usepackage[utf8]{inputenc}
+\usepackage[danish,english]{babel}
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\begin{document}
+\maketitle
+\begin{itemize}
+\item[\textbf{a)}] Bevis sætning 12.
+\end{itemize}
+\paragraph{Sætning 12 (Konvergensradius II).} \textit{ Lad $\sum_{n = 0}^{\infty} a_n(z-a)^n$ være en reel eller kompleks potensrække og sæt $ \alpha = \lim_{n \rightarrow \infty} \sup \sqrt[n]{\vert a_n \vert}.$ Hvis $\alpha =\infty$, så er rækkens konvergensradius $R=0$, ellers er rækkens konvergensradius R givet ved $\frac{1}{R}=\alpha$, hvor $0< R \leq \infty$}\\
+\paragraph{Del 1.} Antag, at $\alpha =\infty$.\\
+\\
+Fra \textbf{Sætning 9} haves at
+\begin{itemize}
+\item[1.] \textit{Hvis $\beta<1$, så konvergerer rækken $\sum_{n = 0}^{\infty} a_n$ absolut.}
+\item[2.] \textit{Hvis $\beta>1$, så divergerer rækken $\sum_{n = 0}^{\infty} a_n$.}
+\end{itemize}
+Indsæt $a_n(z-a)^n$ i udtrykket for $\beta$ fra \textbf{Sætning 9}.
+\begin{align} \label{omskrivning}
+\beta &=\lim_{n \rightarrow \infty} \sup \sqrt[n]{\vert a_n(z-a)^n \vert}\\
+&= \lim_{n \rightarrow \infty} \sup \sqrt[n]{\vert a_n\vert \vert z-a \vert ^n} \nonumber \\
+&= \lim_{n \rightarrow \infty} \sup \sqrt[n]{\vert a_n\vert}\sqrt[n]{\vert z-a \vert ^n} \nonumber\\
+&=\lim_{n \rightarrow \infty} \sup \sqrt[n]{\vert a_n\vert}\vert z-a \vert
+\end{align}
+Der søges jf. \textbf{Sætning 9} et $z \Rightarrow \beta <1$. Altså, da $\alpha = \limsup_{n \rightarrow \infty} \sqrt[n]{\vert a_n \vert} =  \infty$ gælder
+\begin{align}
+\lim_{n \rightarrow \infty} \sup \sqrt[n]{\vert a_n\vert}\vert z-a \vert
+< 1 \phantom{m} \Leftrightarrow \phantom{m}  \vert z-a \vert = 0
+\end{align}
+Det ses, at $\sum_{n = 0}^{\infty} a_n(z-a)^n$ divergerer for $z \neq a$, og at $\sum_{n = 0}^{\infty} a_n(z-a)^n$ konvergerer hvis og kun hvis $z=a \Rightarrow R = 0$.
+\paragraph{Del 2.} Antag, at $\alpha \neq \infty$. Jv. \textbf{Sætning 9} ønskes, at $\beta<1$
+\begin{align}
+&\beta =  \limsup_{n \rightarrow \infty} \sqrt[n]{|a_{n}(z-a)^n|} = \limsup_{n \rightarrow \infty} \sqrt[n]{|a_n |}|z-a|<1 \nonumber \Rightarrow \\
+&|z-a| < \frac{1}{ \lim_{n \rightarrow \infty} \sup \sqrt[n]{|a_n |}} = \frac{1}{ \alpha }
+\end{align}
+Der gælder, at rækken har konvergens hvis $|z-a| < \frac{1}{\alpha}$ og divergerer for $|z-a| > \frac{1}{\alpha}$. Altså er konvergensradius for rækken $\frac{1}{\alpha}=R$.\\\\
+\begin{itemize}
+\item[\textbf{b)}] Find en øvre grænse for konvergensradius for en potensrække $\sum_{n = 0}^{\infty} a_n(z-a)^n$ ved hjælp af $\lim_{n \rightarrow \infty \sup} \frac{\vert a_{n+1} \vert}{\vert a_n \vert} $
+\end{itemize}
+Opret følgen $\lbrace \vert a_n \vert\rbrace _{n=0}^{\infty}$ som grundet numerisk tegn er reel og antag at $|a_n| > 0$ fra et vist trin. Så er følgende sandt jævnfør \textbf{Sætning 12} og \textbf{Lemma 10} i for omtalte potensrække  $\sum_{n = 0}^{\infty} a_n(z-a)^n$:
+\begin{align} \label{buhu} 
+\frac{1}{R} &= \alpha = \limsup_{n \rightarrow \infty} \sqrt[n]{\vert a_n \vert} \geq \liminf_{n \rightarrow \infty} \frac{\vert a_{n+1} \vert}{\vert a_n \vert} \nonumber \Rightarrow \\
+R &= \frac{1}{\alpha} = \frac{1}{\limsup_{n \rightarrow \infty} \sqrt[n]{\vert a_n \vert}} \leq \frac{1}{\liminf_{n \rightarrow \infty} \frac{\vert a_{n+1} \vert}{\vert a_n \vert}} = \widetilde{R}
+\end{align}
+$\widetilde{R}$ vil således være øvre grænse for konvergensradius.\\\\
+\begin{itemize}
+\item[\textbf{c)}] Find en nedre grænse for konvergensradius for en potensrække\\
+$\sum_{n=0}^{\infty}a_n(z-a)^n$ ved hjælp af $\limsup_{n \rightarrow \infty} \frac{|a_{n+1}|}{|a_n|}$.
+\end{itemize}
+Fra \textbf{Lemma 10} benyttes det, at:
+\begin{align}
+\limsup_{n \rightarrow \infty} \sqrt[n]{|a_n|} \leq \limsup_{n \rightarrow \infty} \frac{|a_{n+1}|}{|a_n|}
+\end{align}
+Og på samme vis som i \eqref{buhu} ses det at:
+\begin{equation} \label{1}
+R = \frac{1}{\alpha} = \frac{1}{\limsup_{n \rightarrow \infty} \sqrt[n]{|a_n|}} \geq \frac{1}{\limsup_{n \rightarrow \infty} \frac{|a_{n+1}|}{|a_n|}} = \widetilde{\widetilde{R}}
+\end{equation}
+Og $\widetilde{\widetilde{R}}$ er således nedre grænse for konvergensradius.\\\\
+\begin{itemize}
+\item[\textbf{d)}] Er man normalt interesseret i en øvre eller nedre grænse for konvergensradius - med andre ord hvilken af de to ovenstående resultater er oftest mest brugbar?
+\end{itemize}
+Dette afhænger af hvad der skal bestemmes, dog vides det at for den nedre grænse konvergerer alt indenfor denne. Dette vil altså sige, at den nedre grænse siger mest om elementerne inden for cirkelskiven.\\\\
+\begin{itemize}
+\item[\textbf{e)}] Konstruér et eksempel på en potensrække, hvor den nedre grænse for konvergensradius fra (c) er forskellig fra den rigtige konvergensradius. 
+\end{itemize}
+Lad en uendelig potensrække være givet ved
+\begin{align*}
+\sum_{n=0}^N a_n (z-a)^n
+\end{align*}
+hvor
+\begin{equation}
+a_n=\begin{cases}
+	1, & n=2k\phantom{mm}:  k \in \mathbb{N} \\
+	2, & n=2k+1: k \in \mathbb{N}
+	\end{cases}
+\end{equation}
+Da er den nedre grænse fra \textbf{c)} givet ved
+\begin{equation}
+\frac{1}{\limsup_{n \rightarrow \infty} \frac{|a_{n+1}|}{|a_n|}}=\frac{1}{2}=\widetilde{\widetilde{R}}
+\end{equation}
+mens konvergensradius er givet ved
+\begin{equation}
+\frac{1}{\limsup_{n \rightarrow \infty} \sqrt[n]{|a_n|}}=\frac{1}{1}=R
+\end{equation}
+Altså gælder for denne potensrække, at $R \neq \widetilde{\widetilde{R}}$
+\end{document}

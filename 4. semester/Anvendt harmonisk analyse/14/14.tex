@@ -1,0 +1,54 @@
+\documentclass[12pt,a4paper,draft]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent\textbf{Opgave 1, s. 166}\\
+Let $\{p_n\}_0^{\infty}$ be an orthogonal set in $\mathcal{L}_w^2(a,b)$, where $p_n$ is a polynomial of degree $n$.
+\begin{itemize}
+\item[\textbf{(a)}] Fix a value of $n$. Let $x_1,x_2,\ldots,x_k$ be the points in $(a,b)$ where $p_n$ changes sign i.e., where its graph crosses the $x$-axis, and let $q(x)=\prod_1^k(x-x_j)$. Show that $p_nq$ never changes sign on $(a,b)$ and hence that $\langle p_n,q\rangle_w\neq0$.\\\\
+Da $q$ har samme nulpunkter som $p_n$ og skifter fortegn i samme punkter, så kan der generelt siges, at hvis $q$ og $p_n$ har modsat fortegn for $x<x_1$, så vil produktet af de to være negativt $\forall x$, og hvis de har samme fortegn for $x<x_1$, så vil produktet af de to være positivt $\forall x$.
+\item[\textbf{(b)}] Show that the number $k$ of sign changes in part \textbf{(a)} is at least $n$. (Hint: If $k<n$ then $\langle p_n,q\rangle_w=0$. Why?)\\\\
+Hvis $q$ har $k<n$ fortegnsskift, så kan det udtrykkes som en lineær kombination af $p_1,\ldots,p_k$ og denne lineære kombination vil derfor være ortogonal på $p_n$, hvilket giver et indre produkt på 0. Altså opnås modstrid fra \textbf{(a)}, og derfor må $k\geq n$.
+\item[\textbf{(c)}] Conclude that $p_n$ has exactly $n$ distinct zeros, all of which lie in $(a,b)$. (Geometrically, this indicates that $p_n$ becomes more and more oscillatory on $(a,b)$ as $n\to\infty$, rather like $\sin nx$.)\\\\
+Da $q$ har $n$ fortegnsskift, så er det af grad højst $n$, og med \textbf{(b)} fås, at 
+$n\leq k\leq n$.
+\end{itemize}
+\textbf{Opgave fra Moodle}\\
+Betragt en vægt $w$ på $(a,b)$ og to tilhørende ortogonale familier af polynomier $\{P_n\}$ og $\{Q_n\}$. Vis, at der findes konstanter $\{c_n\}$ således $P_n=c_nQ_n$.\\\\
+Vi ved, at $Q_n$ kan skrives som en linearkombination af $P_n$. Altså
+\begin{equation}
+Q_n=\sum_{j=0}^{n}c_jP_j.
+\end{equation}
+Det vides jævnfør Lemma 6.1, at de første $n-1$ led skal være nul, da
+\begin{equation}
+c_j=\frac{\langle P_j,Q_n\rangle}{||P_j||}=0.
+\end{equation}
+Altså haves, at
+\begin{equation}
+Q_n=c_nP_n.
+\end{equation}
+\textbf{Opgave 1, s. 173}\\
+Show that
+\begin{equation}
+P_n(x)=\frac{1}{2^n}\sum_{j\leq n/2}\frac{(-1)^j(2n-2j)!}{j!(n-j)!(n-2j)!}x^{n-2j}
+\end{equation}
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,76 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Gruppe 7}
+\begin{document}
+\noindent \textbf{Opgave 1}
+For at $\mathbb{C}[z]$ skal være et underrum, skal det opfylde kravene i \textbf{Definition 4.1.1} af vektorrum.\\\\
+\textbf{1) Lukkethed under addition}\\
+Lad $p,q \in \mathbb{C}[z]$ være polynomier af grad $n$ hhv. med komplekse koefficienter $a_0...a_n$ og $b_0...b_n$. Da gælder, at
+\begin{equation}
+p+q=(a_0+b_0)+(a_1+b_1)z^1+...+(a_n+b_n)z^n,
+\end{equation}
+som er et polynomium med komplekse koefficienter $(a_0+b_0)...(a_n+b_n)$. Altså gælder, at $\mathbb{C}[z]$ er lukket under skalarmoltiplikation.\\\\
+\textbf{2) Lukkethed under skalarmultiplikation}\\
+Lad $p \in \mathbb{C}[z]$ være et polynomium af grad med komplekse koefficienter $a_0...a_n$. Da gælder, at
+\begin{equation}
+cp=ca_0+a_1z^1+...ca_nz^n
+\end{equation}
+som er et polynomium med komplekse koefficienter $ca_0...ca_n$. Altså gælder, at $cp \in \mathbb{C}[z]$.\\\\
+\textbf{3) Kommutativitet}\\
+Lad $p,q \in \mathbb{C}[z]$ være polynomier af grad $n$ hhv. med komplekse koefficienter $a_0...a_n$ og $b_0...b_n$. Da gælder, at
+\begin{align}
+p+q & =(a_0+b_0)+(a_1+b_1)z^1+...+(a_n+b_n)z^n \\
+& = (b_0+a_0)+(b_1+a_1)z^1+...+(b_n+a_n)z^n \\
+& = q+p
+\end{align}
+
+\textbf{4) Associativitet}\\
+Lad $p,q,r \in \mathbb{C}[z]$ være polynomier af grad $n$ hhv. med komplekse koefficienter $a_0...a_n$, $b_0...b_n$ og $c_0...c_n$. Da gælder, at
+\begin{align*}
+(p+q)+r & =((a_0+b_0)+(a_1+b_1)z^1+...+(a_n+b_n)z^n)+c_0+c_1z^1+...+c_nz^n \\
+& =((a_0+b_0+c_0)+(a_1+b_1+c_1)z^1+...+(a_n+b_n+c_n)z^n)\\
+& =((a_0+(b_0+c_0))+(a_1+(b_1+c_1))z^1+...+(a_n+(b_n+c_n))z^n\\
+& =a_0+a_1z^1+...+a_nz^n+(b_0+c_0)+(b_1+c_1)z^1+...+(b_n+c_n)z^n\\
+& = p+(q+r)
+\end{align*}
+\textbf{5) Additiv identitet}\\
+Det trivielle polynomium $p=0$ er den additive identitet.\\\\
+\textbf{6) Additiv invers}\\
+Lad $p \in \mathbb{C}[z]$ være et polynomium af grad med komplekse koefficienter $a_0...a_n$. Lad $q=-p$. Da gælder, at
+\begin{equation}
+p+q=(a_0+(-a_0))+(a_1+(-a_1))z^1+...+(a_n+(-a_n))z^n=0,
+\end{equation}
+hvilket gør $q$ til den additive invers.\\\\
+\textbf{7) Multiplikativ identitet}\\
+Polynomiet $p=1$ er den multiplikative identitet.\\\\
+\textbf{8) Distributivitet}\\
+Lad $p,q \in \mathbb{C}[z]$ være polynomier af grad $n$ hhv. med komplekse koefficienter $a_0...a_n$ og $b_0...b_n$ og $a,b \in \mathbb{F}$. Da gælder, at
+\begin{align*}
+a(p+q) & =a(a_0+b_0)+a(a_1+b_1)z^1+...+a(a_n+b_n)z^n \\
+& =(aa_0+ab_0)+(aa_1+ab_1)z^1+...+(aa_n+ab_n)z^n \\
+& =aa_0+aa_1z^1+...+aa_nz^n+ab_0+ab_1z^1+...+ab_nz^n \\
+& =ap+aq.
+\end{align*}
+Der gælder desuden også, at
+\begin{align*}
+(a+b)p & =(a+b)a_0+(a+b)a_1z^1+...+(a+b)a_nz^n \\
+& =(aa_0+ba_0)+(aa_1+ba_1)z^1+...+(aa_n+ba_n)z^n \\
+& =aa_0+aa_1z^1+...+aa_nz^n+ba_0+ba_1z^1+...+ba_nz^n \\
+& = ap+bp
+\end{align*}
+Siden $\mathbb{C}[z]$ opfylder ovenstående krav, da er det et vektorrum over $\mathbb{C}$.\\\\
+$\mathbb{R}[z]$ er ikke et vektorrum over $\mathbb{C}$, da dette ikke er lukket under skalarmultiplikation.\\
+Lad $p$ være et polynomium med reelle koefficienter af grad $n$ i $\mathbb{R}[z]$, hvor $z \in \mathbb{C}$.
+\begin{equation}
+p=a_0+a_1z^1+...+a_nz^n
+\end{equation}
+Ved skalarmultiplikation med en kompleks konstant $c$ fås
+\begin{equation}
+cp=ca_0+ca_1z^1+...+ca_nz^n,
+\end{equation}
+som er et polynomium med komplekse koefficienter $ca_0...ca_n$, og altså gælder, at $cp \notin \mathbb{R}[z]$. Altså er $\mathbb{R}[z]$ over $\mathbb{C}$ ikke et vektorrum.\\\\
+For $\mathbb{R}[x]$ over $\mathbb{C}$, hvor $x$ er en reel variabel gælder samme som for $\mathbb{R}[z]$ over $\mathbb{C}$, hvor $z$ er en kompleks variabel - det er ikke et vektorrum.
+\end{document}

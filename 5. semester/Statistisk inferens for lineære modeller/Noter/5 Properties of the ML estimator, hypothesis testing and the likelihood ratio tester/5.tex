@@ -1,0 +1,128 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent\textbf{Fordeling af ML estimator}\\
+Husk mængden
+\begin{align*}
+E=\{y:\text{ MLE eksisterer}\}
+\end{align*}
+Definér rod af matrix
+\begin{align*}
+A^{1/2}:\,A=A^{1/2}(A^{1/2})^T
+\end{align*}
+Denne eksisterer for positive semidefinitte matricer og er ikke nødvendigvis entydige. Cholesky dekomposition er én metode til at finde sådan en matrix.\\\\
+\textbf{Sætning}\\
+Underregularitetsbetingelser, gælder at når $n\to\infty$
+\begin{enumerate}
+\item $P(Y\in E)\to1$: Hvis vi har et tilstrækkeligt stort datasæt, så er der stor chance for at MLE eksisterer
+\item $P(Y\in E,\Vert\hat{\theta}-\theta\Vert\leq\varepsilon)\to1$, $\forall\varepsilon>0$ kaldes asymptotisk konsistens
+\item $\mathbf{1}[y\in E]i(\hat{\theta})^{1/2}(\hat{\theta}-\theta)\overset{D}\to N_k(0,I_k)$\\
+$\mathbf{1}[y\in E]j(\hat{\theta})^{1/2}(\hat{\theta}-\theta)\overset{D}\to N_k(0,I_k)$\\
+Disse er praktisk anvendelige
+\item $\mathbf{1}[y\in E]i(\theta)(\hat{\theta}-\theta)\overset{D}\to N_k(0,T_k)$ -- teoretisk
+\end{enumerate}
+Bemærk: Hvis $y\in E$, så svarer 4. til $\hat{\theta}\overset{D}\to N_k(\theta,i^{-1}(\theta)$. Dette kaldes asymptotisk centralitet og har asymptotisk efficiens.\\\\
+De tre ovenstående kvaliteter, asymptotisk konsistens, centralitet og efficiens, er ønskværdige for en estimator.\\\\
+Hvis $Var_{i,i}(\hat{\theta})$ er det $i$'te diagonalelement af $j^{-1}(\hat{\theta})$, så
+\begin{align*}
+\hat{\theta}_i\overset{D}\to N(\theta_i,Var_{i,i}(\hat{\theta}))
+\end{align*}
+\textbf{Kvadratisk approksimation af log-likelihood}\\
+Lav en 2.-ordens Taylorapproksimation omkring $\hat{\theta}$ ($\hat{\theta}$ 1-dimensionel).
+\begin{align*}
+l(\theta)\approx l(\hat{\theta})+l'(\hat{theta})(\theta-\hat{\theta})-\frac{1}{2}j(\hat{\theta})(\theta-\hat{\theta})^2
+\end{align*}
+Midterste led er 0 da det er sådan vi har fundet $\hat{\theta}$. Dvs.
+\begin{align*}
+j_{norm}\approx-\frac{1}{2}j(\hat{\theta})(\theta-\hat{\theta})^2
+\end{align*}
+Taylorapproksimationen kan ses som en normalfordelingsapproksimation.
+\textbf{Vektorversion}
+\begin{align*}
+l_{norm}\approx-\frac{1}{2}(\theta-\hat{\theta})^Tj(\hat{\theta})(\theta-\hat{\theta})
+\end{align*}
+\textbf{Hypotesetest}\\
+Antag model $f_Y(y;\theta)$ med $\theta\in\Omega$. To hypoteser:
+\begin{itemize}
+\item Nulhypotese:\\$H_0:\,\theta\in\Omega_0,\,\Omega_0\in\Omega$a
+\item $H_1:\,\theta\in\Omega|\Omega_0$
+\end{itemize}
+\textbf{Teststørrelse/teststatistik}\\
+$T(Y)$. $T$ funktion af data med kendt fordeling under $H_0$, altså forudsat at den er rigtig, $T(y)$ konkret værdi.\\\\
+\textbf{$p$-værdi}\\
+Sandsynligheden for at observere en teststørrelse der ligger mere ekstremt end den observerede, givet at $H_0$ er sand.
+\begin{itemize}
+\item Små $p$-værdier er (statistisk) bevis mod $H_0$. Forkast $H_0$.
+\item Store $p$-værdier: acceptér $H_0$. Dette betyder ikke, at den er sand, men blot at data ikke siger at den er usand. Måske ikke nok data?
+\end{itemize}
+\textbf{Fejl}
+\begin{itemize}
+\item Sand $H_0$ men forkastes kaldes type 1 fejl
+\item Falsk $H_0$ men accepteres kaldes type 2 fejl
+\end{itemize}
+Sandsynligheden for en type 1 fejl kaldes signifikansniveau, $\alpha=P(\text{type 1})$. $\alpha$ vælges frit i $(0,1)$, men typisk $\alpha=0.05$. Den sætter grænsen for store/små $p$-værdier, dvs. forkest $H_0$ hvis $p<\alpha$.\\\\
+\textbf{Likelihood ratio test}\\
+Lav en nulhypotese
+\begin{itemize}
+\item $H_0:\,\theta\in\Omega_0,\,\text{dim}(\Omega_0)=m$
+\item $H_1:\,\theta\in\Omega|\Omega_0,\,\text{dim}(\Omega)=k$
+\item $m<k$
+\end{itemize}
+\textbf{Likelihood ratio}\\
+\begin{align*}
+\lambda(y)=\frac{\sup_{\theta\in\Omega_0}l(\theta;y)}{\sup_{\theta\in\Omega}l(\theta;y)}\,\in[0,1]
+\end{align*}
+Små værdier er kritiske for $H_0$ -- $H_0$ forkastes hellere ved små værdier, mens store værdier bekræfter.\\\\
+\textbf{$\chi^2$-fordeling}\\
+Hvis $X_1,\ldots,X_n\overset{i.i.d.}\sim N(0,1)$, så er $X^2_1+\ldots+X_n^2\sim\chi^2(n)$. Hvor $n$ er frihedsgrader.\\\\
+Den er et specialtilfælde af gammafordelinge: $\chi^2(n)=\Gamma(\frac{n}{2},2)$.\\\\
+\textbf{Sætning}\\
+Givet regularitetsantagelser, så gælder under $H_0$, at 
+\begin{align*}
+-2\ln(\lambda(Y))\overset{D}\to\chi^2(k-m)
+\end{align*}
+når datamængden går mod uendelig.\\\\
+Bemærk: store værdier af $-2\ln(\lambda(Y))$ er kritiske for $H_0$. Testen kaldes højresidet, fordi det kritiske område ligger til højre i fordelingen.\\\\
+\textbf{$p$-værdi for likelihood ratio test}
+\begin{align*}
+p(y)&=\sup_{\theta\in\Omega_0}P(\lambda(Y)\leq(\lambda(y))\\
+&=\sup_{\theta\in\Omega_o}P\left(-2\ln(\lambda(Y)\leq-2\ln(\lambda(y)\right)
+\end{align*}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,162 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent\textbf{Likelihood funktion}\\
+Givet data $y=(y_1\ldots y_n)^T$ og en parametrisk model $f_Y(y;\theta)$, $\theta\in\Theta^k$, så er likelihoodfunktionen enhver funktion på formen \begin{equation}
+L(\theta,y)=c(y)f_Y(y,\theta)
+\end{equation}
+hvor $c(y)>0$ ikke afhænger af $\theta$.\\\\
+\textbf{Normaliseret likelihood}\\
+$L_{norm}(\theta,y)=\frac{f_Y(y;\theta)}{\sup_{\tilde{\theta}}f_Y(y;\theta)}$\\\\
+\textbf{Log-likelihood}\\
+$l(\theta;y)=\log L(\theta;y)$\\\\
+\textbf{Maksimum likelihood}\\
+Givet $Y=y$, så siges maksimum likelihood estimatet (MLE) $\hat{\theta}(y)=\hat{\theta}$ at eksistere, hvis det er det entydige maksimum til $L(\theta,y)$.\\\\
+\textbf{Eksistens af MLE}\\
+Givet $E=\{y:\hat{\theta}(y)\text{ eksisterer}\}$. Hvis $P(Y\in E)=1$ for alle $\theta\in\Theta^h$, så er $\hat{\theta}(Y)$ maksimum likelihood estimatoren.\\\\
+\textbf{Bemærk}
+\begin{itemize}
+\item Hvis $\hat{\theta}\in \text{int }\Theta^k$ (indre punkt), så kan MLE findes som en løsning til ligningen $\frac{\partial}{\partial\theta}l(\theta;y)=0_{k\times1}$.
+\item Husk at tjekke om det rent faktisk er et maksimum, dvs $\frac{\partial^2}{\partial\theta\partial\theta^T}l(\theta;y)=0_{k\times k}$.
+\end{itemize}
+\textbf{Sufficient statistik}\\
+$t(y_1,\ldots,y_n)$ er en sufficient statistik for $\theta$, hvis
+\begin{equation}
+f_Y(y;\theta)=h(y)g(t(y);\theta)
+\end{equation}
+hvis $h$ ikke afhænger af $\theta$ og $g$ kun afhænger af $y$ gennem $t(y)$.\\\\
+\textbf{Eksempel 2.4 + 2.5}\\
+Tre flasker fyldes til 700ml.\\
+$y=$ for meget fyldt i: $(4.6;6.3;5.0)$.\\
+$\mu=$ hvor meget overfyldes de i middel\\
+Opstil model:
+\begin{equation}
+Y_i=\mu+\varepsilon_i
+\end{equation}
+Antag $Y_i$ uafhængige af hinanden, $Y_i\sim N(\mu,\sigma^2)$, og $\sigma^2=1$, $\mu$ ukendt, $\theta=\mu$.\\\\
+Tæthed af model:
+\begin{equation}
+f_Y(y;\mu)=\prod_{i=1}^3\frac{1}{\sqrt{2\pi}}\exp\left(-\frac{(y_i-\mu)^2}{2}\right)
+\end{equation}
+Likelihood:
+\begin{equation}
+L(\mu;y)=\left(\frac{1}{\sqrt{2\pi}}\right)^3\exp\left(-\frac{\sum(y_i-\bar{y})}{2}\right)\exp\left(-\frac{n(\bar{y}-\mu)^2}{2}\right)
+\end{equation}
+hvor $\bar{y}=\frac{\sum y_i}{n}$.\\\\
+Ved brug af ovenstående metode til at finde MLE, så fås
+\begin{equation}
+\text{MLE}=\mu=\bar{y}=5.3
+\end{equation}
+Dette er det besdste gæt vi har efter tre opfyldninger.\\\\
+Der haves desuden en sifficient statistik:
+\begin{equation}
+t(y)=\bar{y}
+\end{equation}
+for $\mu$.\\\\
+\textbf{Skore funktion}\\
+Lad $\theta=(\theta_1,\ldots,\theta_k)\in\Theta^k$, antag $\Theta^k$ er en åben mængde, og at log-likelihood funktionen er kontinuert differentiabel. Skore funktionen er da
+\begin{equation}
+S(\theta,y)=\frac{\partial}{\partial\theta}L(\theta;y)=\begin{pmatrix}\frac{\partial}{\partial\theta_1}l(\theta;y)\\ \vdots\\\frac{\partial}{\partial\theta_k}l(\theta;y)\end{pmatrix}
+\end{equation}
+Under regularitetsantagelser
+\begin{equation}
+E_{\theta}\left[\frac{\partial}{\partial\theta}l(\theta;y)\right]=0_{k\times1}
+\end{equation}
+\textbf{Informationsmatrix}\\
+Observeret information:
+\begin{equation}
+j(\theta;y)=-\frac{\partial^2}{\partial\theta\partial\theta^T}l(\theta;y)
+\end{equation}
+Forventet information:
+\begin{equation}
+i(\theta)=E_{\theta}\left[j(\theta;Y)\right]
+\end{equation}
+Under regularitetsantagelser er den forventede information og Fisher iformationen den samme, det vil sige
+\begin{align*}
+i(\theta)&=E_{\theta}\left[\frac{\partial^2}{\partial\theta\partial\theta^T}l(\theta;Y)\right]\\
+&=E_{\theta}\left[\frac{\partial}{\partial\theta}l(\theta;Y)\left(\frac{\partial}{\partial\theta}l(\theta;Y)\right)^T\right]
+\end{align*}
+\textit{Bevis}\\
+Skriv en nulmatrix på en besværlig måde:
+\begin{align*}
+0_{k\times k}&=\frac{\partial^2}{\partial\theta\partial\theta^T}\int\!f_Y(y;\theta)\,dy=\int\!\frac{\partial^2}{\partial\theta\partial\theta^T}f_Y(y;\theta)\,dy\\
+&=\int\!\frac{\partial}{\partial\theta}\left(\frac{\partial\log f_Y(y;\theta)}{\partial\theta}f_Y(y;\theta)\right)\,dy\\
+&=\int\!\left(\frac{\partial^2}{\partial\theta\partial\theta^T}\log f_Y(y;\theta)\right)f_Y(y;\theta)\,dy+\int\!\frac{\partial\log f_Y(y;\theta)}{\partial\theta}\frac{\partial\log f_Y(y;\theta)}{\partial\theta^T}f_Y(y;\theta)\,dy\\
+&=E_{\theta}\left[\frac{\partial^2}{\partial\theta\partial\theta^T}l(\theta,Y)\right]+E_{\theta}\left[\frac{\partial l(\theta;Y)}{\partial\theta}\left(\frac{\partial l(\theta;Y)}{\partial\theta}\right)^T\right]
+\end{align*}
+Bemærk: $j(\theta;y)\geq0_{k\times k}$ for MLE\\\\
+\textbf{Eksempel 2.6}\\
+Likelihood funktion:
+\begin{equation}
+L(\mu;y)=c(y)\exp\left(-\frac{n(\bar{y}-\mu)^2}{2}\right)
+\end{equation}
+Log-lik funktion:
+\begin{equation}
+l(\mu;y)=-\frac{n(\bar{y}-\mu)^2}{2}+\text{ konstant}
+\end{equation}
+Skore funktion:
+\begin{equation}
+S(\mu;y)=n(\bar{y}-\mu)
+\end{equation}
+Obersveret information:
+\begin{equation}
+j(\mu;y)=n
+\end{equation}
+Forventet information:
+\begin{equation}
+i(\mu)=E\left[j(\mu;y)\right]=E[n]=n
+\end{equation}
+Generelt er $j(\theta;y)$, $j(\theta;Y)$ og $i(\theta)$ ikke ens.\\\\
+\textbf{Reparametrisering}\\
+$\psi=h(\theta)$ er en bijektiv funktion fra $\Theta^k$ til $\psi^k$. $Y$ er en omparametrisering af $\theta$.
+\begin{equation}
+L_{\Psi}(\psi;y)=L(h^{-1}(\psi);y)
+\end{equation}
+\textbf{Invarians}\\
+Antag $\hat{\theta}$ er MLE for $\theta$, og $\psi=h(\theta)$ være en bijektiv afbildning fra $\Theta^k$ til $\Psi^k$. Så er $\hat{\psi}=h(\hat{\theta})$ MLE for $\psi=h(\theta)$.\\\\
+\textit{Bevis}\\
+\begin{align*}
+\sup_{\psi}L_{\Psi}(\psi;y)=\sup_{\psi}L(h^{-1}(Y);y)=\sup_{\theta}L(\theta;y)
+\end{align*}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

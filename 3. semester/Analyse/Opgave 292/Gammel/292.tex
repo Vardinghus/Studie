@@ -1,0 +1,88 @@
+\title{Opgave 164 \\ \small e16g3113}
+\date{\today}
+\documentclass[12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[
+%  disable, %turn off todonotes
+ colorinlistoftodos, %enable a coloured square in the list of todos
+ textwidth=\marginparwidth, %set the width of the todonotes
+ textsize=scriptsize, %size of the text in the todonotes
+ ]{todonotes}
+
+\usepackage[utf8]{inputenc}
+\usepackage[danish,english]{babel}
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\begin{document}
+\maketitle
+
+\paragraph{Opgave 292} - Bevis for L'Hopitals regel om $0/0$-udtryk ved grænseovergange $x \to a^-$ og $x \to a$\\
+
+\subparagraph{a)}  Tilfældet $x \to a^-$ \\
+Antag, at $f$ og $g$ er defineret og differentiable i en interval $\left] a - \rho,a\right[$ til venstre for punktet $a$, og at der gælder: 
+\begin{align}
+f(x) \to 0 \ \text{for} \ x \to a^- \\
+g(x) \to 0 \ \text{for} \ x \to a^- \\
+\frac{f'(x)}{g'(x)}\to c \ \text{for} \ x \to a^- \label{eq:3}
+\end{align}
+Bevis, at så gælder der 
+\begin{align}
+\frac{f(x)}{g(x)}\to c \ \text{for} \ x \to a^-
+\end{align}
+Lad $\tilde{f}(x)=f(-x)$ og $\tilde{g}(x)=g(-x)$. $\tilde{f}$ og $\tilde{g}$ er da defineret og differentiable i intervallet $\left]-a,-a+\rho\right[$ og der kigges nu på grænseovergangen $x \to -a^+$.\\
+\\
+Lad nu $\tilde{f}(-a)=0$ og $\tilde{g}(-a)=0$ Analogt med forberedelserne til beviset for grænseovergangen for $x \to a^+$ laves forberedelse, således middelværdisætningen kan benyttes. Siden $\tilde{g}$ og $\tilde{f}$ er kontinuerte i ethvert punkt af intervallet er de det dermed også i $-a$. $\tilde{f}$ og $\tilde{g}$ er desuden definerede i et interval $\left]-a,-a+\rho_1\right[$, hvor $\rho_1\leq\rho$, og hvorpå $\tilde{f}$ og $\tilde{g}$ altså er differentiable. Dermed opfylder $\tilde{f}$ og $\tilde{g}$ kravene for middelværdisætningen, og der eksisterer et $\xi\in\left]-x,-a\right[$, således
+\begin{align}
+\frac{\tilde{g}(-x)-\tilde{g}(-a)}{-x+a}=\tilde{g}'(\-xi) \neq0 \phantom{m} \text{og} \phantom{m} \frac{\tilde{f}(-x)-\tilde{f}(-a)}{-x+a}=\tilde{f}'(-\xi)\neq0.
+\end{align}
+Det skal bevises, at når følgende er givet 
+\begin{align}
+\forall \varepsilon > 0 \exists \delta > 0 : -a < -x < -a + \delta \implies \left| \frac{\tilde{f}(-x)}{\tilde{g}(-x)}-c \right| < \varepsilon \label{eq:1}
+\end{align}
+så gælder det i følge L'Hopitals regel, at
+\begin{align}
+\forall \varepsilon > 0 \exists \delta > 0 : -a < -x < -a + \delta \implies \left| \frac{\tilde{f}'(-x)}{\tilde{g}'(-x)}-c \right| < \varepsilon \label{eq:2}
+\end{align}
+Lad så $\varepsilon > 0$ være givet og bestem $\delta$ i henhold til \eqref{eq:1}. Herudfra påståes så, at det bestemte $\delta$ også vil afparere $\varepsilon$ i \eqref{eq:2}. \\
+Da $\tilde{f(-a)}=\tilde{g(-a)}=0$ vælges $-x$ nu vilkårligt, sådan at $-a<-x<-a+\delta$ og følgende brøk opstilles
+\begin{align}
+\frac{\tilde{f}(-x)}{\tilde{g}(-x)} = \frac{\tilde{f}(-x)-\tilde{f}(-a)}{\tilde{g}(-x)-\tilde{g}(-a)}. \label{eq:4}
+\end{align}
+%Ud fra antagelsen \ref{eq:3} fås at funktionen $\frac{\tilde{f}'(-x)}{\tilde{g}'(-x)}$ er defineret i et interval $\left]- (\rho_1 + a) ,- a\right[$ til venstre for $a$, yderligere fås at $\tilde{g}(-x)\neq 0$ i et sådan interval. Fordi at $\tilde{f}(-x)$ og $\tilde{g}(-x)$ skal være defineret for at $\tilde{f}'(-x)$ og $\tilde{g}'(-x)$ kan være det, er det tydeligt at $\rho_1 \leq \rho $ hvilket betyder at $\frac{\tilde{f}(-x)}{\tilde{g}(-x)}$ også er defineret i det mindre interval $\left]- (\rho_1 + a) ,- a\right[$. Ved at vælge $- (\rho_1 + a) < x < - a$ så opfylder $\tilde{g}(-x)$ antagelserne for middelværdi sætningen ved at være kotinuert i det lukkede interval $\left[x,-a\right]$ og differentiabel i det åbne interval $\left]x,-a\right[$.
+Da $x\neq -a$ og $\tilde{g}(0)=0$ fås at $\tilde{g}(-x)\neq 0$. Altså gælder ifølge Cauchys middelværdisætning
+\begin{align}
+\frac{\tilde{f}(-x)}{\tilde{g}(-x)} = \frac{\tilde{f}(-x)-\tilde{f}(-a)}{\tilde{g}(-x)-\tilde{g}(-a)}=\frac{\tilde{f}'(-\xi)}{\tilde{g}'(-\xi)}
+\end{align} 	
+og da $-a<\xi<-a+\delta$ følger det heraf, at 
+\begin{align}
+\left|\frac{\tilde{f}(-x)}{\tilde{g}(-x)}-c\right| = \left|\frac{\tilde{f}'(-\xi)}{\tilde{g}'(-\xi)}-c\right| < \varepsilon.
+\end{align}
+Altså haves, at
+\begin{equation}
+\frac{\tilde{f(-x)}}{\tilde{g(-x)}}\to c \text{ for} -x\to -a^+
+\end{equation}
+i et interval $\left]-a,-a+\rho\right[$ til højre for $-a$ og dermed også at
+\begin{equation}
+\frac{f(x)}{g(x)}\to c \text{ for } x\to a^-
+\end{equation}
+i et interval $\left]a-\rho,a\right[$ til venstre for $a$.
+\hfill$\qed$
+\\
+
+\subparagraph{b} Tilfældet $x \to a$\\
+Antag, at $f$ og $g$ er definerede i nærheden af punktet $a$, og at der gælder
+\begin{align}
+f(x)\to 0 &\text{ for } x\to a,\\
+g(x)\to 0 &\text{ for } x\to a, \phantom{mm}\text{og}\\
+\frac{f'(x)}{g'(x)}\to c &\text{ for } x\to a.
+\end{align}
+Bevis, at så gælder der
+\begin{equation}
+\frac{f(x)}{g(x)}\to c \text{ for } x\to a.
+\end{equation}
+Da
+
+\end{document}

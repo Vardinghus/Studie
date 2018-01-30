@@ -1,0 +1,75 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent{\Huge 7 Limit theorems}\\\\
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Define sample mean
+\item Calculate expected value and variance of it
+\item Prove Law of Large Numbers
+\item Draw graph of a roll with a fair die
+\end{itemize}
+\textbf{Proposition 2.14. (Chebyshevs ulighed).} Let $X$ be any random variable with mean $\mu$ and variance $\sigma^2$. For any constant $c>0$, we have
+\begin{equation}
+P(|X-\mu|\geq c\sigma)\leq\frac{1}{c^2}
+\end{equation}
+\textbf{Bevis}\\
+The continuous case. Fix $c$ and let $B=\{x\in\mathbb{R}:|x-\mu|\geq c\sigma\}$. We get
+\begin{align*}
+\sigma^2&=E[(X-\mu)^2]=\int_{-\infty}^{\infty}\!(x-\mu)^2f(x)\,dx\\
+&\geq\int_B\!(x-\mu)^2f(x)\,dx\geq c^2\sigma^2\int_B\!f(x)\,dx=c^2\sigma^2P(X\in B)
+\end{align*}
+\textbf{Sample mean}
+\begin{equation}
+\overline{X}=\frac{1}{n}\sum_{k=1}^nX_k
+\end{equation}
+\textbf{Expectance and variance of sample mean} Let $X_k$ have mean $\mu$ and variance $\sigma^2$.
+\begin{align*}
+E[\overline{X}]&=E\left[\frac{1}{n}\sum_{k=1}^nX_k\right]=\frac{1}{n}\sum_{k=1}^nE[X_k]=\mu\\
+\text{Var}[\overline{X}]&=\text{Var}\left[\frac{1}{n}\sum_{k=1}^nX_k\right]=\sum_{k=1}^n\frac{1}{n^2}\text{Var}[X_k]=\frac{\sigma^2}{n}
+\end{align*}
+\textbf{Theorem 4.1. (The Law of Large Numbers)} Let $X_1,X_2,\ldots$ be a sequence of i.i.d. random variables with mean $\mu$, and let $\overline{X}$ be their sample mean. Then, for every $\varepsilon>0$
+\begin{equation}
+P(|\overline{X}-\mu|>\varepsilon)\to0\text{ as }n\to\infty
+\end{equation}
+\textbf{Bevis}\\
+Assume $X_k$ has finite variance $\sigma^2<\infty$. Apply Chebyshev's to $\overline{X}$ and let $c=\varepsilon\sqrt{n}/\sigma$. Since $E[\overline{X}]$ and Var$[\overline{X}]=\sigma^2/n$, we get
+\begin{equation}
+P(|\overline{X}-\mu|>\varepsilon)\leq\frac{\sigma^2}{n\varepsilon^2}\to0\text{ as }n\to\infty
+\end{equation}
+We say that $\overline{X}$ converges in probability to $\mu$ and write (med et $P$ over pilen)
+\begin{equation}
+\overline{X}\to\mu\text{ as }n\to\infty
+\end{equation}
+\textbf{Corollary 4.1} Experiment with event $A$ occuring with probability $p$. Repeat and let $S_n$ be times we get $A$ in $n$ trials and let $f_n=S_n/n$. Then
+\begin{equation}
+f_n\to p\text{ as }n\to\infty\text{ (in probability)}
+\end{equation}
+\textbf{Bevis}\\
+Define indicators
+\begin{equation}
+I_k=\begin{cases}
+1\phantom{mm}\text{if we get $A$ in the $k$th trial}\\
+0\phantom{mm}\text{otherwise}
+\end{cases}\text{ for }k=1,2,\ldots,n
+\end{equation}
+The $I_k$ are i.i.d. and they have mean $\mu=p$ (Bernoulli distribution). Since $f_n$ is the sample mean, the law of large numbers gives
+\begin{equation}
+f_n\to p\text{ as }n\to\infty\text{ (in probability)}
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

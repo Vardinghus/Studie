@@ -1,0 +1,130 @@
+\documentclass[12pt,a4paper,draft]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent\textbf{Opgave 25}\\
+On a chessboard (8 $\times$ 8 squares, alternating black and white), you place three chess pieces at random. What is the probability that they are all \textbf{(a)} in the first row, \textbf{(b)} on black squares, \textbf{(c)} in the same row, and \textbf{(d)} in the same row and on the same color?\\\\
+\textbf{(a)} Der benyttes favorable/mulige.
+\begin{equation}
+\frac{\begin{pmatrix}
+8\\
+3
+\end{pmatrix}}
+{\begin{pmatrix}
+64\\
+3
+\end{pmatrix}}=\frac{1}{744}
+\end{equation}
+\textbf{(b)} Brug samme som i \textbf{(a)}.
+\begin{equation}
+\frac{\begin{pmatrix}
+32\\
+3
+\end{pmatrix}}
+{\begin{pmatrix}
+64\\
+3
+\end{pmatrix}}
+=\frac{5}{42}
+\end{equation}
+\textbf{(c)} Der ganges med $\begin{pmatrix}8\\1\end{pmatrix}$ i \textbf{(a)} således der er flere favorable.
+\begin{equation}
+\frac{\begin{pmatrix}
+8\\1
+\end{pmatrix}
+\begin{pmatrix}
+8\\
+3
+\end{pmatrix}}
+{\begin{pmatrix}
+64\\
+3
+\end{pmatrix}}
+=\frac{1}{93}
+\end{equation}
+\textbf{(d)}
+\begin{equation}
+\frac{\begin{pmatrix}
+8\\1
+\end{pmatrix}
+\begin{pmatrix}
+2\\1
+\end{pmatrix}
+\begin{pmatrix}
+4\\3
+\end{pmatrix}}
+{\begin{pmatrix}
+64\\3
+\end{pmatrix}}
+=\frac{1}{651}
+\end{equation}
+\textbf{Opgave 88}\\
+Two cards are chosen at random without replacement frem a deck and inserted into another deck. This deck is shuffled, and one card i drawn. If this card is an ace, what is the probability that no ace was moved from the frist deck?\\\\
+Der bruges Bayes formel, da den er omvendt - hvad er sandsynligheden for at et forhenværende event skete givet et nuværende event?
+\begin{align*}
+B_0&=\frac{48}{52}\frac{47}{51}=\frac{188}{221}\\
+B_1&=\frac{4}{52}\frac{48}{51}+\frac{48}{52}\frac{4}{51}=\frac{32}{221}\\
+B_2&=\frac{4}{52}\frac{3}{51}=\frac{1}{221}
+\end{align*}
+Desuden
+\begin{align*}
+P(A/B_0)=\frac{4}{54}\\
+P(A/B_1)=\frac{5}{54}\\
+P(A/B_2)=\frac{6}{54}
+\end{align*}
+Disse sættes ind i Bayes formel.
+\begin{equation}
+\frac{\frac{4}{54}\frac{188}{221}}{\frac{32}{221}\frac{5}{54}+\frac{1}{221}\frac{6}{54}+\frac{4}{54}\frac{188}{221}}=\frac{376}{459}=0.82
+\end{equation}
+\textbf{Opgave 90}\\
+Consider two urns, one with 10 balls numbered 1 through 10 and one with 100 balls numbered 1 through 100. You first pick and urn at random, then pick a ball at random, which has the number 5. \textbf{(a)} What is the probability that it came from the first urn? \textbf{(b)} What is the probability in \textbf{(a)} if the ball was instead chosen randomly from all the 110 balls?\\\\
+\textbf{(a)} Benyt Bayes formel.
+\begin{align*}
+B_1=\frac{1}{2}\\
+B_2=\frac{1}{2}\\
+P(A/B_1)=\frac{1}{10}\\
+P(A/B_2)=\frac{1}{100}
+\end{align*}
+Ovenstående sættes ind i Bayes formel.
+\begin{equation}
+\frac{\frac{1}{2}\frac{1}{10}}
+{\frac{1}{2}\frac{1}{10}+\frac{1}{2}\frac{1}{100}}
+=\frac{10}{11}
+\end{equation}
+\textbf{(b)} Brug conditional probability. Begivenhederne $A$ (det er første urne) og $B$ (bolden er en 5'er) er uafhængige.
+\begin{equation}
+P(A/B)=\frac{P(A\cap B)}{P(B)}=\frac{P(A)P(B)}{P(B)}=P(A)=\frac{1}{2}
+\end{equation}
+\textbf{Opgave 92}\\
+The serious disease $D$ occurs with a frequency of 0.1\% in a certain population. The disease is diagnosed by a method that gives the correct result (i.e. positive result for those with the disease and negative reulst for those without it) with probability 0.99. Mr. Smith goes to test for the disease and the result turn out to be positive. Since the method seems very reliable, Mr. Smith starts to worry, being "99\% sure of actually having the disease." Show that this is not the relevant proability and that Mr. Smith may actually be quite optimistic.\\\\
+Der benyttes Bayes formel som i eksempel 1.47.
+\begin{align*}
+D&=\{\text{Mr. Smith has the disease}\}\\
+T&=\{\text{the test says Mr. Smith has the disease}\}\\
+P(D)=0.01\\
+P(T)=0.99
+\end{align*}
+Derefter vides, at
+\begin{align*}
+P(T/D)=0.99\\
+P(T/D^c)=0.01
+\end{align*}
+Disse indsættes i Bayes formel.
+\begin{align*}
+P(D/T)&=
+\frac{P(T/D)P(D)}{P(T/D)P(D)+P(T/D^c)P(D^c)}\\
+&=\frac{0.99\cdot 0.001}{0.99\cdot 0.001+0.01\cdot(1-0.001)}\\
+&=0.09
+\end{align*}
+
+
+
+
+
+
+
+
+\end{document}

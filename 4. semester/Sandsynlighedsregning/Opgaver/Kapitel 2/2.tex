@@ -1,0 +1,70 @@
+\documentclass[12pt,a4paper,draft]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent\textbf{Opgave 53}\\
+Let $X$ be the number of 6s when a die is rolled six times, and let $Y$ be the number of 6s when a die is rolled 12 times. Find \textbf{(a)} $E[X]$ and $E[Y]$ and \textbf{(b)} $P(X\geq E[X])$ and $P(Y\geq E[Y])$.\\\\
+\textbf{(a)} Forventede værdi beregnes ved\
+\begin{align*}
+E[X]&=\sum_{k=\infty}^{\infty}x_kP(X=x_k)=\sum_{\infty}^{\infty}x_kp(x_k)\\
+&=\sum_{k=0}^6\begin{pmatrix}
+6\\k
+\end{pmatrix}
+\left(\frac{1}{6}\right)^k\left(\frac{5}{6}\right)^{6-k}k\\
+&=1
+\end{align*}
+På samme måde med $E[Y]$.
+\begin{align*}
+E[Y]=\sum_{k=0}^{12}\begin{pmatrix}
+12\\k
+\end{pmatrix}
+\left(\frac{1}{6}\right)^k\left(\frac{5}{6}\right)^{12-k}k\\
+&=2
+\end{align*}
+\textbf{(b)} Sandsynlighederne for at få 1 eller flere 6'ere summeres.
+\begin{equation}
+P(X\geq E[X])=\sum_{k=1}^6\begin{pmatrix}
+6\\k
+\end{pmatrix}
+\left(\frac{1}{6}\right)^k\left(\frac{5}{6}\right)^{6-k}=0.665
+\end{equation}
+Det samme gøres for $Y$.
+\begin{equation}
+P(X\geq E[X])=\sum_{k=2}^{12}\begin{pmatrix}
+12\\k
+\end{pmatrix}
+\left(\frac{1}{6}\right)^k\left(\frac{5}{6}\right)^{12-k}=0.6187
+\end{equation}
+\textbf{Opgave 66}\\
+\textbf{(a)} Flip a coin 10 times and let $X$ be the number of heads. Compute $P(X\leq 1)$
+exactly and with the Poisson approximation. \textbf{(b)} Now instead flip four coins 10
+times and let $X$ be the number of times you get four heads. Compute $P(X\geq 1)$
+exactly and with the Poisson approximation. \textbf{(c)} Compare \textbf{(a)} and \textbf{(b)}. Where does the approximation work best and why?\\\\
+\textbf{(a)} Sandsynligheden beregnes eksakt.
+\begin{align*}
+\sum_{k=0}^1\begin{pmatrix}
+10\\
+k
+\end{pmatrix}
+\left(\frac{1}{2}\right)^k\left(\frac{1}{2}\right)^{10-k}=0.0107
+\end{align*}
+Parameteret $\lambda$ er gennemsnittet af krone - altså 5. Approksimationen er dermed.
+\begin{equation}
+P(X\leq 1)=\sum_{k=0}^1\frac{5^k}{k!}\mathrm{e}^{-5}=0.0404
+\end{equation}
+\textbf{(b)} Beregn hvor tit der fås 4 kroner ved 10 kast med 4 mønter.
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

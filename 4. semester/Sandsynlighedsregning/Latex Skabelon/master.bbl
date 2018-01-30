@@ -1,0 +1,39 @@
+% $ biblatex auxiliary file $
+% $ biblatex version 2.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\entry{Tracker}{online}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Brown}{B.}%
+     {Douglas}{D.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{BD1}
+  \strng{fullhash}{BD1}
+  \field{title}{Tracker Video analysis and Modeling Tool}
+  \verb{url}
+  \verb http://physlets.org/tracker/
+  \endverb
+  \field{year}{(Visited 18-05-2016)}
+\endentry
+
+\lossort
+\endlossort
+
+\endinput

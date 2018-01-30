@@ -1,0 +1,132 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent\textbf{Likelihood ratio test}\\
+Antag model $Y\sim\mathcal{N}_n(\mu,\sigma^2I)$, hvor $\mu\in\Omega_1\subset\mathbb{R}^n$, dim$(\Omega_1)=m_1$. Lad $\Omega_0\subset\Omega_1$ være et lineært underrum af $\Omega_1$ med dim$(\Omega_0)=m_0$.\\
+Vi tester hypotesen
+\begin{align*}
+\mathcal{H}_0&:&\mu\in\Omega_0\\
+\mathcal{H}_1&:&\mu\in\Omega_1\textbackslash\Omega_0
+\end{align*}
+med en likelihood ratio test. $\mathcal{H}_0$ betyder at én eller flere parametre kan fjernes.\\\\
+\textbf{Sætning 6.3}\\
+Likelihood ratio
+\begin{align*}
+\lambda(y)=\frac{\underset{\mu\in\Omega_0}\sup L(\mu,\sigma^2;)}{\underset{\mu\in\Omega_1}\sup L(\mu,\sigma^2;y)}
+\end{align*}
+er en strengt aftagende funktion af
+\begin{align*}
+F(y)=\frac{D(p_1(y);p_0(y))/(m_1-m_0)}{D(y;p_1(y))/(n-m_1)}
+\end{align*}
+Under $\mathcal{H}_0$, så
+\begin{align*}
+F(Y)\sim F(m_1-m_0,n-m_1)
+\end{align*}
+\textit{Bevis}\\
+Under
+\begin{align*}
+\mathcal{H}_1&:\phantom{mm}\hat{\mu}_1=p_1(y),&\hat{\sigma^2}_1=\frac{D(y;p_1(y))}{n}
+\end{align*}
+\begin{align*}
+l((\hat{\mu}_1,\hat{\sigma}^2);y)&=-\frac{n}{2}\log(\hat{\sigma}_1^2)-\frac{1}{2\hat{\sigma}_1^2}F(y;p_1(y))\\
+&=-\frac{n}{2}\log(\hat{\sigma}^2_1-\frac{n}{2}
+\end{align*}
+Der fås tilsvarende udtryk under $\mathcal{H}_0$. Derfor fås
+\begin{align*}
+\lambda(y)&=\exp\left(l(\hat{\mu}_0,\hat{\sigma}_0),y)l((\hat{\mu}_1,\hat{\sigma}_1);y\right)\\
+&=\exp\left(-\frac{n}{2}(\log(\hat{\sigma}^2_0)-\log(\hat{\sigma}^2_1))\right)\\
+&=\left(\frac{D(y;p_1(y)}{D(y;p_0(y)}\right)^{\frac{n}{2}}\\
+&\text{Pythagoras: }y-p_1(y)\perp\Omega_1\phantom{mm}\text{og}\phantom{mm}p_1(y)-p_0(y)\in\Omega_1\\
+&=\left(\frac{D(y;p_1(y))}{D(y;p_1(y))+D(p_1(y);p_0(y))}\right)P{\frac{n}{2}}\\
+&=\left(\frac{1}{1+\frac{D(p_1(y);p_0(y))}{D(y;p_1(y))}}\right)^{\frac{n}{2}}\\
+&=\left(\frac{1}{1+\frac{m_1-m_0}{n-m_1}F(y)}\right)^{\frac{n}{2}}
+\end{align*}
+Dvs. $\lambda(y)$ er en strengt aftagende funktion af $F(y)$. De er tilsvarende.\\\\
+Desuden
+\begin{align*}
+F(y)=\frac{D(p_1(y);p_0(y))/(m_1-m_0)}{D(y;p_1(y))/(n-m_1)}\sim\underset{\text{uafhængige }\chi^2\text{-fordelninger}}{\frac{\chi^2(m_1-m_0)/(m_1-m_0)}{\chi^2(n-m_1)/(n-m_1)}}=F(m_1-m_0,n-m_1)
+\end{align*}
+Da små værdier af $\lambda(y)$ er kritiske for $\mathcal{H}_0$, så er store værdier af $F(y)$ kritiske for $\mathcal{H}_0$. Dvs. $F$-testen er højresidet -- hypotesen forkastes, hvis der bevæges for langt ud mod højre.\\\\
+\textbf{Determinationskoefficienter}\\
+Lad
+\begin{align*}
+\Omega_{null}=\text{span}\begin{bmatrix}1\\\vdots\\1\end{bmatrix}
+\end{align*}
+svarende til $y=\beta_0+\varepsilon_i$ og $p_{null}(y)$ er den tilsvarende projektion. Så haves determinationskoefficient
+\begin{align*}
+R^2&=\frac{D(p_1(y);p_0(y))}{D(y;p_{null}(y))}=1-\frac{D(y;p_1(y))}{D(y;p_{null}(y))}
+\end{align*}
+\textbf{Bemærk:}
+\begin{itemize}
+\item $0\leq R^2\leq1$
+\item $\Omega_{null}$ svarer til at alle $x$'er er ukendte, dvs $D(y;p_{null}(y))$ udtrykker den totale variation i data.
+\item $D(p_1(y);p_{null}(y))$ udtrykker forbedring i variation ved brug af $\Omega_1$ i stedet for $\Omega_0$.
+\item Dvs. $R^2$ er andelen af variation i data som er forklaret af modellen med $\Omega_1$.
+\item $R^2$ vokser altid for mere komplicerede modeller.
+\end{itemize}
+\textbf{Justeret determinationskoefficient}
+\begin{align*}
+R_{adj}^2=1-\frac{D(y;p_1(y))/(n-k)}{D(y;p_{null}(y))/(n-1)}
+\end{align*}
+\textbf{Bemærk:}
+\begin{itemize}
+\item $R^2_{adj}$ er justeret for modelkompleksitet.
+\item Kan bruges til at sammenligne modeller.
+\item Højere $R^2_{adj}$ betyder bedre model.
+\end{itemize}
+\textbf{Multiple modelreduktioner}\\
+Betragt en kæde af underrum af $\mathbb{R}^n$.
+\begin{align*}
+\Omega_m\subset\Omega_{m-1}\subset\ldots\subset\Omega_2\subset\Omega_1\subset\mathbb{R}^n
+\end{align*}
+Der kan opstilles hypoteser for hvert underrum:
+\begin{align*}
+\mathcal{H}^i_0&:\phantom{mm}\mu\in\Omega_i\\
+\mathcal{H}^i_1&:\mu\in\Omega_{i-1}\textbackslash\Omega_i
+\end{align*}
+\textbf{Sætning 3.7}
+\begin{align*}
+D(p_1(y);p_M(y))=\sum_{i=1}^{M-1}D(p_{i+1}(y);p_1(y))
+\end{align*}
+hvor
+\begin{align*}
+D(p_{i+1}(y);p_i(y))=D(y;p_{i+1}(y))-D(y;p_i(y))
+\end{align*}
+svarende til stigning i devians fra model $i$ til $i+1$, hvor model $i+1$ er en model på et mindre rum end model $i$.\\\\
+\textit{Bevis}\\
+Af Pythagoras fås
+\begin{align*}
+D(y;p_M(y))=D(y;p_1(y))+D(P_1(y);p_M(y))
+\end{align*}
+Derfor:
+\begin{align*}
+D(p_1(y);p_M(y))&=D(y;p_M(y))-D(y;p_1(y))\\
+&=\sum_{i=1}^{M-1}\left(D(y;P_{i+1}(y))-D(y;p_i(y))\right)
+\end{align*}
+Der kan altså laves en kæde af $F$-tests startende med den mest komplicerede model, og så fjernes et eller flere led af gangen.\\\\
+\textbf{Bemærk:}
+\begin{itemize}
+\item Testene afhænger af rækkefølge af led.
+\item I backward elimination vælges rækkefølge efter størrelse af $p$-værdier.
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

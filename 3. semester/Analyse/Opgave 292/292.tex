@@ -1,0 +1,69 @@
+\title{Opgave 164 \\ \small Gruppe 7}
+\date{\today}
+\documentclass[12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[
+%  disable, %turn off todonotes
+ colorinlistoftodos, %enable a coloured square in the list of todos
+ textwidth=\marginparwidth, %set the width of the todonotes
+ textsize=scriptsize, %size of the text in the todonotes
+ ]{todonotes}
+
+\usepackage[utf8]{inputenc}
+\usepackage[danish,english]{babel}
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\begin{document}
+\maketitle
+
+\paragraph{Opgave 292} - Bevis for L'Hopitals regel om $0/0$-udtryk ved grænseovergange $x \to a^-$ og $x \to a$\\
+
+\subparagraph{a)}  Tilfældet $x \to a^-$ \\
+Antag, at $f$ og $g$ er definerede i et interval $\left] a - \rho,a\right[$ til venstre for punktet $a$, og at der gælder
+\begin{align}
+f(x) \to 0 \ \text{for} \ x \to a^- \label{1}\\
+g(x) \to 0 \ \text{for} \ x \to a^- \label{2}\\
+\frac{f'(x)}{g'(x)}\to c \ \text{for} \ x \to a^- \label{3}
+\end{align}
+Bevis, at så gælder der
+\begin{equation}
+\frac{f(x)}{g(x)} \to c \ \text{for} \ x \to a^-.
+\end{equation}
+\begin{proof}[Bevis] Lad $\tilde{f}(x)=f(-x)$ og $\tilde{g}(x)=g(-x)$. $\tilde{f}$ og $\tilde{g}$ er da differentiable i intervallet $]-a,-a+\rho[$ og det ønskes bevist, at
+\begin{equation}
+\frac{\tilde{f}(x)}{\tilde{g}(x)} \to c \ \text{for} \ x \to (-a)^+.
+\label{4}
+\end{equation}
+Det følger af definitionen af $\tilde{f}$ og $\tilde{g}$, at $\tilde{f}'(x)=-f'(-x)$ og $\tilde{g}'(x)=-g'(x)$, hvilket fra \eqref{3} giver
+\begin{equation}
+\frac{\tilde{f}'(x)}{\tilde{g}'(x)}=\frac{-f'(-x)}{-g'(-x)}=\frac{f'(-x)}{g'(-x)} \to c \ \text{for} \ x \to (-a)^+
+\label{5}
+\end{equation}
+Da antagelsen i \eqref{5} er tilsvarende den for grænseovergangen $x \to a^+$ i Sætning 7.20 er beviset for \eqref{4} analogt med dette, og der fås, at
+\begin{equation}
+\frac{\tilde{f}(x)}{\tilde{g}(x)}=\frac{f(-x)}{g(-x)}\to c \ \text{for} \ x \to (-a)^+ \ \Leftrightarrow \ \frac{f(x)}{g(x)} \to c \ \text{for} \ x \to a^-.
+\end{equation}
+\end{proof}
+\subparagraph{b)}  Tilfældet $x \to a$ \\
+Antag, at $f$ og $g$ er definerede i nærheden af punktet $a$, og at der gælder
+\begin{align}
+f(x) \to 0 \ \text{for} \ x \to a \\
+g(x) \to 0 \ \text{for} \ x \to a \\
+\frac{f'(x)}{g'(x)}\to c \ \text{for} \ x \to a
+\end{align}
+Bevis, at så gælder der
+\begin{equation}
+\frac{f(x)}{g(x)} \to c \ \text{for} \ x \to a
+\label{6}
+\end{equation}
+\begin{proof}[Bevis] Da grænseværdierne
+\begin{align}
+\frac{f(x)}{g(x)} \to c \ \text{for} \ x \to a^+ \\
+\frac{f(x)}{g(x)} \to c \ \text{for} \ x \to a^-
+\end{align}
+er bevist hver for sig, følger det af Sætning 6.40, at grænseværdien \eqref{6} eksisterer.
+\end{proof}
+\end{document}

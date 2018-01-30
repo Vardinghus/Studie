@@ -1,0 +1,181 @@
+\documentclass[12pt,a4paper,draft]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent\textbf{Definition 8.1: Markov chain}\\
+A discrete Markov chain with state space $S$ (countable) is a sequence of random variables $X_0,X_1,X_2,\ldots$ such that:
+\begin{equation}
+P(X_{n+1}=j/X_0=i_0,X_1=i_1,\ldots X_1=i)=P(X_{n+1}=j/X_n=i)\end{equation}
+for $m=0,1,2,\ldots\,;\,i_0,i_1,\ldots,i,j\in S.$
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Assume that the Markov chain i time-homogeneous: $\forall n\in\mathbb{N},\,P(X_{n+1}/X_n=i)=P(X_1=j/X_0=i)$.
+\item The transition probability: $P_{ij}=P(X_1=j/X_0=i)$
+\item $P=\{P_{ij}\}_{ij\in S}$ is alled the transition probability matrix (size $SxS$).
+\item $\forall i\in S:\,\sum_{j\in S}P_{ij}=1$
+\item The $n$-step transition probability: $P_{ij}^{(n)}=P(X_n=j/X_0=i)$
+\end{itemize}
+\textbf{Proposition: $P^{(n)}=P^n$}\\
+The $n$-step transition probability matric is equal to the transition probability matrix $P$ to the power $n$.
+\textbf{The Chapman-Kolmogorov equation}\\
+\begin{align*}
+P^{(n+m)}&=P^{(n)}P^{(m)}\\
+P_{ij}^{(n+m)}&=\sum_{k\in S}P_{ij}^{(n)}P_{ij}^{(m)}
+\end{align*}
+\textbf{Example 8.1}\\
+You start playing a roulette game where at each turn you bet 1 dollar and win with probability $\frac{18}{38}$.
+\begin{equation}
+X_n=\{\text{My fortune at time }n\}
+\end{equation}
+By independence of the game (assumed) check the Markov property. Write the transition matrix:
+\begin{equation}
+P=\begin{bmatrix}
+1 & 0 & 0 & \ldots & 0\\
+\frac{20}{38} & 0 & \frac{18}{38}& \ldots & 0\\
+\vdots & & \ddots & \ddots & \\
+0 & & & &
+\end{bmatrix}
+\end{equation}
+We say that 0 is absorbant.\\\\
+\textbf{Examples 8.2/8.3/8.5: Genotype}\\
+Let $S=\{AA,aa,aA\}$ be the genotype of a plant. At each time $n$ cross the plant with itselp: $X_n=\{\text{the genotype at time }n\}$. The genotype depends only of the parents.\\
+The transition matrix:
+\begin{equation}
+P=\begin{bmatrix}
+1 & 0 & 0\\
+\frac{1}{4} & \frac{1}{2} & \frac{1}{4}\\
+0 & 0 & 1
+\end{bmatrix}
+\end{equation}
+The $n$-step transitioj matrix then becomes
+\begin{equation}
+P^{(n)}=\begin{bmatrix}
+1 & 0 & 0\\
+\left(1-\left(\frac{1}{2}\right)^n\right)/2 & \left(\frac{1}{2}\right)^n & \left(1-\left(\frac{1}{2}\right)^n\right)/2\\
+0 & 0 & 1
+\end{bmatrix}
+\end{equation}
+\textbf{On/off-system}\\
+\begin{equation}
+\begin{cases}
+0\text{ system is off}\\
+1\text{ system is on}
+\end{cases}
+\end{equation}
+Let $p$ be the proability that it turns/remains on and $q$ the opposite. This gives transition matrix
+\begin{equation}
+P=\begin{bmatrix}
+1-p & p\\
+q & 1-q
+\end{bmatrix}
+\end{equation}
+The resulting $n$-step transition matrix is then
+\begin{equation}
+P^{(n)}=\frac{1}{p+q}\begin{bmatrix}
+q & p\\
+q & o
+\end{bmatrix}
+\end{equation}
+\textbf{Definition 8.2+8.3}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item If it exists $n\in\mathbb{N}$ such that $P^{(n)}_{ij}>0$ we say that $j$ is accessible (within $i\to j$). 
+\item If $i\to j$ and $j\to i$ we say that $i$ and $j$ communicate.
+\item If all states $S$ in a Markov chain communicate we say the chain is irreducible.
+\item The communicating property is an equivalence relation.
+\end{itemize}
+\textbf{Definition 8.4}\\
+For $i\in S:\,T_i=\mathrm{min}\{n\geq 1:\,X_n=i\}$. This is the time of the first vist of $i$.
+\begin{itemize}
+\item We say that $i$ is recurrent if $P(T_i<\infty/X_0=i)=1$.
+\item We say that $i$ is transcient if $P(T_i<\infty/X_0=i)<1$.
+\end{itemize}
+\textbf{Corollary 8.1}\\
+In an irreducible Markov chain all the states are all transcirent or all recurrent.\\\\
+\textbf{Corollary 8.2+8.3}\\
+If $S$ is finite
+\begin{itemize}
+\setlength\itemsep{0em}
+\item $i$ is transcient $\Leftrightarrow$ $\exists j,\,i\to j,\,j\not\to i$.
+\item there is at least one recurrent state.
+\end{itemize}
+\textbf{Proposition 8.1}\\
+A state $i$ is 
+\begin{itemize}
+\setlength\itemsep{0em}
+\item transcient if and only if $\sum_{n=1}^{\infty}P_{ij}^{(n)}<\infty$.
+\item recurent if and only if $\sum_{n=1}^{\infty}P_{ij}^{(n)}=\infty$.
+\end{itemize}
+\textbf{Definition 8.5}\\
+Let $P$ be the transition matrix of a Markov chain with state space $S$. A disitribution $\pi=(\pi_s,s\in S)$ is called a stationary distribution og the Markov chain if
+\begin{equation}
+\pi P=\pi.
+\end{equation}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item $\pi_s=P(s$ happens$)$.
+\item $\pi_j=\sum_{i\in S}P_{ij}\pi_i,\,\forall i,j\in S$.
+\item $S\sum_{j\in S}\pi_j=1$
+\item If $X_n\sim\pi\Rightarrow X_{n+1}\sim\pi,\,X_{n+2}\sim\pi$.
+\end{itemize}
+The stationary distribution is also called the invariant distribution and the equilibrium distribution.\\\\
+\textbf{Proposition 8.2}\\
+If a Markov chain is irreducible and there exists a stationary distribution it is unique.\\\\
+\textbf{Proposition 8.3}\\
+If $S$ is finite and the Markov chain is irreducible there exists a unique stationary distribution.\\\\
+\textbf{Definition 8.6}\\
+Let $i$ be recurrent.
+\begin{itemize}
+\setlength\itemsep{0em}
+\item $i$ is said to be positive recurrent if $E(T_i)<\infty$.
+\item $i$ is said to be null recurrent if $E(T_i)=\infty$.
+\end{itemize}
+\textbf{Corollary 8.6}\\
+For an irreducible Markov chain there is 3 possibilities:
+\begin{itemize}
+\setlength\itemsep{0em}
+\item All the states are positive recurrent.
+\item All the states are null recurrent.
+\item All the states are transcient.
+\end{itemize}
+\textbf{Definition 8.4}\\
+For an irreducible Markov chain: $\{X_n\}_{n\in\mathbb{N}}$. A stationary distribution exists $\Leftrightarrow$ $X_n$ is positive recurrent for all $n\in\mathbb{N}$. In that case it is unique and $\pi_i>0,\,\forall j\in S$.\\\\
+\textbf{Definition 8.7}\\
+Let $p_{ij}^{(n)}$ be the $n$-step transition of a Markov chain such that
+\begin{equation}
+P_{ij}^{(n)}\underset{m\to\infty}\to q_{ij},\,\forall i,j\in S.
+\end{equation}
+We call $q=(q_0,q_1,\ldots)$ the limit distribution.\\\\
+\textbf{Definition 8.8}\\
+The period of a state $i$ is $d(i)=gcd(n\geq1,\,P_{ij}^{(n)}>0)$.
+\begin{itemize}
+\setlength\itemsep{0em}
+\item If $d(i)=1$ the state is aperiodic.
+\item If $d(i)>1$ the state is periodic.
+\end{itemize}
+\textbf{Theorem 8.1}\\
+For an irreducible positive recurrent and aperiodic Markov chain with stationary distribution $\pi$ and $n$-step transition probability $P_{ij}^{(n)}$:
+\begin{equation}
+P_{ij}^{(n)}\to\pi_i,\,\forall i,j\in S
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,20 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent\textbf{Definition 2.1 -- Unbiased estimator}\\
+Any estimator $\hat{\boldsymbol{\theta}}=\hat{\boldsymbol{\theta}}(\mathbf{Y})$ is said to be $unbiased$ if $E[\hat{\boldsymbol{\theta}}]=\boldsymbol{\theta}$ for all $\boldsymbol{\theta}\in\Theta^k$.\\\\
+\textbf{Definition 2.2 -- Consistent estimator}\\
+An estimator is $cosistent$ if the sequence $\boldsymbol{\theta}_n(\mathbf{Y}$ if estimators for the parameter $\boldsymbol{\theta}$ converges in porbability to the true value $\boldsymbol{\theta}$. Otherwise the estimator is said to be inconsistent.\\\\
+\textbf{Definition 2.3 -- Minimum mean square error}\\
+An estimator $\hat{\boldsymbol{\theta}}=\hat{\boldsymbol{\theta}}(\mathbf{Y})$ is said to be \textit{uniformly minimum mean square error} is
+\begin{equation}
+E\left[(\hat{\boldsymbol{\theta}}(\mathbf{Y})-\boldsymbol{\theta})(\hat{\boldsymbol{\theta}}(\mathbf{Y})-\boldsymbol{\theta})^T\right]\leq E\left[(\tilde{\boldsymbol{\theta}}(\mathbf{Y})-\boldsymbol{\theta})(\tilde{\boldsymbol{\theta}}(\mathbf{Y})-\boldsymbol{\theta})^T\right]
+\end{equation}
+for all $\boldsymbol{\theta}\in\Theta^k$ and all other estimators $\tilde{\boldsymbol{\theta}}(\mathbf{Y})$.
+
+
+\end{document}

@@ -1,0 +1,56 @@
+\documentclass[12pt,a4paper,draft]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent \textbf{Opgave 50}\\\\
+\textbf{Opgave 51}\\
+The random variable $X$ has a binomial distribution with $E[X]=1$ and Var$[X]=0.9$. Compute $P(X>0)$.\\\\
+Da $E[X]=1=np$ og Var$[X]=0.9=np(1-p)$ fås $p=0.1$ og $n=10$.
+Altså bruges binomialfordelingen.
+\begin{equation}
+P(X>0)=\sum_{k=1}^{10}\frac{10!}{k!(10-k)!}0.1^k(1-0.1)^{10-k}=0.6513
+\end{equation}
+\textbf{Opgave 52}\\
+Roll a die 10 times. What is the probability of getting \textbf{(a)} no 6s, \textbf{(b)} at least two 6s, and \textbf{(c)} at most three 6s.\\\\
+\textbf{(a)} Her haves, at $n=10$, $k=0$ og $p=1/6$.
+\begin{equation}
+\left(\frac{5}{6}\right)^{10}=0.1615
+\end{equation}
+\textbf{(b)} Her haves, at $n=10$, $k=2,\ldots,10$ og $p=1/6$.
+\begin{equation}
+P(X\geq 2)=\sum_{k=2}^{10}\frac{10!}{k!(10-k)!}\left(\frac{1}{6}\right)(1-\frac{1}{6})^{10-k}=0.51548
+\end{equation}
+\textbf{(c)} Her haves, at $n=10$, $k=0,\ldots,3$ og $p=1/6$.
+\begin{equation}
+P(X\leq 3)=\sum_{k=0}^{3}\frac{10!}{k!(10-k)!}\left(\frac{1}{6}\right)^k(1-\frac{1}{6})^{10-k}=0.93
+\end{equation}
+\textbf{Opgave 58}\\
+Let $X\sim \text{bin}(n,p)$ and $Y\sim \text{geom}(p)$. \textbf{(a)} Show that $P(X=0)=P(Y>n)$. Explain intuitively. \textbf{(b)} Express the probability $P(Y\leq n)$ as a probability statement about $X$.\\\\
+\textbf{(a)} Definitionerne skrives op.
+\begin{align}
+P(X=0)&=\frac{n!}{0!(n-0)!}p^0(1-p)^n=(1-p)^n\\
+P(Y>n)&=P(n\text{ consecutive failures})=(1-p)^n
+\end{align}
+\textbf{(b)} $P(Y\leq n)$ er sandsynligheden for ikke at få $n$ fiaskoer i træk. Dette kan beskrives som sandsynligheden for at få mindst én succes ud af $n$ forsøg - $P(X>0)$.
+\begin{equation}
+P(Y\leq n)=P(X>0)
+\end{equation}
+\textbf{Opgave 61}\\
+Consider a sequence of independent trials that result in either succes or failure. Fix $r\geq 1$ and let $X$ be the number of trials required until the $r$th success. Show that the pmf of $X$ is
+\begin{equation}
+p(k)=\begin{pmatrix}
+k-1\\
+r-1
+\end{pmatrix}
+p^r(1-p)^{k-r},\phantom{mm}k=r,r+1,\ldots
+\end{equation}
+This is called a \textit{negative binomial} distribution with parameters $r$ and $p$, written $X\sim \text{negbin}(r,p)$. What is the special case $r=1$.
+
+
+
+
+
+\end{document}

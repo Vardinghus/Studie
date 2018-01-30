@@ -1,0 +1,100 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent\textbf{Exercise 1}\\
+Let $y_1,\ldots,y_n$ be real numbers, and $\bar{y}=(y_1+\ldots y_2)/n$ their sample mean. Show that for any $\mu\in\mathbb{R}$,
+\begin{equation}
+\sum_{i=1}^n(y_i-\mu)^2=\sum_{i=1}^n (y_1-\bar{y})^2+n(\bar{y}-\mu)^2
+\end{equation}
+Omskriv
+\begin{align*}
+\sum_{i=1}^n((y_i-\bar{y})+(\bar{y}-\mu))^2&=\sum_{i=1}^n((y_i-\bar{y})^2+(\bar{y}-\mu)^2+2(\bar{y}-\mu)(y_i-\bar{y}))\\
+&=\sum_{i=1}^n((y_i-\bar{y})^2+2(\bar{y}-\mu)(y_i-\bar{y})+n(\bar{y}-\mu)^2
+\end{align*}
+Da $\sum_{i=1}^ny_i=n\bar{y}$ fås
+\begin{align*}
+\sum_{i=1}^n((y_i-\bar{y})+(\bar{y}-\mu))^2=\sum_{i=1}^n(y_i-\bar{y})^2+n(\bar{y}-\mu)^2
+\end{align*}
+Da der blot er lagt et nul til på venstresiden er vi i mål.\\\\
+\textbf{Exercise 2}\\
+Let $Y_1,\ldots,Y_n$ be i.i.d. zero-one variables with probability parameter $\theta\in[0,1]$.
+\begin{enumerate}
+\item Show that $t(Y_1,\ldots,Y_n)=Y_1+\ldots Y_n$ is a sufficient statistic for $\theta$.
+\item Specify the distribution of $t(Y_1,\ldots,Y_1)$.
+\end{enumerate}
+Den sufficiente statistik skal opfylde
+\begin{equation}
+f_Y(y,\theta)=h(y)g(t(y),\theta)
+\end{equation}
+For at finde frem til dette skrives produktet af Bernoullifordelingerne.
+\begin{align*}
+f_{y_1\ldots y_n}(y_1,\ldots,y_n;\theta)=\theta^{\sum_{i=1}^ny_i}(1-\theta)^{1-\sum_{i=1}^ny_i}
+\end{align*}
+Dermed er det på den ønskede form, og 1 er bevist. Fordelingen er en binomialfordeling.\\\\
+\textbf{Exercise 3}\\
+Let EXP$(\mu)$ denote the exponential distribution with mean $\mu>0$. Consider the parametric statistical model given by $Y\sim\text{ Exp}(\mu)$ and $\mu\in(0,\infty)$. So $Y$ has density
+\begin{equation}
+f(y;\mu)=\frac{\mathrm{e}^{(-y/\mu)}}{\mu},\phantom{mm}y>0
+\end{equation}
+Show that for any observed value of $Y=y>0$ we have that
+\begin{enumerate}
+\item The log-likelihood function is
+\begin{equation}
+l(\mu;y)=-\frac{y}{\mu}-\log\mu
+\end{equation}
+Der tages logaritmen af likelihood funktionen:
+\begin{align*}
+l(\mu;y)&=\log L(\mu;y)=\log f_Y(y,\mu)\\
+&=\log\frac{\mathrm{e}^{-y/\mu}}{\mu}\\
+&=-\frac{y}{\mu}-\log\mu
+\end{align*}
+\item The score function is
+\begin{equation}
+S(\mu;y)=\frac{y}{\mu^2}-\frac{1}{\mu}
+\end{equation}
+Likelihood funktionen partialdifferentieres (brug log-likelihood):
+\begin{align*}
+S(\mu,y)&=\frac{\partial}{\partial\mu}L(\mu;y)=-\frac{\partial}{\partial\mu}\left(\frac{y}{\mu}-\log\mu\right)\\
+&=\frac{y}{\mu^2}-\frac{1}{\mu}
+\end{align*}
+\item The observed information is
+\begin{equation}
+j(\mu;y)=2\frac{y}{\mu^3}-\frac{1}{\mu^2}
+\end{equation}
+Definitionen siger, at
+\begin{align*}
+j(\mu;y)&=-\frac{\partial^2}{\partial\mu\partial\mu^T}l(\mu;y)\\
+&=-\frac{\partial}{\partial\mu^T}\left(\frac{y}{\mu^2}-\frac{1}{\mu}\right)\\
+&=2\frac{y}{\mu^3}-\frac{1}{\mu}
+\end{align*}
+\item The Fisher information is
+\begin{equation}
+i(\mu)=\frac{1}{\mu^2}
+\end{equation}
+Brug definitionen:
+\begin{align*}
+i(\mu)&=E_{\mu}\left[j(\mu;Y)\right]=E_{\mu}\left[2\frac{y}{\mu^3}-\frac{1}{\mu^2}\right]=2E_{\mu^2}\left[\frac{y}{\mu^3}-\frac{1}{\mu^2}\right]\\
+&=2\frac{1}{\mu^3}E_{\theta}[y]-\frac{1}{\mu^2}=2\frac{1}{\mu^3}\mu-\frac{1}{\mu^2}\\
+&=2\frac{1}{\mu^2}-\frac{1}{\mu^2}\\
+&=\frac{1}{\mu^2}
+\end{align*}
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

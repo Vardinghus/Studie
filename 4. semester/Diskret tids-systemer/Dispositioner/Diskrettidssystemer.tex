@@ -1,0 +1,215 @@
+	\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent{\Huge 1 Impulsrespons}\\\\
+\textbf{LTI system}
+\begin{align*}
+y[n]&=T\left(\sum_{k=-\infty}^{\infty}x[n]\delta[n-k]\right)\\
+&=\sum_{k=-\infty}^{\infty}x[n]T\left(\delta[n-k]\right)\\
+&=\sum_{k=-\infty}^{\infty}x[n]h[n-k]
+\end{align*}
+\textbf{Lineære differensligninger med konstante koefficienter}
+\begin{align*}
+\sum_{k=0}^Na_ky[n-k]=\sum_{m=0}^Nb_mx[n-m]
+\end{align*}
+LTI er BIBO-stabilt hvis og kun hvis impulsresponsen ligger i $\ell^1$:
+\begin{align*}
+\sum_{k=-\infty}^{\infty}|h[n]|<\infty
+\end{align*}
+\textbf{Foldning og multiplikation i tid og frekvens}\\\\
+\textbf{Digitale filtre}
+\clearpage
+\noindent{\Huge 2 Overføringsfunktioner}\\\\
+Brug impulseresponsen som indledning.
+\begin{align*}
+y[n]&=x[n]*h[n]\\
+Y(z)&=X(z)H(z)\\
+H(z)&=\frac{Y(z)}{X(z)}
+\end{align*}
+\clearpage
+\noindent{\Huge 3 Fouriertransformationen}\\\\
+\begin{align*}
+X[k]&=\sum_{n=0}^{N-1}x[n]e^{j\omega kn/N}\\
+x[n]&=\sum_{k=0}^{N-1}X[k]e^{-j\omega kn/N}
+\end{align*}
+Sekvens, som er samples af DTFT.\\\\
+\textbf{Frekvensanalyse}\\\\
+\textbf{FIR-filterdesign}
+\clearpage
+\noindent{\Huge 4 Z-transformationen}
+\begin{equation}
+X(z)=\sum_{n=-\infty}^{\infty}x[n]z^{-1}
+\end{equation}
+Det diskrete modstykke til Laplace:
+\begin{equation}
+F(s)=\int_0^{\infty}\!f(t)e^{-st}\,dt
+\end{equation}
+\textbf{Region of convergence} Z-transformationen konvergerer for flere sekvenser end Fouriertransformationen.
+\begin{equation}
+|X(re^{j\omega})|=\sum_{n=-\infty}^{\infty}|x[n]r^{-n}|<\infty
+\end{equation}
+Hvis $r=1$ svarer ovenstående til Fouriertransformationen. Konvergensen afhænger af $Z$:
+\begin{equation}
+\sum_{n=-\infty}^{\infty}|x[n]||z|^{-n}<\infty
+\end{equation}
+\textbf{Nuller og poler}
+\clearpage
+\noindent{\Huge 5 Nyquist's samplesætning}\\\\
+\textbf{Nyquist-Shannons samplsætning}: Lad $x_c(t)$ være et båndbegrænset signal, hvor
+\begin{equation}
+X_c(j\omega)=0\text{ for }|\Omega|\geq\Omega_N.
+\end{equation}
+Da er $x_c(t)$ unikt specificeret ved dets samples $x[n]=x_c(nT)\, ,n=0,\pm1,\pm2,\ldots$, hvis
+\begin{equation}
+\Omega_s=\frac{2\pi}{T}\geq 2\Omega_N
+\end{equation}
+således
+\begin{equation}
+x_c(t)=\sum_{n=-\infty}^{\infty}x_c(nT)\mathrm{sinc}(\omega_Nt-n\pi)
+\end{equation}
+\textbf{Fouriertransformation af $\delta$ og impulstog}
+\begin{align*}
+\mathcal{F}\{\delta(t)\}(\omega)&=1\\
+\mathcal{F}\{\sum_{n=-\infty}^{\infty}\delta(t-nT)\}(\omega)&=\frac{2\pi}{T}\sum_{n=-\infty}^{\infty}\delta(\omega-n\omega_s)
+\end{align*}
+hvor $\omega_s=2\pi f_s$.\\\\
+\textbf{Aliasering}\\\\
+\textbf{Plancherels sætning} om energibevarelse
+\clearpage
+\noindent {\Huge 6 IIR-filtre, impulsinvariantmetoden og den bilineære transformation}\\\\
+\textbf{Tjek semesterprojekt}\\\\
+\textbf{IIR-filter}\\
+Rekursiv algoritme, med uendelig impulsrespons -- fortsætter for evigt. Designes ud fra specifikationer omkring stop-, pas- og transitionsbånd.\\\\
+\textbf{Butterworth}\\
+\begin{equation}
+|H(j\omega)|^2=\frac{1}{1+(j\omega/j\omega_c)^{2N}}
+\end{equation}
+\textbf{Impulsinvariantmetoden}\\
+Et kontinuert filter samples:
+\begin{equation}
+h[n]=T_dh_c(nT_d)
+\end{equation}
+hvor $T_d$ er samplingsperioden. Frekvensresponsen for det samplede filter er
+\begin{equation}
+H(e^{j\omega})=\sum_{k=-\infty}^{\infty}H_c\left(j\frac{\omega}{T_d}+j\frac{2\pi}{T_d}k\right)
+\end{equation}
+Kontinuerte filtre er ikke båndbegrænsede, så der sker aliasering.\\\\
+\textbf{Den bilineære transformation}\\
+Motivation: analoge filtre er ikke båndbegrænsede. Den bilineære konverterer den reelle tallinje til enhedscirklen. Derfor sker forvrængning.
+\begin{align*}
+z&=e^{j\omega}\\
+\omega&=T_d\Omega\\
+s&=j\Omega\\
+s&\approx\frac{2}{T_d}\frac{z-1}{z+1}\\
+z&=\frac{1+\frac{T_d}{2}\sigma+j\frac{T_d}{2}\Omega}{1-\frac{T_d}{2}\sigma-j\frac{T-d}{2}\Omega}
+\end{align*}
+\textbf{Generelt for IIR-filtre}
+\begin{itemize}
+\item Opstil amplituderespons $|H_c(s)|$ for filter ud fra specifikationer
+\item Find poler og brug dem i venstre halvplan til at opstille ny $|H_c(s)|$
+\item Partialbrøksopspaltning
+\item Invers Laplacetransformation
+\item Sampling af impulsrespons
+\item Z-transformation
+\end{itemize}
+\clearpage
+\noindent{\Huge 7 Lineær fase, FIR-filtre og vinduesmetoden}\\\\
+\textbf{Nødvendig betingelse for lineær fase}
+\begin{equation}
+\sum_{n=-\infty}^{\infty}h[n]\sin(\beta+(n-\alpha)\omega)=0
+\end{equation}
+Værdier somtilfredsstiller denne betingelse:
+\begin{itemize}
+\item $\beta=\begin{cases}0\\\pi\end{cases}$
+\item $\alpha=\frac{M}{2}\,\Rightarrow\,2\alpha=M$
+\item $h[n]=h[2\alpha-n]=h[M-n]$
+\end{itemize}
+\textbf{FIR-filtres poler}
+\begin{align*}
+H(z)&=\frac{Y(z)}{X(z)}=\frac{\sum_{i=0}^Mb_iz^{-i}}{1-\sum_{j=1}^Na_jz^{-j}}\\
+&=\sum_{i=0}^Mb_iz^{-i}\bigg|_{a_j=0,\,j=1,\ldots,N}\\
+&=\frac{\sum_{i=0}^{M}b_iz^{M-i}}{z^M}
+\end{align*}
+
+\clearpage
+\noindent{\Huge 8 Geometrisk baseret analyse af amplitude- og fase-respons}\\\\ Se slides 20-25 i lektion 9.\\\\
+Hvis overføringsfunktionen $H(z)$ haves, så kan der laves geometrisk analyse af denne.
+\begin{equation}
+H(z)=\frac{\sum_{k=0}^Mb_kz^-k}{\sum_{k=0}^Na_kz^{-k}}
+\end{equation}
+\begin{itemize}
+\item $M=N$: forlæng $H(z)$ med $z^M$
+\begin{equation}
+H(z)=\frac{\sum_{k=0}^Mb_kz^{M-k}}{\sum_{k=0}^Mz^{M-k}}
+\end{equation}
+\item $M>N$: forlæng med $z^M$
+\begin{equation}
+H(z)=\frac{\sum_{k=0}^Mb_kx^{M-k}}{\sum_{k=0}^Ma_k^{M-k}}
+\end{equation}
+\item $M<N$: forlæng med $z^N$
+\begin{equation}
+H(z)=\frac{z^{N-M}\sum_{k=0}^Mb_Kz^{M-k}}{\sum_{k=0}^Na_kz^{N-k}}
+\end{equation}
+Faktorisér $H(z)$
+\begin{equation}
+H(z)=\frac{b_0}{a_0}\frac{\prod_{k=1}^L(z-c_k)}{\prod_{k=1}^L(z-d_k)},\phantom{mm}L=\max\{N,M\}
+\end{equation}
+\textbf{Amplituderespons}
+\begin{equation}
+|H(e^{j\omega})|=\left|\frac{b_0}{a_0}\right|\frac{\prod_{k=1}^L\left|e^{j\omega}-c_k\right|}{\prod_{k=1}^L\left|e^{j\omega}-d_k\right|}
+\end{equation}
+\textbf{Faserespons}
+\begin{equation}
+\arg\{H(e^{j\omega}\}=\arg\{\frac{b_0}{a_0}\}+\sum_{k=1}^L\arg\{e^{j\omega}-c_k\}-\sum_{k=1}^L\arg\{e^{j\omega}-d_k\}
+\end{equation}
+\end{itemize}
+\clearpage
+\noindent{\Huge 9 Frekvenstransformation af IIR-filtre}\\\\
+Ud fra et prototype IIR-lavpasfilter transformeres dette om til en anden type. Generelt:
+\begin{equation}
+Z^{-1}=G(z^{-1})=\pm\prod_{k=1}^N\frac{z^{-1}-\alpha_k}{1-\alpha_kz^{-1}}
+\end{equation}
+Indsættes
+\begin{equation}
+H(z)=H_{LP}(Z)\bigg|_{Z^-1=G(z^{-1})}
+\end{equation}
+For et lavpasfilter
+\begin{equation}
+G(z)=\frac{z^{-1}-a_k}{1-a_kz^{-1}}
+\end{equation}
+hvor
+\begin{equation}
+\alpha=\frac{\sin[(\theta_c-\omega_c)/2]}{\sin[(\theta_c+\omega_c)/2]}
+\end{equation}
+og
+\begin{equation}
+\omega=\arctan\left[\frac{(1-\alpha^2)\sin(\theta)}{2\alpha+(1+\alpha^2)\cos(\theta)}
+\right]
+\end{equation}
+\clearpage
+\noindent{\Huge 10 Kvantiseringseffekter og skalering af filterstrukturer}\\\\
+Ved variabelkvantisering øges SNR med 6dB hver gang opløsningen øges med 1 bit.
+\begin{equation}
+\text{SNR}_{\text{dB}}=6.02N+1.76\text{dB}
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

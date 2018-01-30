@@ -1,0 +1,112 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent\textbf{Quadratically constrained quadratic problem}\\
+\begin{align*}
+&\underset{x\in\mathbb{R}^N}\min\,x^TCx\\
+&\text{s.t}&x^TF:x\geq g_i,&i=1,\ldots,p\\
+& & x^TB:x\leq b_i,&i=,\ldots,l\\
+& & x^TH:x=h,&i=1,\ldots,k
+\end{align*}
+The matrices are real and symmetric.\\\\
+Remember, that $f(x)=x^TCx$ is convex if $c\succeq 0$.\\\\
+\textbf{What makes the feasible set convex?}
+\begin{align*}
+\{x\in\mathbb{R}^N\,:\,x^TFx\leq1\}
+\end{align*}
+If $F\succeq 0$ the set is convex. Is the following set convex?
+\begin{align*}
+\{x\in\mathbb{R}^N\,:\,x^TFx\geq 2\}
+\end{align*}
+No, as this set is alle points outside of the circle with radius 2. If the inequality is flipped the set will be convex.\\\\
+\textbf{Let $C$ and $F$ be PSD}\\
+\begin{align*}
+&\min&x^TCx\\
+&\text{s.t.}&x^TFx\geq 1
+\end{align*}
+This problem is not convex.
+\begin{align*}
+&\underset{x\in\mathbb{R}^N}\min&x^TCx\\
+&\text{s.t.}&x_i^2=1&i=1,\ldots,p
+\end{align*}
+The set is discrete as only few points fulfill the properties. The problem is not convex.\\\\
+\textbf{Trace of a matrix}\\
+The trace tr of a matrix is the sum of the elements on the main diagonal.
+\begin{align*}
+x^TCx=\text{tr}(x^TCx)
+\end{align*}
+The $tr$-operator is invariant to cyclic permutation:
+\begin{align*}
+\text{tr}(ABCD)=\text{tr}(DABC)
+\end{align*}
+This means that
+\begin{align*}
+x^TC=\text{tr}(x^TCx)=\text{tr}(xx^TC)
+\end{align*}
+Notice that $xx^T\in\mathbb{R}^{N\times N}$ and $x^Tx\in\mathbb{R}$. Let $w=xx^T$, which gives rank$(w)=1$.\\\\
+\textbf{Making a non-convex problem convex}
+\begin{align*}
+&\underset{x\in\mathbb{R}^N}\min&x^TCx\\
+&\text{s.t.}&x^TFx\geq g\\
+&\Downarrow\\
+&\underset{w\in\mathbb{R}^{N\times N}}\min&\text{tr}(Cw)\\
+&\text{s.t.}&\text{tr}(Fw)\geq g\\
+& &w\succeq0\\
+& & \text{rank}(w)=1
+\end{align*}
+The second problem is linear in $w$ but the probem is just as hard as the first problem as rank$(w)=1$. If rank$(w)=1$ is skipped, it is called semidefinite relaxation:
+\begin{align*}
+&\underset{w\in\mathbb{R}^{N\times N}}\min&\text{tr}(Cw)\\
+&\text{s.t.}&\text{tr}(Fw)\geq g\\
+& &w\succeq0
+\end{align*}
+The problem is that rank$(w)$ is usually large and the problem therefore does not give the same solutions as the original problem.\\\\
+Let rank$(w)=r$.
+\begin{align*}
+w&=\sum_{i=1}^r\lambda_iv_iv_i^T\\
+&\lambda_1\geq\lambda_2\geq\ldots\geq\lambda_r\\
+&v_i,\,i=1,\ldots,r
+\end{align*}
+Then $w\approx\lambda_1\lambda_1v_1^T$. This means that $x\approx\sqrt{\lambda_1}v_1\sqrt{\lambda_1}v_1^T$.\\\\
+Let $S^{N\times N}$ be the set of all symmetric $N\times N$-matrices.\\
+Let $\xi\in\mathbb{R}^N\sim\mathcal{N}(0,Q)$.
+\begin{align*}
+&\min&E\left[\xi^TC\xi\right]\\
+&\text{s.t.}&E[\xi^TF\xi]\geq g\\
+& &Q\succeq0
+\end{align*}
+Remember that $E\left[\xi\xi^T\right]$ and $\xi^TC\xi=\text{tr}(C\xi\xi^T)$. As both are linear:
+\begin{align*}
+\text{tr}\left(E\left[\xi^TC\xi\right]\right)&=E\left[\text{tr}\left(\xi^TC\xi\right)\right]\\
+&=E\left[\text{tr}\left(c\xi\xi^t\right)\right]\\
+&=\text{tr}\left(CE\left[\xi\xi^T\right]\right)\\
+&=\text{tr}(CQ)
+\end{align*}
+The problem is now
+\begin{align*}
+&\underset{Q}\min&\text{tr}(CQ)\\
+&\text{s.t.}&\text{tr}(FQ)\geq g\\
+& &Q\succeq0
+\end{align*}
+And $Q=w$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

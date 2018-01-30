@@ -1,0 +1,41 @@
+\documentclass[12pt,a4paper,draft]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+For $f$ og $g$ stykvis kontinuerte funktioner på $[a,b]$ definerer vi
+\begin{align*}
+\left<f,g\right>=\int_a^b\! f(x)\overline{g(x)}\,dx\\
+||f||=\sqrt{\int_a^b \! |f(x)|^2\, dx}\\
+\end{align*}
+Man kan vise for $f$ og $g$, at
+\begin{align*}
+|\left<f,g\right>|\leq ||f|| \ ||g||\phantom{mm}\text{Cauchy-Schwartz}\\
+||f+g||\leq ||f||+||g||\phantom{mm}\text{$\Delta$-uligheden}
+\end{align*}
+%Betragt funktionerne $\phi_n(x)=\frac{1}{\sqrt{2\pi}}\mathrm{e}^{inx}$ på $[-\pi,\pi]$.
+%\begin{equation}\left<\phi_m,\phi_n\right>=\frac{1}{2\pi}\int_{-\pi}^{\pi}\! \mathrm{e}^{i(m-n)x\,dx=\begin{cases}0\phantom{mm},m\neq n\\1\phantom{mm},m=n\end{cases}\end{equation}
+
+Fourierrækken for $f$ er
+\begin{equation}
+\sum_{-\infty}^{\infty}c_n\mathrm{e}^{inx}=\sum_{-\infty}^{\infty}\left<f,\phi_n\right>\phi_n
+\end{equation}
+For at sørge for, at Fourierrækker konvergerer skal man bestemme for hvilke funktioner dette gælder. Rummet bestående af alle stykvis kontinuerte funktioner er ikke fuldstændigt. Det fuldstændiggøres med
+\begin{equation}
+L^2(a,b)=\{f:\int_a^b\!|f(x)|^2\,dx<\infty\}
+\end{equation}
+\textbf{Ortonormal familie}\\
+En familie af funktioner $\{f_k\}_{k=1}^{\infty}$ i $L^2(a,b)$ kaldes ortonormal hvis
+\begin{equation}
+\left<f_m,f_n\right>=\begin{cases}0\phantom{mm},m\neq n\\1\phantom{mm},m=n\end{cases}
+\end{equation}
+\textbf{Bessels ulighed}
+\begin{equation}
+\sum_{n=1}^{\infty}|\left<f,\phi_n\right>|^2\leq ||f(x)||^2
+\end{equation}
+
+
+
+\end{document}

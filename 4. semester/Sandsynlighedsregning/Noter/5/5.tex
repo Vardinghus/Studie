@@ -1,0 +1,91 @@
+\documentclass[12pt,a4paper,draft]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent \textbf{Important descrete random variables}\\\\
+\textbf{Bernoulli random variable}\\
+Consider an experiment with two outcomes: success/faliure\\
+A random variable $X$ is a Bernoulli random variable with parameters $o$ if
+\begin{align}
+P(X=0)=1-p\\
+P(X=1)=p
+\end{align}
+We write $x\sim B(P)$.
+\\\\
+\textbf{Binomial distribution}
+\begin{itemize}
+\itemsep\setlength{-0.5em}
+\item Consider an experiment with two outcomes: success/faliure
+\item Let $p$ be the probability of success
+\item Consider $n$ independent repetitions of the last experiment
+\end{itemize}
+$X=\#$ succes\\\\
+Then $X$ is a binomial random variable if
+\begin{equation}
+P(X=k)=\begin{pmatrix}
+n \\ 
+k
+\end{pmatrix}
+p^k(1-p)^{n-k}, \phantom{mm}\text{for }k=0,1,2,\ldots,n
+\end{equation}
+We write $X\sim \text{bin}(n,p)$.\\\\
+\textbf{Expectation and variance of binomial distribution}\\
+If $X\sim \text{bin}(n,p)$, then
+\begin{center}
+$E[X]=np$ and Var$[X]=np(1-p)$
+\end{center}
+\textbf{Geometric distribution}\\
+Consider the independant repetition of the same experiment with two outcomes success/faliure that happen with probability $p$ and $1-p$ respectively.\\
+$X$ is the time of the first success\\\\
+$X$ in a geometric distribution with parameter $p$ if
+\begin{equation}
+P(X=k)=(1-p)^{k-1}p,\phantom{mm}\text{for }k=1,2,\ldots
+\end{equation}
+We write $geom(p)$ or $g(p)$.\\\\
+The $cdf$ of a geometric distribution is
+\begin{equation}
+F_x(k)=P(X\leq k)=1-P(X>k)=1-(1-p)^k
+\end{equation}
+\textbf{No memory property}\\
+Let $0<k<n$
+\begin{align}
+P(X=n+k/x>n)&=\frac{P(\{X=n+k\}\cap\{x>n\})}{P(X>n)}\\
+&=\frac{P(X=n+k)}{P(X>n)}\\
+&=\frac{(1-p)^{n+k-1}p}{(1-p)^n}\\
+&=(1-p)^{k-1}p
+\end{align}
+\textbf{Expectation and variance of geometric distribution}\\
+If $X\sim \text{geom}(p)$, then
+\begin{equation}
+E[X]=\frac{1}{p}\text{ and Var}[X]=\frac{1-p}{p^2}
+\end{equation}
+\textbf{Poisson distribution}\\
+Different from above distributions, as it doesn't describe a particular experiment. It is observed during experiments where you count thing over periods of time. Ex: number of atom's disintegration by minutes.\\
+\\\\
+$X$ is a Poisson distribution with parameters $\lambda >0$ if
+\begin{equation}
+P(X=k)=\frac{\lambda ^k}{k!}\mathrm{e}^{-\lambda},\phantom{mm}\text{for }k=1,2,\ldots
+\end{equation}
+Nate that for all integers $k$, $P(X=k)\geq 0$.\\
+We have
+\begin{equation}
+\sum_{k=0}^{\infty}\frac{\lambda ^k}{k!}=\mathrm{e}^{\lambda},\phantom{mm}\text{thus }\sum_{k=0}^{\infty}P(X=k)=1
+\end{equation}
+\textbf{Expectation and variance of Poisson distribution}\\
+If $X\sim\text{Poi}(\lambda)$, then
+\begin{equation}
+E[X]=\text{Var}[X]=\lambda
+\end{equation}
+
+
+
+
+
+
+
+
+
+\end{document}

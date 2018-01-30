@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2015-10-08" view-index="0" gantt-divider-location="353" resource-divider-location="300" version="2.7.1" locale="da_DK">
+    <description/>
+    <view zooming-state="default:2" id="gantt-chart">
+        <field id="tpd3" name="Navn" width="57" order="0"/>
+        <field id="tpd4" name="Start dato" width="21" order="1"/>
+        <field id="tpd5" name="Slut dato" width="21" order="2"/>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Navn" width="50" order="0"/>
+        <field id="1" name="Standard rolle" width="50" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="1" name="Prog af DCT + Q" meeting="false" start="2015-10-12" duration="3" complete="0" expand="true"/>
+        <task id="43" name="Problemformulering" meeting="false" start="2015-10-16" duration="1" complete="0" expand="true">
+            <depend id="44" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="106" name="Teori om billedekomprimering" meeting="false" start="2015-10-12" duration="3" complete="0" expand="true"/>
+        <task id="44" name="Teori om DCT" meeting="false" start="2015-10-19" duration="2" complete="0" expand="true">
+            <depend id="76" type="2" difference="0" hardness="Strong"/>
+            <depend id="101" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="101" name="Teori om Q-matricen" meeting="false" start="2015-10-21" duration="2" complete="0" expand="true">
+            <depend id="104" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="104" name="Teori om encoding" meeting="false" start="2015-10-23" duration="2" complete="0" expand="true">
+            <depend id="76" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="76" name="Programmering af DCT" meeting="false" start="2015-10-27" duration="2" complete="0" expand="true">
+            <depend id="224" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="224" name="Færdig DCT" meeting="false" start="2015-10-29" duration="1" complete="0" expand="true">
+            <depend id="93" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="70" name="Teori om PCA" meeting="false" start="2015-10-20" duration="2" complete="0" expand="true">
+            <depend id="77" type="2" difference="0" hardness="Strong"/>
+            <depend id="241" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="77" name="Programmering af PCA" meeting="false" start="2015-10-22" duration="2" complete="0" expand="true">
+            <depend id="241" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="241" name="Færdig PCA" meeting="false" start="2015-10-26" duration="1" complete="0" expand="true">
+            <depend id="93" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="93" name="Færdig rapport" meeting="false" start="2015-10-30" duration="1" complete="0" expand="true">
+            <depend id="87" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="87" name="Formalia" meeting="false" start="2015-11-24" duration="1" complete="0" expand="true">
+            <task id="88" name="Problemanalyse" meeting="false" start="2015-11-24" duration="1" complete="0" expand="true"/>
+            <task id="89" name="Metode" meeting="false" start="2015-11-24" duration="1" complete="0" expand="true"/>
+            <task id="90" name="Indledning" meeting="false" start="2015-11-24" duration="1" complete="0" expand="true"/>
+            <task id="91" name="Synopsis" meeting="false" start="2015-11-24" duration="1" complete="0" expand="true"/>
+            <task id="92" name="Abstract" meeting="false" start="2015-11-24" duration="1" complete="0" expand="true"/>
+            <task id="100" name="Bilag" meeting="false" start="2015-11-24" duration="1" complete="0" expand="true"/>
+            <task id="245" name="Vurdering" meeting="false" start="2015-11-24" duration="1" complete="0" expand="true"/>
+            <task id="247" name="Konklusion" meeting="false" start="2015-11-24" duration="1" complete="0" expand="true"/>
+        </task>
+        <task id="9" name="Aflevering af P1" meeting="false" start="2015-12-18" duration="1" complete="0" expand="true"/>
+        <task id="24" name="Aflevering af procesanalyse" meeting="false" start="2015-12-22" duration="1" complete="0" expand="true"/>
+    </tasks>
+    <resources/>
+    <allocations/>
+    <vacations/>
+    <taskdisplaycolumns>
+        <displaycolumn property-id="tpd7" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd2" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd9" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd10" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd8" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd3" order="0" width="199" visible="true"/>
+        <displaycolumn property-id="tpd12" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd11" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd1" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd13" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd4" order="1" width="75" visible="true"/>
+        <displaycolumn property-id="tpd5" order="2" width="75" visible="true"/>
+        <displaycolumn property-id="tpd0" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd6" order="-1" width="75" visible="false"/>
+    </taskdisplaycolumns>
+    <previous/>
+    <roles roleset-name="Default"/>
+</project>

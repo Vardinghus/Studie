@@ -1,0 +1,64 @@
+\title{Opgave 242 \\ \small e16g3113}
+\date{\today}
+\documentclass[12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[
+%  disable, %turn off todonotes
+ colorinlistoftodos, %enable a coloured square in the list of todos
+ textwidth=\marginparwidth, %set the width of the todonotes
+ textsize=scriptsize, %size of the text in the todonotes
+ ]{todonotes}
+
+\usepackage[utf8]{inputenc}
+\usepackage[danish,english]{babel}
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\begin{document}
+\maketitle
+
+\paragraph{Opgave 242} Lad $f: \left]a, \infty \right[$ og $g: \left] b, \infty \right[$ være to reelle funktioner, således $g(x) \in \left]a, \infty \right[ \ \text{for} \ x \in \left] b, \infty \right[$. Bevis, at hvis $g(x)\rightarrow \infty \ \text{for} \ x \rightarrow \infty \ \text{og} \ f(x)\rightarrow c \ \text{for} \ x \rightarrow \infty, \ \text{så gælder} \ f\left(g(x)\right) \rightarrow c \ \text{for} \ x \rightarrow \infty \ \text{(uanset om} \ c \in \mathbb{R} \ \text{eller} \ c = \pm \infty)$
+\begin{proof}
+Begge funktioner er defineret i nærheden af $\infty$, hvilket betyder, at der eksisterer et positivt $R$, som opfylder, at et $x\in\mathbb{R}$ er større end dette $R$, som er indeholdt i definitionsmængden for $f$ eller $f$. Skrevet med kvantorer:
+\begin{align}
+\exists R_1 > 0 : \left\lbrace x \in \mathbb{R} \ \vert \ x>R_1 \right\rbrace \subseteq D_f
+\end{align}
+og
+\begin{align}
+\exists R_2 > 0 : \left\lbrace y \in \mathbb{R} \ \vert \ x>R_2 \right\rbrace \subseteq D_g
+\end{align}
+Da $f(x) \rightarrow c \ \text{for} \ x \rightarrow \infty$, så gælder:
+\begin{align}
+\forall \varepsilon > 0 \exists M > 0 : x > M \Rightarrow \vert f(x) - c \vert < \varepsilon
+\label{storeM}
+\end{align}
+Ved at bruge samme $M$ fås:
+\begin{align}
+\exists N > 0 : y > N \Rightarrow g(y) > M
+\end{align}
+Det skal altså vises, at:
+\begin{align}
+\forall \varepsilon > 0 \exists M > 0 : g(y) > M \Rightarrow \vert f(g(x)) - c \vert < \varepsilon
+\end{align}
+Lad $\varepsilon > 0$ være givet. Da $g(x) \subseteq D_f$, fås altså $f(g(x)):D_g \to V_f$. Der kan altså findes et \textit{M}, som afparerer dette $\varepsilon$, og dertil kan der findes et $N$, som opfylder, at $g(y)>M$. \\
+Substituér $x$ med $g(y)$ i ligning \eqref{storeM}, og deraf fås:
+\begin{align}
+\forall \varepsilon > 0 \exists N > 0 : y > N \Rightarrow \vert f(g(y)) - c \vert < \varepsilon
+\end{align}
+Dermed er tilfældet for de reelle tal bevist, og næst skal det bevises for $ c = \pm \infty$
+Lad $K \in \mathbb{R}$ være givet. Det vides, at $g(y) \rightarrow \infty \ \text{for} \ y \rightarrow \infty$. Så gælder der ifølge \textbf{Definition 4.18} at:
+\begin{align}
+\forall M > 0 \exists N > 0 : y > N \Rightarrow g(y) > M
+\end{align}
+Det vides også, at $f(x) \rightarrow \infty \ \text{for} \ x \rightarrow \infty$, hvilket vil sige:
+\begin{align}
+\exists M > 0 : x > M \Rightarrow f(x) > K
+\end{align}
+Når:
+\begin{align}
+x > N \Rightarrow g(y) > M \Rightarrow f(g(y)) > K
+\end{align}
+\end{proof}
+\end{document}

@@ -1,0 +1,56 @@
+\documentclass[12pt,a4paper,draft]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Frederik Appel Vardinghus-Nielsen}
+\begin{document}
+\noindent \textbf{Expectation and variance}\\\\
+\textbf{Expected value of a discrete random variable}
+\begin{equation}
+E[X]=\sum_{-\infty}^{\infty}x_k P(X=x_k)=\sum_{-\infty}^{\infty}x_k p(x_k)
+\end{equation}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Expectation $\Leftrightarrow$ expected value $\Leftrightarrow$ average $\Leftrightarrow$ mean
+\item $E[X]$ is a constant/non-random
+\item $E[X]$ may take a value different from $X$
+\end{itemize}
+\textbf{Expectation of a continuous random variable}
+\begin{equation}
+E[X]=\int_{-\infty}^{\infty}\! xf(x)\, dx
+\end{equation}
+\textbf{Linearity of expected value}
+\begin{equation}
+E[aX+b]=aE[X]+b
+\end{equation}
+Fra sidste forelæsning
+\begin{equation}
+f_Y(y)=\left|\frac{d}{dy}g^{-1}(y)\right|f_x(g^{-1}(y))
+\end{equation}
+\textbf{Expected value of function $g$}
+\begin{align}
+E[g(X)]&=E[Y]=\int_{-\infty}^{\infty}\!f_y(y)\, dy=\int_{-\infty}^{\infty} \! y\left|\frac{d}{dy}g^{-1}(y)\right|f_x(g^{-1}(y))\, dy\\
+&=\int_{-\infty}^{\infty} \! g(x)f_x(x)\, dx
+\end{align}
+\textbf{Variance of a random variable}
+\begin{equation}
+Var[X]=E[(X-E[X])^2]
+\end{equation}
+$\sigma=\sqrt{Var[X]}$ is called standard deviation.\\\\
+\textbf{Huygens formula}
+\begin{equation}
+Var[X]=E[X^2]-E[X]^2
+\end{equation}
+\textbf{Chebyshev's inequality}\\
+Let $X$ be any random variable with mean $\mu$ and variance $\sigma ^2$. For any constant $c>0$, we have
+\begin{equation}
+P(|X-\mu|\leq c\sigma)\leq\frac{1}{c^2}
+\end{equation}
+Chebyshev's inequality helps interpret variance and gives som upper bound for the deviation from the mean.\\\\
+\textbf{Non-linearity of variance}\\
+Let $X$ be any random variable, and let $a$ and $b$ be real numbers. Then
+\begin{equation}
+Var[aX+b]=a^2Var[a]
+\end{equation}
+\end{document}

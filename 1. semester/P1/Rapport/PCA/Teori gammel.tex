@@ -1,0 +1,85 @@
+\chapter{Billedkomprimering med Principal Component Analysis}
+Følgende afsnit vil undersøge den statistiske metode \emph{Principal Component Analysis} (PCA), der baserer på lineær algebra. Den statistiske baggrund såvel som baggrunden i lineær algebra vil blive klarlagt og brugt til udviklingen af et Pythonprogram, der kan komprimmere et billede.
+
+PCA bruges til statistiske undersøgelser af store mængder data, hvor det ønskes at finde sammenhænge mellem dataene såvel som relevansen af dataene for undersøgelsen. Antag at $n$ personer spørges om $m$ spørgsmål, så kan datasættet repræsenteres ved en $m \times n$ matrix. Det gælder her at søjle $i$ er den $i$'te persons besvarelser - dette betegnes ved vektor $ \vec{x_i}=\begin{bmatrix} m_{1} \\ m_{2} \\ m_{3} \end{bmatrix} $. Matricen vil derfor være en udtryk for alle $n$ individers svar på $m$ spørgsmål.
+Fremgangsmåden for PCA på et datasæt kan beskrives som:
+\begin{enumerate}
+\item Sammel datasættet bestående af $n$-prøver i $m$-dimensioner $\vec{x_1},…,\vec{x_n})$ i $\mathbb{R}^n$
+\item Beregn gennemsnittet af datasættet.
+\item
+\end{enumerate}\fixme{få skrevet denne færdig}
+
+
+\section{Baggrund i lineær algebra}
+Lad $A$ være en $m \times n$ matrix i $\mathbb{R}^n$. Det gælder ydermere at $A^T$ er den transponerede af A.
+Det ønskes i dette afsnit at vise at matricerne $AA^T$ og $A^TA$ har samme positive ikke-nul eigenværdier. Matricerne undersøges først for at bevise at de har samme ikke-nul eigenværdi.
+
+\subsection*{Matricerne $AA^T$ og $A^TA$ har samme ikke-nul eigenværdier}
+Lad A være en symmetrisk $n \times n$ matrix i $\mathbb{R}^n$, og dermed også at $A = A^T$. Det betyder at matricen er orthogonal diagonaliserbar og dermed kun har eigenværdier i $\mathbb{R}^n$ \citep{eigen_orthogonal}. Dette kan også udtrykkes ved at der eksisterer eigenværdier $\lambda_1,…,\lambda_n$ i $\mathbb{R}^n$ således at der findes ikke-nul vektorer $\vec{v_1},…,\vec{v_n}$ for $i=1,2,…,n$:
+\begin{equation}
+A\vec{v_i}=\lambda\vec{v_i}
+\label{eq:spectral}
+\end{equation}
+Ovenstående kaldes for \emph{Spectralteoremet\footnote{bemærk at dette teorem ikke uddybes yderligere i denne rapport}}, men er dog kun brugbart på symmetriske matricer, hviket ikke altid er tilfældet for virkelige data \citep{spectralteorem}. Det kan derfor være brugbart at kigge på, hvordan spectral teoremet kan anvendes på data i andre formater.
+Fra lineær algebra \fixme{kilde til lærebogen} ses det, at hvis $A$ er en $m \times n$ matrix i $\mathbb{R}^n$ så er $AA^t$ matricen en $n \times n$ matrix i $\mathbb{R}^n$ (ligeledes er $A^TA$). Dette betyder imidlertid at dataene kan omdannes til symmetriske matricer, hvorved at \emph{Spectralteoremet} kan anvendes på hhv. $AA^t$ og $A^tA$.
+For at tjekke hvorvidt eigenværdierne og eigenvektorerne for $AA^t$ og $A^tA$ også er ens bruges \emph{Spectralteoremet} på matricerne. Lad derfor $\vec{v} \neq \vec{0}$ og eigenvektor til $A^TA$ og dertilhørende $\lambda \neq 0$, hvilket betyder at $$(A^TA)\vec{v}=\lambda\vec{v}$$
+Multiplicerer begge sider med A og får $$A(A^TA)\vec{v}=\lambda\vec{v}A$$  hvilket, qua basale regneregler fra lineær algebra\fixme{evt. skriv regnereglerne ind her}, kan omskrives til 
+\begin{equation}
+AA^T(A\vec{v})=\lambda(A\vec{v})
+\label{eq:sym_eigen}
+\end{equation}
+
+Undersøges ovenstående ses det tydeligt at dette udtryk står på samme form som \emph{Spectralteoremet}, blot hvor $A\vec{v}$ er eigenvektoren. Dette betyder imidlertid at $AA^t$ har eigenvektoren $A\vec{v}$, med tilhørende eigenværdi $\lambda$. Det er dog defineret at eigenværdien og eigenvektoren skal være ikke-nul, og det tjekkes derfor om disse værdier i \vref{eq:sym_eigen} er ikke-nul. Fra \ref{eq:spectral} ses det at hvis $A\vec{v}=0$ så må det også gælde at $\lambda\vec{v}=0$. Dette er dog ikke muligt da det eksplicit er udtrykt i ovenstående udledning at $\vec{v} \neq \vec{0}$ og $\lambda \neq 0$, hvorved det kan konkluderes at ikke-nul eigenværdien til $AA^t$ er magen til eigenværdien for $A^TA$. Det fremkommer dog også at for at gå fra en eigenvektor $\vec{v}$ til $AA^t$ til en eigenvektor $\vec{u}$ til $A^TA$ multipliceres $\vec{v}$ blot med $A$. Det samme princip gælder for den anden vej rundt, hvor $\vec{u}$ ganges med $A^T$ for at blive eigenvektor til $AA^T$ fremfor $A^TA$ (dette er vist i \ref{app:eigenvektor}\fixme{lav udregning i appendiks}).
+
+Ovenstående udledning betyder, at hvis et givent datasæt ikke er symmetrisk, så kan det stadig bearbejdes vha. \emph{Spectralteoremet}, men også at hvis der er stor forskel på dimensionerne af $m$ og $n$, så vil eigenværdierne af matricen hurtigt kunne findes; fx hvis $A$ er en $500 \times 2$ matrix, så vil eigenværdierne til $500 \times 500$ $AA^t$ matricen kunne findes som værende eigenværdierne til $2 \times 2$ $A^TA$ matricen, hvilket kræver meget færre beregninger.
+
+Det er bevist at $A^TA$ og $AA^T$ har samme eigenvektorer og eigenværdier, men endnu ikke bevist, hvorvidt eigenværdierne kun er positive - dette bevises i sektion \vref{subsec:pos_eigenvalue}.
+
+\subsection*{Eigenværdierne til $AA^T$ og $A^TA$ er positive tal} \label{subsec:pos_eigenvalue}
+Det ønskes at bevise at eigenværdierne til hhv. $AA^T$ og $A^TA$ er positive tal. Længden af en vektor $\vec{w}$ er givet ved $\Vert \vec{w} \Vert= \sqrt{\vec{w} \cdot \vec{w}} = \sqrt{\vec{w}^T\vec{w}}$. Lad $\vec{v}$ være eigenvektor til $A^TA$, med eigenværdien $\lambda$. Vi udregner længden af $A\vec{v}$ som værende
+\begin{align}
+\Vert \vec{w} \Vert^2 & = (A\vec{v})^T (A\vec{v}) \\
+\end{align}
+Vha. \fixme{finde ud af hvordan dette foregår}
+\begin{align}
+	& = \vec{v}^T(A^T A ) \vec{v} \\	
+	& = \lambda \vec{v}^T \vec{v}
+\end{align}
+Da det gælder at længder kun kan være positive, og qua ovenstående udledning er $\lambda$ også positiv. For at udlede ovenstående for $AA^T$ udskiftes $A$ blot med $A^T$ (dette bevises i \ref{app:eigenvektor}\fixme{lav bevis i appendiks}).
+
+Det er i de to ovenstående undersektioner blevet bevist at matricerne $AA^T$ og $A^TA$ har samme positive ikke-nul eigenværdier.
+
+\section{Baggrund i statistik}
+En stor del af PCA er også en statistisk del, der har til formål at skelne de vigtigste elementer fra de mindre vigtige elementer. I forhold til statistik i PCA ønskes der at fokuseres på tre forskellige parametre; gennemsnittet, varians og kovarians, der alle giver et indblik i dataenes relationer.
+
+I de følgende sektioner vil der blive arbejdet med en $m \times n$ matrix $X$, hvor $n$ angiver mængden af individer eller prøver og $m$ angiver antal variable, der er testet. Det ønskes at lave en lineær transformation på $m \times n$ matricen $X$ til $m \times n$ matricen $Y$ for en $n \times m$ matrix $P$. Dette udtrykkes som
+\begin{equation}
+Y=PX
+\end{equation}
+Der sker en ændring i basen for matricen $X$ og rækkerne i $P$ kan angives som rækkevektorerne $p_1,p_2,…p_m$, og søjlerne i $X$ kan udtrykkes som søjlevektorerne $x_1,x_2,…,x_n$. Rækkerne i $P$ er en ny basis for rækkerne i $X$, og vil i løbet af de følgende afsnit blive til retningerne på principal components \fixme{dansk navn}. \fixme{Ovenstående er noget rod}
+
+PCA er en metode til at finde relationen mellem vektorerne i den oprindelige base?
+
+\subsection{Gennemsnit} \label{sec:gennemsnit}
+Lad $x_1,…,x_n$ være en rækkevektor betående af alle svar på et spørgsmål $m$. Gennemsnittet af svarene kan dermed findes som værende
+\begin{align}
+\mu_X = \frac{1}{n}(x_1+ ... + x_n)
+\label{eq:average}
+\end{align}\fixme{mean vs sample average?}
+Ligning \ref{eq:average} giver et udtryk for hvor svarene/dataene er centreret, men det kan have stor interessse også at se på, hvor spredte disse svar er. Dette findes som værende variansen i dataene og præsenteres i næste afsnit.
+
+\subsection{Varians}
+Varians er et udtryk for forskelligheden i et datasæt, og vil i eksemplet fra sektion \vref{sec:gennemsnit} være variansen i de svar, de adspurgte personer har givet. Variansen kan findes på baggrund af datasættet ved formlen
+\begin{align}
+Var(A)= \frac{1}{n - 1}((a_1 - \mu_A)^2 + ... + (a_n - \mu_A)^2)
+\label{eq:varians}
+\end{align}\fixme{kilde? - n-1 eller n afhænger om sample eller population}
+Denne giver et udtryk for hvor stor spredning, der er i datasættet. En høj varians er en stor spredning og en lille varians giver udtryk for at dataene ligger tæt samlet. Variansen kan findes i alle variable som måles i et datasæt.
+
+\subsection{Kovarians}
+Variansen giver et udtryk for hvor spredt et datasæt ligger, mens kovariansen udtrykker relationen mellem to datasæt. Måles to parametre $A$ og $B$ i et datasæt, kan relationen mellem disse to parametre findes ved kovariansen. Er kovariansen negativ betyder det at hvis $A$ bliver større, så bliver $B$ mindre. Kovariansen findes ved formlen
+\begin{align}
+Cov(A,B) = \frac{1}{n - 1}((a_1 - \mu_A)(b_1 - \mu_B) + ... + (a_n - \mu_A)(b_1 - \mu_B))
+\label{eq:covarians}
+\end{align}\fixme{kilde}
+Bemærk her at $Cov(A,B)=Cov(B,A)$ og at kovariansen kan findes mellem to variable, blandt alle målte, såfremt flere måles. \fixme{Kovariansen har betydning for PCA, da det er interessant at finde de variable med størst kovarians, da disse bedst kan beskrive den store mængde af data.}\fixme{betydning for PCA}
